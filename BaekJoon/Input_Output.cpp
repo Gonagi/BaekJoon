@@ -125,6 +125,31 @@ int main() {
 }
 */
 
+// 10430번 문제
+#include <iostream>
+
+int main() {
+	int A, B, C;
+
+	try {
+		std::cin >> A >> B >> C;
+
+		if (A < 2 || B < 2 || C < 2
+			|| A > 10000 || B > 10000 || C > 10000)
+			throw "범위 이탈";
+
+		std::cout << (A + B) % C << std::endl;
+		std::cout << ((A % C) + (B % C)) % C << std::endl;
+		std::cout << (A * B) % C << std::endl;
+		std::cout << ((A % C) * (B % C)) % C << std::endl;
+	}
+	catch(const char* s) {
+		std::cout << s << std::endl;
+	}
+	return 0;
+}
+/*
+* 2588번 문제
 #include <iostream>
 
 int main() {
@@ -140,3 +165,4 @@ int main() {
 	std::cout << num1 * num2 << std::endl;
 	return 0;
 }
+*/
