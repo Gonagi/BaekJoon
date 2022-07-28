@@ -185,6 +185,8 @@ int main() {
 }
 */
 
+/*
+// 2480번 문제
 #include <iostream>
 
 int main() {
@@ -218,4 +220,107 @@ int main() {
 		std::cout << "예외 발생 : " << e.what();
 	}
 	return 0;
+}
+*/
+
+// 7576번 문제
+#include <iostream>
+#include <string.h>
+#include <queue>
+#include <utility>
+
+#define MAX 100
+int M, N;
+int Box[MAX][MAX];
+
+typedef struct Position {
+	int x, y;
+}Pos;
+
+bool Movable(Pos cur, int dir);
+Pos Move_to(Pos cur, int dir);
+
+int main() {
+	Pos cur;
+	int second = 0;
+	memset(Box, -1, sizeof(Box));
+	std::queue<std::pair<int, int>> q, n;
+
+	try {
+		std::cin >> M >> N;
+		if (M < 2 || M > 1000)
+			throw std::out_of_range("'가로칸 수(열)' 범위 입력 오류");
+		if(N < 2 || N > 1000)
+			throw std::out_of_range("'세로칸 수(행)' 범위 입력 오류");
+			
+		for (int i = 0; i < N; i++)			// BOX 초기화
+			for (int j = 0; j < M; j++)
+				std::cin >> Box[i][j];
+
+		for (int i = 0; i < N; i++)			// queue에 익은 토마토 정보 입력
+			for (int j = 0; j < M; j++) 
+				if (Box[i][j] == 1)
+					q.push(std::make_pair(i, j));
+		
+		if (q.empty()) {	// 익은 토마토가 하나도 없는 상황
+			std::cout << -1;
+			return -1;
+		}
+		
+		while (!q.empty()) {
+			cur.x = q.front().second;
+			cur.y = q.front().first;
+			q.pop();
+
+			for (int dir = 0; dir < 4; dir++) {
+				if (Movable(cur, dir)) {
+					Pos next = Move_to(cur, dir);
+					n.push(std::make_pair(next.y, next.x));
+				}
+			}
+			
+			while (!n.empty()) {	// 복사
+				Pos n_cur;
+				n_cur.x = n.front().second;
+				n_cur.y = n.front().first;
+				q.push(std::make_pair(n_cur.y, n_cur.x));
+				n.pop();
+			}
+			second++;
+		}
+
+		std::cout << second;
+	}
+
+	catch (std::out_of_range& e) {
+		std::cout << "오류 발생 : " << e.what();
+	}
+	return 0;
+}
+
+
+bool Movable(Pos cur, int dir) {
+	switch (dir) {
+		case 0: cur.x--; break;	// 북
+		case 1: cur.y++; break;	// 동
+		case 2: cur.x++; break;	// 남
+		case 3: cur.y--; break;	// 서
+	}
+
+	if (cur.x < 0 || cur.y < 0 || cur.x > M || cur.y > N)	// 범위 벗어남
+		return false;
+	else if (Box[cur.x][cur.y] == 1 || Box[cur.x][cur.y] == -1)	// 토마토가 익어있거나 토마토가 없을때
+		return false;
+	else if(Box[cur.x][cur.y] == 0)	// 익지않은 토마토
+		return true;
+}
+
+Pos Move_to(Pos cur, int dir) {
+	switch (dir) {
+		case 0: cur.x--; break;	// 북
+		case 1: cur.y++; break;	// 동
+		case 2: cur.x++; break;	// 남
+		case 3: cur.y--; break;	// 서
+	}
+	return cur;
 }
