@@ -239,6 +239,7 @@ typedef struct Position {
 
 bool Movable(Pos cur, int dir);
 Pos Move_to(Pos cur, int dir);
+void End();
 
 int main() {
 	Pos cur;
@@ -250,46 +251,37 @@ int main() {
 		std::cin >> M >> N;
 		if (M < 2 || M > 1000)
 			throw std::out_of_range("'가로칸 수(열)' 범위 입력 오류");
-		if(N < 2 || N > 1000)
+		if (N < 2 || N > 1000)
 			throw std::out_of_range("'세로칸 수(행)' 범위 입력 오류");
-			
+
 		for (int i = 0; i < N; i++)			// BOX 초기화
 			for (int j = 0; j < M; j++)
 				std::cin >> Box[i][j];
 
 		for (int i = 0; i < N; i++)			// queue에 익은 토마토 정보 입력
-			for (int j = 0; j < M; j++) 
+			for (int j = 0; j < M; j++)
 				if (Box[i][j] == 1)
 					q.push(std::make_pair(i, j));
-		
+
 		if (q.empty()) {	// 익은 토마토가 하나도 없는 상황
 			std::cout << -1;
 			return -1;
 		}
-		
+
 		while (!q.empty()) {
-			cur.x = q.front().second;
-			cur.y = q.front().first;
+			cur.x = q.front().first;
+			cur.y = q.front().second;
 			q.pop();
 
 			for (int dir = 0; dir < 4; dir++) {
 				if (Movable(cur, dir)) {
 					Pos next = Move_to(cur, dir);
-					n.push(std::make_pair(next.y, next.x));
+					Box[next.y][next.x] = Box[cur.y][cur.x] + 1;
+					q.push(std::make_pair(next.y, next.x));
 				}
 			}
-			
-			while (!n.empty()) {	// 복사
-				Pos n_cur;
-				n_cur.x = n.front().second;
-				n_cur.y = n.front().first;
-				q.push(std::make_pair(n_cur.y, n_cur.x));
-				n.pop();
-			}
-			second++;
 		}
-
-		std::cout << second;
+		End();
 	}
 
 	catch (std::out_of_range& e) {
@@ -307,7 +299,7 @@ bool Movable(Pos cur, int dir) {
 		case 3: cur.y--; break;	// 서
 	}
 
-	if (cur.x < 0 || cur.y < 0 || cur.x > M || cur.y > N)	// 범위 벗어남
+	if (cur.x < 0 || cur.y < 0 || cur.x >= N || cur.y >= M)	// 범위 벗어남
 		return false;
 	else if (Box[cur.x][cur.y] == 1 || Box[cur.x][cur.y] == -1)	// 토마토가 익어있거나 토마토가 없을때
 		return false;
@@ -323,4 +315,21 @@ Pos Move_to(Pos cur, int dir) {
 		case 3: cur.y--; break;	// 서
 	}
 	return cur;
+}
+
+void End() {
+	int result = 0;
+
+	for (int i = 0; i < N; i++)
+		for (int j = 0; j < M; j++) {
+			if (Box[i][j] == 0) {
+				std::cout << "-1";
+				return;
+			}
+			if (result < Box[i][j])
+				result = Box[i][j];
+		}
+
+	std::cout << result - 1;
+	return;
 }
