@@ -276,8 +276,8 @@ int main() {
 			for (int dir = 0; dir < 4; dir++) {
 				if (Movable(cur, dir)) {
 					Pos next = Move_to(cur, dir);
-					Box[next.y][next.x] = Box[cur.y][cur.x] + 1;
-					q.push(std::make_pair(next.y, next.x));
+					Box[next.x][next.y] = Box[cur.x][cur.y] + 1;
+					q.push(std::make_pair(next.x, next.y));
 				}
 			}
 		}
@@ -301,10 +301,11 @@ bool Movable(Pos cur, int dir) {
 
 	if (cur.x < 0 || cur.y < 0 || cur.x >= N || cur.y >= M)	// 범위 벗어남
 		return false;
-	else if (Box[cur.x][cur.y] == 1 || Box[cur.x][cur.y] == -1)	// 토마토가 익어있거나 토마토가 없을때
-		return false;
 	else if(Box[cur.x][cur.y] == 0)	// 익지않은 토마토
 		return true;
+	else // 토마토가 익어있거나 토마토가 없을때
+		return false;
+
 }
 
 Pos Move_to(Pos cur, int dir) {
