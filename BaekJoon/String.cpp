@@ -116,6 +116,7 @@ int main() {
 }
 */
 
+/*
 // 1157번 문제
 
 #include <iostream>
@@ -126,7 +127,7 @@ using namespace std;
 
 int main() {
 	std::string s;
-	int max, index=0;
+	int max, index = 0;
 	std::array<int, 26> arr = { 0 };
 
 	std::cin >> s;
@@ -160,43 +161,189 @@ int main() {
 
 	return 0;
 }
+*/
+
 /*
+// 1152번 문제
+
 #include <iostream>
+#include <string>
+
+int main() {
+	std::string s;
+	int count = 1;
+	std::getline(std::cin, s);
+
+	if (s.empty()) {
+		std::cout << "0";
+		return 0;
+	}
+
+	for (int i = 0; i < s.size(); i++)
+		if (s[i] == ' ')
+			count++;
+	if (s[0] == ' ')
+		count--;
+	if (s[s.size() - 1] == ' ')
+		count--;
+
+	std::cout << count;
+
+	return 0;
+}
+*/
+
+/*
+// 2908번 문제
+
+#include <iostream>
+
+int Change(int);
+
+int main() {
+	int A, B, new_A, new_B;
+
+	try {
+		std::cin >> A >> B;
+		if (A == B)
+			throw std::logic_error("A와 B가 같은 수이다");
+		new_A = Change(A);
+		new_B = Change(B);
+
+		if (new_A > new_B)
+			std::cout << new_A;
+		else
+			std::cout << new_B;
+	}
+	catch (std::logic_error& e) {
+		std::cerr << "오류 발생 : " << e.what();
+	}
+
+	return 0;
+}
+
+int Change(int n) {
+	int new_num = ((n % 100) % 10) * 100 + ((n / 10) % 10) * 10 + n / 100;
+	return new_num;
+}
+
+
+#include <iostream>
+#include <string>
+
+int main() {
+
+	std::string A, B;
+	std::cin >> A >> B;
+
+	std::string bigger;
+
+	for (int i = 2; i >= 0; i--) {
+		if (A[i] > B[i]) {
+			bigger = A;
+			break;
+		}
+		else if (A[i] < B[i]) {
+			bigger = B;
+			break;
+		}
+	}
+
+	std::cout << bigger[2] << bigger[1] << bigger[0];
+	return 0;
+}
+*/
+
+/*
+// 5622번 문제
+
+#include <iostream>
+
+int arr[26] = { 3,3,3,4,4,4,5,5,5,6,6,6,7,7,7,8,8,8,8,9,9,9,10,10,10,10 };
+int main() {
+	std::string str;
+	int result = 0;
+
+	try {
+		std::cin >> str;
+		if (str.size() < 2 || str.size() > 15)
+			throw std::out_of_range("입력한 단어의 길이가 2이상 15 이하 이어야 합니다.");
+
+		for (int i = 0; i < str.size(); i++) {
+			result += arr[str[i] - 'A'];
+		}
+		std::cout << result;
+	}
+
+	catch (std::out_of_range& e) {
+		std::cerr << "오류 발생 : " << e.what();
+	}
+
+
+	return 0;
+}
+*/
+
+/*
+// 2941번 문제
+
+#include <iostream>
+#include <string>
+#include <vector>
 using namespace std;
 
 int main() {
-	string s;
-	int num[27] = {0};
+	vector<string> arr = { "c=","c-","dz=","d-","lj","nj","s=","z=" };
+	int index;
+	string str;
+	cin >> str;
 
-	std::cin >> s;
-
-	for (int i = 0; i < s.size(); i++) {
-		if (65 <= s[i] && s[i] <= 90)
-			num[static_cast<int>(s[i]) - 65]++;
-
-		else if (97 <= s[i] && s[i] <= 122)
-			num[static_cast<int>(s[i]) - 97]++;
-	}
-
-	int max = num[0];
-	int index = 0;
-
-
-	for (int i = 0; i < 26; i++) {
-		
-		if (max < num[i + 1]) {
-			max = num[i + 1];
-			index = i + 1;
-		}
-		else if (max == num[i + 1]) {
-			std::cout << "?";
-			return 0;
+	for (int i = 0; i < arr.size(); i++) {
+		while (1) {
+			index = str.find(arr[i]);
+			if (index == string::npos)
+				break;
+			str.replace(index, arr[i].length(), "#");
 		}
 	}
 
-	std::cout << static_cast<char>(index + 65);
+	cout << str.length();
+
 	return 0;
-
-	
 }
 */
+
+// 1316번 문제
+
+#include <iostream>
+#include <string>
+#include <algorithm>
+
+int main() {
+	int N, result = 0;
+	int arr[26]{ 0 };
+	std::string str;
+
+	std::cin >> N;
+
+	for (int i = 0; i < N; i++) {
+		bool Is_group = true;
+		std::cin >> str;
+
+		str.erase(unique(str.begin(), str.end()), str.end());
+
+		sort(str.begin(), str.end());
+
+		for (int j = 0; j < str.size()-1; j++) {
+			if (str[j] == str[j + 1]) {
+				Is_group = false;
+				break;
+			}
+		}
+		if (Is_group)
+			result++;
+	}
+
+	std::cout << result;
+	return 0;
+}
