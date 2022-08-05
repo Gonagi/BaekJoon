@@ -313,6 +313,7 @@ int main() {
 }
 */
 
+/*
 // 1316번 문제
 
 #include <iostream>
@@ -345,5 +346,40 @@ int main() {
 	}
 
 	std::cout << result;
+	return 0;
+}
+*/
+
+#include <iostream>
+#include <string>
+#include <algorithm>
+
+int main() {
+	std::string str;
+	int N, result = 0;
+	bool Is_group = true;
+
+	try {
+		std::cin >> N;
+		if (N < 0 || N > 100)
+			throw std::out_of_range("단어의 개수 'N'이 범위를 벗어남");
+		
+		for (int i = 0; i < N; i++) {
+			std::cin >> str;
+			str.erase(std::unique(str.begin(), str.end()), str.end());
+			std::sort(str.begin(), str.end());
+
+			for (int j = 0; j < str.size() - 1; j++)
+				if (str[j] == str[j + 1])
+					Is_group = false;
+			if (Is_group)
+				result++;
+		}
+
+		std::cout << result;
+	}
+	catch (const std::out_of_range& exception) {
+		std::cerr << "오류 발생 : " << exception.what();
+	}
 	return 0;
 }
