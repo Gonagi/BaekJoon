@@ -222,26 +222,26 @@ int main() {
 }
 */
 
+
+
 // 10757¹ø ¹®Á¦
 #include <iostream>
-#include <string>
 #include <vector>
 #include <string>
 
 int main() {
 	std::string s1, s2;
-	std::vector<int> result;
-	int s1_index, s2_index, cal, upper = 0;
+	std::vector<int> result{};
+	int s1_index=0, s2_index=0, cal=0, upper = 0;
 
 	std::cin >> s1 >> s2;
-	std::strlen(s1);
-	s1_index = static_cast<int>(s1.size())-1;
-	s2_index = static_cast<int>(s2.size())-1;
+	s1_index = static_cast<int>(s1.size()) - 1;
+	s2_index = static_cast<int>(s2.size()) - 1;
 
 	while (s1_index != -1 || s2_index != -1) {
 		cal = (s1[s1_index] - '0') + (s2[s2_index] - '0');
-		
-		if(upper == 1){
+
+		if (upper == 1) {
 			if (cal >= 10) {
 				result.push_back(cal % 10 + 1);
 				upper = 1;
@@ -262,7 +262,7 @@ int main() {
 				upper = 0;
 			}
 		}
-		
+
 		s1_index--;
 		s2_index--;
 
@@ -270,7 +270,7 @@ int main() {
 			result.push_back(1);
 	}
 
-	for (int i = static_cast<int>(result.size())-1; i >= 0; i--)
+	for (int i = static_cast<int>(result.size()) - 1; i >= 0; i--)
 		std::cout << result.at(i);
 	return 0;
 }
