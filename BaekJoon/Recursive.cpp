@@ -170,9 +170,30 @@ int main() {
 */
 
 // 11729¹ø ¹®Á¦
+
 #include <iostream>
+#include <math.h>
+
+void Hanoi(int, int, int, int);
 
 int main() {
+	int N;
+	std::cin >> N;
+
+	std::cout << static_cast<int>(pow(2, N) - 1) << "\n";
+	Hanoi(1, 2, 3, N);
 
 	return 0;
+}
+
+void Hanoi(int start, int via, int end, int N) {
+	if (N == 1) {
+		std::cout << start << " " << end << "\n";
+		return;
+	}
+	else {
+		Hanoi(start, end, via, N - 1);
+		std::cout << start << " " << end << "\n";
+		Hanoi(via, start, end, N - 1);
+	}
 }
