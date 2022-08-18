@@ -75,6 +75,7 @@ int main() {
 }
 */
 
+/*
 // 2018번 문제
 
 #include <iostream>
@@ -140,5 +141,24 @@ int main() {
 	else
 		std::cout << -1 * (vec.at(N - 1) - vec.at(0));
 
+	return 0;
+}
+*/
+
+// 1427번 문제
+#include <iostream>
+#include <string>
+#include <algorithm>
+
+bool compare(char a, char b) {
+	return a > b;
+}
+int main() {
+	std::string num;
+	std::cin >> num;
+
+	std::sort(num.begin(), num.end(), compare);
+
+	std::cout << num;
 	return 0;
 }
