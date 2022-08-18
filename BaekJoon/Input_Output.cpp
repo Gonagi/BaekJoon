@@ -125,6 +125,27 @@ int main() {
 }
 */
 
+// 3003번 문제
+#include <iostream>
+#include <vector>
+
+int main() {
+	int num;
+	std::vector<int> vec = { 1, 1, 2, 2, 2, 8 };
+
+	for (int i = 0; i < 6; i++) {
+		std::cin >> num;
+		vec.push_back(((-1) * num) + vec.at(i));
+	}
+
+	for (int i = 6; i < 12; i++)
+		std::cout << vec.at(i) << " ";
+
+
+	return 0;
+}
+
+/*
 // 10430번 문제
 #include <iostream>
 
@@ -148,6 +169,7 @@ int main() {
 	}
 	return 0;
 }
+*/
 /*
 * 2588번 문제
 #include <iostream>
