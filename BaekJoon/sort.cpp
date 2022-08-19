@@ -145,6 +145,7 @@ int main() {
 }
 */
 
+/*
 // 1427번 문제
 #include <iostream>
 #include <string>
@@ -160,5 +161,109 @@ int main() {
 	std::sort(num.begin(), num.end(), compare);
 
 	std::cout << num;
+	return 0;
+}
+*/
+
+/*
+// 11650번 문제
+
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <utility>
+
+int main() {
+	int N, first_num, second_num;
+	std::vector<std::pair<int, int>> vec;
+	
+	std::cin >> N;
+
+	for (int i = 0; i < N; i++) {
+		std::cin >> first_num >> second_num;
+		vec.push_back(std::make_pair(first_num, second_num));
+	}
+
+	std::sort(vec.begin(), vec.end());
+
+	for (int i = 0; i < N; i++) 
+		std::cout << vec.at(i).first << " " << vec.at(i).second << "\n";
+	
+	return 0;
+}
+*/
+
+/*
+// 11651번 문제
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <utility>
+
+bool compare(const std::pair<int, int>& a, const std::pair<int, int>& b)
+{
+	if (a.second == b.second)
+		return a.first < b.first;
+	return a.second < b.second;
+}
+
+int main() {
+	int N, first_num, second_num;
+	std::vector<std::pair<int, int>> vec;
+
+	std::cin >> N;
+
+	for (int i = 0; i < N; i++) {
+		std::cin >> first_num >> second_num;
+		vec.push_back(std::make_pair(first_num, second_num));
+	}
+
+	std::sort(vec.begin(), vec.end(), compare);
+
+	for (int i = 0; i < N; i++)
+		std::cout << vec.at(i).first << " " << vec.at(i).second << "\n";
+
+	return 0;
+}
+*/
+
+// 1181번 문제
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <string_view>
+
+bool compare(const std::string_view a, const std::string_view b) {
+	if (a.size() < b.size())
+		return true;
+	else if (a.size() == b.size()) {
+		for (int i = 0; i < a.size(); i++) 
+			if (strcmp(a.data(), b.data()) < 0)
+				return true;
+			else
+				return false;
+	}
+	else 
+		return false;
+	
+}
+
+int main() {
+	int N;
+	std::string str;
+	std::vector<std::string> list;
+
+	std::cin >> N;
+
+	for (int i = 0; i < N; i++) {
+		std::cin >> str;
+		list.push_back(str);
+	}
+
+	std::sort(list.begin(), list.end(), compare);
+	list.erase(std::unique(list.begin(), list.end()));
+
+	for (int i = 0; i < list.size(); i++)
+		std::cout << list.at(i) << "\n";
 	return 0;
 }
