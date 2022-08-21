@@ -227,25 +227,19 @@ int main() {
 }
 */
 
+/*
 // 1181번 문제
+
 #include <iostream>
 #include <vector>
 #include <algorithm>
 #include <string_view>
 
-bool compare(const std::string_view a, const std::string_view b) {
-	if (a.size() < b.size())
-		return true;
-	else if (a.size() == b.size()) {
-		for (int i = 0; i < a.size(); i++) 
-			if (strcmp(a.data(), b.data()) < 0)
-				return true;
-			else
-				return false;
-	}
-	else 
-		return false;
-	
+bool compare(std::string_view a, std::string_view b) {
+	if (a.length() == b.length())
+		return a < b;
+	return
+		a.length() < b.length();
 }
 
 int main() {
@@ -261,9 +255,81 @@ int main() {
 	}
 
 	std::sort(list.begin(), list.end(), compare);
-	list.erase(std::unique(list.begin(), list.end()));
+	list.erase(std::unique(list.begin(), list.end()), list.end());
+
 
 	for (int i = 0; i < list.size(); i++)
 		std::cout << list.at(i) << "\n";
+
+	return 0;
+}
+*/
+
+/*
+// 10814번 문제
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <tuple>
+
+bool compare(std::tuple<int, int, std::string> a, std::tuple<int, int, std::string> b);
+
+int main() {
+	int N, age;
+	std::string name;
+	std::vector<std::tuple<int, int, std::string>> list;
+
+	std::cin >> N;
+
+	for (int i = 0; i < N; i++) {
+		std::cin >> age >> name;
+		list.push_back(std::make_tuple(i, age, name));
+	}
+
+	std::sort(list.begin(), list.end(), compare);
+
+	for (int i = 0; i < N; i++)
+		std::cout << std::get<1>(list[i]) << " " << std::get<2>(list[i]) << "\n";
+	return 0;
+}
+
+bool compare(std::tuple<int, int, std::string> a, std::tuple<int, int, std::string> b) {
+	if (std::get<1>(a) == std::get<1>(b)) {
+		return  std::get<0>(a) < std::get<0>(b);
+	}
+	return std::get<1>(a) < std::get<1>(b);
+}
+*/
+
+// 18870번 문제
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+int main() {
+	std::ios_base::sync_with_stdio(false);
+	std::cin.tie(NULL);
+	std::cout.tie(NULL);
+
+	int N, num;
+	std::vector<int> list;
+
+	std::cin >> N; 
+	std::vector<int> original_list(N);
+
+	for (int i = 0; i < N; i++) 
+		std::cin >> original_list[i];	
+
+	list = original_list;
+	std::sort(list.begin(), list.end());
+	list.erase(std::unique(list.begin(), list.end()), list.end());
+
+	for (int i = 0; i < N; i++) {
+		auto index = std::lower_bound(list.begin(), list.end(), original_list.at(i));
+		std::cout << index - list.begin() << " ";
+	}
+
 	return 0;
 }
