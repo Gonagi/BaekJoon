@@ -1,7 +1,7 @@
+/*
 // 10828번 문제
 #include <iostream>
 #include <stdlib.h>
-#include <memory>
 
 struct Node {
 	int data;
@@ -15,18 +15,17 @@ struct Stack {
 
 class STACK {
 private:
-	// struct Node* node;
 	struct Stack* stack;
 	int check;
 
 public:
 	STACK() {
-		stack = create_stack();
+		stack = new Stack;
+		stack->top = nullptr;
 		check = 0;
 	}
 
 	Node* create_node();
-	Stack* create_stack();
 
 	void push(int data);
 	void pop();
@@ -43,12 +42,6 @@ Node* STACK::create_node() {
 	return new_node;
 }
 
-Stack* STACK::create_stack() {
-	Stack* new_stack = new Stack;
-	new_stack->top = nullptr;
-	
-	return new_stack;
-}
 
 void STACK::push(int _data) {
 	Node* new_node = create_node();
@@ -120,6 +113,106 @@ int main() {
 			stack.push(num);
 		}
 	}
+	return 0;
+}
+*/
 
+/*
+// 9093번 문제
+#include <iostream>
+#include <sstream>
+
+int main() {
+	int T;
+	std::string str, word;
+
+	std::cin >> T;
+	std::cin.ignore();
+
+	for (int i = 0; i < T; i++) {
+		getline(std::cin, str);
+		std::istringstream ss(str);
+
+		while (getline(ss, word, ' ')) {
+			for (int i = word.length()-1; i >= 0; i--)
+				std::cout << word.at(i);
+			std::cout << " ";
+		}
+		std::cout << "\n";
+	}
+
+	return 0;
+}
+*/
+
+/*
+// 9012번 문제
+
+#include <iostream>
+#include <stack>
+
+bool Check() {
+	std::string str;
+	std::stack<std::string> st;
+
+	std::cin >> str;
+	for (int i = 0; i < static_cast<int>(str.length()); i++) {
+		if (str.at(i) == '(')
+			st.push("(");
+		else {
+			if (!st.empty())
+				st.pop();
+			else
+				return false;
+		}
+	}
+	return st.empty();
+}
+
+int main() {
+	int T;
+	std::cin >> T;
+
+	for(int i = 0; i < T; i++){
+
+		if (Check())
+			std::cout << "YES" << "\n";
+		else
+			std::cout << "NO" << "\n";
+	}
+	return 0;
+}
+
+*/
+
+// 1874번 문제
+
+#include <iostream>
+#include <vector>
+#include <stack>
+
+int main() {
+	int n, num;
+	std::vector<int> result;
+	std::stack<int> st;
+
+	std::cin >> n;
+
+	for (int i = 0; i < n; i++) {
+		std::cin >> num;
+	
+		for (int j = i; j <= num; j++) {
+			st.push(i);
+			std::cout << "+" << "\n";
+		}
+		
+		while(st.top() >= num) {
+			st.pop();
+			std::cout << "-" << "\n";
+		}
+
+		if (st.top() < num)
+			std::cout << "No";
+	}
 	return 0;
 }
