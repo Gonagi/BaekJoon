@@ -187,32 +187,37 @@ int main() {
 
 // 1874¹ø ¹®Á¦
 
+
 #include <iostream>
-#include <vector>
 #include <stack>
+#include <vector>
 
 int main() {
-	int n, num;
-	std::vector<int> result;
-	std::stack<int> st;
+	int n, num = 1, input;
+	std::vector<char> result;
+	std::stack<int> list;
 
 	std::cin >> n;
 
 	for (int i = 0; i < n; i++) {
-		std::cin >> num;
-	
-		for (int j = i; j <= num; j++) {
-			st.push(i);
-			std::cout << "+" << "\n";
-		}
-		
-		while(st.top() >= num) {
-			st.pop();
-			std::cout << "-" << "\n";
-		}
+		std::cin >> input;
 
-		if (st.top() < num)
-			std::cout << "No";
+		while (num <= input) {
+			list.push(num++);
+			result.push_back('+');
+		}
+		if (list.top() == input) {
+			list.pop();
+			result.push_back('-');
+		}
+		else {
+			std::cout << "NO";
+			return 0;
+		}
 	}
+
+	for (int i = 0; i < static_cast<int>(result.size()); i++)
+		std::cout << result.at(i) << "\n";
+
 	return 0;
 }
