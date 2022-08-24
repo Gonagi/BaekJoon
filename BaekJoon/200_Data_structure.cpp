@@ -185,8 +185,8 @@ int main() {
 
 */
 
+/*
 // 1874번 문제
-
 
 #include <iostream>
 #include <stack>
@@ -218,6 +218,207 @@ int main() {
 
 	for (int i = 0; i < static_cast<int>(result.size()); i++)
 		std::cout << result.at(i) << "\n";
+
+	return 0;
+}
+*/
+
+/*
+// 1406번 문제
+
+#include <iostream>
+#include <stack>
+int main() {
+	int N, M, size;
+	char c;
+	std::string str;
+	std::stack<char> list1, list2;
+
+	std::cin >> str >> M;
+	N = static_cast<int>(str.length());
+
+	for (int i = 0; i < N; i++)
+		list1.push(str.at(i));
+
+	for (int i = 1; i <= M; i++) {
+		std::cin >> c;
+		if (c == 'L') {
+			if (list1.empty())
+				continue;
+			list2.push(list1.top());
+			list1.pop();
+		}
+		else if (c == 'D') {
+			if (list2.empty())
+				continue;
+			list1.push(list2.top());
+			list2.pop();
+		}
+		else if (c == 'B') {
+			if (list1.empty())
+				continue;
+			list1.pop();
+		}
+		else if (c == 'P') {
+			std::cin >> c;
+			list1.push(c);
+		}
+	}
+
+	size = static_cast<int>(list1.size());
+
+	for (int i = 0; i < size; i++) {
+		list2.push(list1.top());
+		list1.pop();
+	}
+
+	size = static_cast<int>(list2.size());
+
+	for (int i = 0; i < size; i++) {
+		std::cout << list2.top();
+		list2.pop();
+	}
+
+	return 0;
+}
+*/
+
+// 10845번 문제
+
+#include <iostream>
+
+struct Node {
+	int data;
+	Node* next;
+};
+
+struct queue {
+	Node* Front;
+	Node* Back;
+};
+
+class Queue {
+private:
+	queue* queue;
+	int Size;
+
+public:
+	Queue();
+
+	Node* creative_node(int _data);
+	void push(int data);
+	void pop();
+	void size();
+	void empty();
+	void front();
+	void back();
+};
+
+Node* Queue::creative_node(int _data) {
+	Node* new_node = new Node;
+	new_node->data = _data;
+	new_node->next = nullptr;
+	return new_node;
+}
+
+Queue::Queue() {
+	queue = new struct queue;
+	queue->Front = nullptr;
+	queue->Back = nullptr;
+	Queue::Size = 0;
+}
+
+
+void Queue::push(int data){
+	Node* new_node = creative_node(data);
+	Size++;
+
+	if (Queue::Size == 0) {
+		queue->Front = new_node;
+		queue->Back = new_node;
+	}
+	else {
+		queue->Back->next = new_node;
+		queue->Back = new_node;
+	}
+}
+
+void Queue::pop(){
+	Node* old_node = queue->Front;
+	Node* new_node = queue->Back;
+	int check = Size;
+
+	if (Queue::Size == 0) 
+		std::cout << -1 << "\n";
+	else{
+		std::cout << old_node->data << "\n";
+		
+		if (check >= 3) {
+			while (check >= 3) {
+				new_node->next = new_node->next->next;
+				check--;
+			}
+			queue->Front = new_node;
+		}
+		else {
+			queue->Front = new_node;
+		}
+		
+		delete[] old_node;
+		old_node = nullptr;
+		Size--;
+	}
+}
+
+void Queue::size(){
+	std::cout << Queue::Size << "\n";
+}
+
+void Queue::empty(){
+	if (Queue::Size == 0)
+		std::cout << 1 << "\n";
+	else
+		std::cout << 0 << "\n";
+}
+
+void Queue::front(){
+	if (Queue::Size == 0)
+		std::cout << -1 << "\n";
+	else 
+		std::cout << queue->Front->data << "\n";
+}
+void Queue::back() {
+	if (Queue::Size == 0)
+		std::cout << -1 << "\n";
+	else
+		std::cout << queue->Back->data << "\n";
+}
+
+int main() {
+	int N, num;
+	Queue queue;
+	std::string str;
+	
+	std::cin >> N;
+	
+	for (int i = 0; i < N; i++) {
+		std::cin >> str;
+
+		if (str == "push") {
+			std::cin >> num;
+			queue.push(num);
+		}
+		else if (str == "pop")
+			queue.pop();
+		else if (str == "size")
+			queue.size();
+		else if (str == "empty")
+			queue.empty();
+		else if (str == "front")
+			queue.front();
+		else if (str == "back")
+			queue.back();
+	}
 
 	return 0;
 }
