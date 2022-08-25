@@ -283,6 +283,7 @@ int main() {
 }
 */
 
+/*
 // 10845번 문제
 
 #include <iostream>
@@ -299,7 +300,7 @@ struct queue {
 
 class Queue {
 private:
-	queue* queue;
+	queue* Q;
 	int Size;
 
 public:
@@ -322,48 +323,59 @@ Node* Queue::creative_node(int _data) {
 }
 
 Queue::Queue() {
-	queue = new struct queue;
-	queue->Front = nullptr;
-	queue->Back = nullptr;
-	Queue::Size = 0;
+	Q = new struct queue;
+	Q->Front = nullptr;
+	Q->Back = nullptr;
+	Size = 0;
 }
 
 
 void Queue::push(int data){
 	Node* new_node = creative_node(data);
-	Size++;
 
-	if (Queue::Size == 0) {
-		queue->Front = new_node;
-		queue->Back = new_node;
+	if (Q->Front == nullptr) {
+		Q->Front = new_node;
+		Q->Back = new_node;
 	}
 	else {
-		queue->Back->next = new_node;
-		queue->Back = new_node;
+		new_node->next = Q->Back;
+		Q->Back = new_node;
 	}
+	Size++;
 }
 
-void Queue::pop(){
-	Node* old_node = queue->Front;
-	Node* new_node = queue->Back;
-	int check = Size;
-
-	if (Queue::Size == 0) 
+void Queue::pop() {
+	if (Q->Front == nullptr)
 		std::cout << -1 << "\n";
-	else{
+	
+	else {
+		Node* old_node = Q->Front;
+		int check = Size;
+
 		std::cout << old_node->data << "\n";
-		
-		if (check >= 3) {
-			while (check >= 3) {
-				new_node->next = new_node->next->next;
-				check--;
-			}
-			queue->Front = new_node;
+
+		if (check == 1) {
+			Q->Front = nullptr;
+		}
+		else if (check == 2) {
+			Node* new_node = Q->Back;
+
+			Q->Front = new_node;
+			Q->Front->next = nullptr;
 		}
 		else {
-			queue->Front = new_node;
+			Node* new_node = Q->Back;
+
+			while (check >= 3) {
+				new_node = new_node->next;
+				check--;
+			}
+
+			Q->Front = new_node;
+			Q->Front->next = nullptr;
+
 		}
-		
+
 		delete[] old_node;
 		old_node = nullptr;
 		Size--;
@@ -371,27 +383,28 @@ void Queue::pop(){
 }
 
 void Queue::size(){
-	std::cout << Queue::Size << "\n";
+	std::cout << Size << "\n";
 }
 
 void Queue::empty(){
-	if (Queue::Size == 0)
+	if (Q->Front == nullptr)
 		std::cout << 1 << "\n";
 	else
 		std::cout << 0 << "\n";
 }
 
 void Queue::front(){
-	if (Queue::Size == 0)
+	if (Q->Front == nullptr)
 		std::cout << -1 << "\n";
 	else 
-		std::cout << queue->Front->data << "\n";
+		std::cout << Q->Front->data << "\n";
 }
+
 void Queue::back() {
-	if (Queue::Size == 0)
+	if (Q->Front == nullptr)
 		std::cout << -1 << "\n";
 	else
-		std::cout << queue->Back->data << "\n";
+		std::cout << Q->Back->data << "\n";
 }
 
 int main() {
@@ -422,3 +435,41 @@ int main() {
 
 	return 0;
 }
+*/
+
+// 1158번 문제
+
+#include <iostream>
+#include <queue>
+
+int main() {
+	int N, K;
+	std::queue<int> circle;
+
+	std::cin >> N >> K;
+
+	for (int i = 1; i <= N; i++)
+		circle.push(i);
+
+	while (!circle.empty()) {
+
+	}
+	return 0;
+}
+
+
+1 2 3 4 5 6 7
+
+1 2 4 5 6 7		3
+
+1 2 4 5 7		6
+
+1 4 5 7			2
+
+1 4 5			7
+
+1 4				5
+
+4				1
+
+4
