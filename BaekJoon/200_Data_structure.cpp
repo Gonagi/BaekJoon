@@ -437,6 +437,7 @@ int main() {
 }
 */
 
+/*
 // 1158번 문제
 
 #include <iostream>
@@ -451,25 +452,208 @@ int main() {
 	for (int i = 1; i <= N; i++)
 		circle.push(i);
 
-	while (!circle.empty()) {
+	std::cout << "<";
 
+	while (!circle.empty()) {
+		for (int i = 0; i < K - 1; i++) {
+			circle.push(circle.front());
+			circle.pop();
+		}
+		if (circle.size() == 1)
+			std::cout << circle.front();
+		else
+			std::cout << circle.front() << ", ";
+		circle.pop();
+	}
+	std::cout << ">";
+
+	return 0;
+}
+*/
+
+// 10866번 문제
+
+#include <iostream>
+
+struct Node {
+	int data;
+	Node* next;
+};
+
+struct deque {
+	Node* Front;
+	Node* Back;
+};
+
+class Deque {
+private:
+	deque* D;
+	int Size;
+
+public:
+	Node* creative_node(int _data);
+
+	Deque();
+	void push_front(int _data);
+	void push_back(int _data);
+	void pop_front();
+	void pop_back();
+	void size();
+	void empty();
+	void  front();
+	void back();
+};
+
+Node* Deque::creative_node(int _data) {
+	Node* new_node = new Node;
+	new_node->data = _data;
+	new_node->next = nullptr;
+	
+	return new_node;
+}
+
+Deque::Deque() {
+	D = new struct deque;
+	D->Front = nullptr;
+	D->Back = nullptr;
+	Size = 0;
+}
+
+void Deque::push_front(int _data) {
+	Node* new_node = creative_node(_data);
+
+	if (D->Front == nullptr) {
+		D->Front = new_node;
+		D->Back = new_node;
+	}
+	else {
+		D->Front->next = new_node;
+		D->Front = new_node;
+	}
+	Size++;
+}
+
+void Deque::push_back(int _data) {
+	Node* new_node = creative_node(_data);
+
+	if (D->Back == nullptr) {
+		D->Front = new_node;
+		D->Back = new_node;
+	}
+	else {
+		new_node->next = D->Back;
+		D->Back = new_node;
+	}
+		
+	Size++;
+}
+
+void Deque::pop_front() {
+	if (D->Front == nullptr)
+		std::cout << -1 << "\n";
+	else {
+		Node* old_node = D->Front;
+		std::cout << old_node->data << "\n";
+
+		if (Size == 1) {
+			D->Front = nullptr;
+			D->Back = nullptr;
+		}
+		else if (Size == 2) 
+			D->Front = D->Back;
+		else {
+			Node* cur_node = D->Back;
+			for (int i = 1; i < Size-1; i++)
+				cur_node = cur_node->next;
+			D->Front = cur_node;
+		}
+
+		Size--;
+		delete[] old_node;
+	}
+}
+
+void Deque::pop_back() {
+	if (D->Back == nullptr)
+		std::cout << -1 << "\n";
+	else {
+		Node* old_node = D->Back;
+		std::cout << old_node->data << "\n";
+
+		if (Size == 1) {
+			D->Front = nullptr;
+			D->Back = nullptr;
+		}
+		else if (Size == 2)
+			D->Back = D->Front;
+		else
+			D->Back = D->Back->next;
+		
+		Size--;
+		delete[] old_node;
+	}
+}
+
+void Deque::size() {
+	std::cout << Size << "\n";
+}
+
+void Deque::empty() {
+	if (D->Front == nullptr)
+		std::cout << 1 << "\n";
+	else
+		std::cout << 0 << "\n";
+}
+
+void Deque::front() {
+	if (D->Front == nullptr)
+		std::cout << -1 << "\n";
+	else
+		std::cout << D->Front->data << "\n";
+}
+
+void Deque::back() {
+	if (D->Back == nullptr)
+		std::cout << -1 << "\n";
+	else
+		std::cout << D->Back->data << "\n";
+}
+
+int main() {
+	Deque d;
+	int N, num;
+	std::string str;
+
+	std::cin >> N;
+
+	for (int i = 0; i < N; i++) {
+		std::cin >> str;
+
+		if (str == "push_front") {
+			std::cin >> num;
+			d.push_front(num);
+		}
+		else if (str == "push_back") {
+			std::cin >> num;
+			d.push_back(num);
+		}
+		else if (str == "pop_front")
+			d.pop_front();
+
+		else if (str == "pop_back")
+			d.pop_back();
+
+		else if (str == "size")
+			d.size();
+
+		else if (str == "empty")
+			d.empty();
+
+		else if (str == "front")
+			d.front();
+
+		else if (str == "back")
+			d.back();
 	}
 	return 0;
 }
-
-
-1 2 3 4 5 6 7
-
-1 2 4 5 6 7		3
-
-1 2 4 5 7		6
-
-1 4 5 7			2
-
-1 4 5			7
-
-1 4				5
-
-4				1
-
-4
