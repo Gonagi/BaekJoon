@@ -88,7 +88,8 @@ int main() {
 }
 */
 
-
+// 메모리 누수 공부
+/*
 #include <iostream>
 #include <stdlib.h>
 #include <memory>
@@ -208,3 +209,128 @@ int main() {
 	std::cout << "ddd";
 	return 0;
 }
+*/
+
+/*
+#include <iostream>
+//#include <crtdbg.h>
+using namespace std;
+
+//#ifdef _DEBUG
+//	#define new new(_CLIENT_BLOCK, __FILE__, __LINE__)
+//	#define malloc(s) _malloc_dbg(s, _NORMAL_BLOCK, __FILE__, __LINE__)
+//#endif
+
+int* aNew() {
+	auto p = new int{ 9 };
+	return p;
+}
+
+int* bNew() {
+	auto p = new int{ 1 };
+	return p;
+}
+
+void pDelete(int* p) {
+	delete p;
+}
+
+int main() {
+		// _CrtSetBreakAlloc(78);	메모리 누수 일어난곳으로 이동
+	//_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+
+	auto ptr = aNew();
+	auto ptr2 = bNew();
+	pDelete(ptr);
+
+		// _CrtDumpMemoryLeaks();
+}
+*/
+
+// 17298번 문제
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <stack>
+
+int main() {
+	int N, num;
+	std::vector<int> input, result;
+	std::stack<int> stack;
+
+	std::cin >> N;
+
+	for (int i = 0; i < N; i++) {
+		std::cin >> num;
+		input.push_back(num);
+	}
+
+	for (int i = static_cast<int>(input.size()) - 1; i >= 0; i--) {
+
+		while (!stack.empty() && stack.top() <= input.at(i))
+			stack.pop();
+		if (stack.empty())
+			result.push_back(-1);
+		else
+			result.push_back(stack.top());
+		stack.push(input.at(i));
+	}
+
+	for (int i = N-1; i >= 0; i--)
+		std::cout << result.at(i) << " ";
+
+	return 0;
+}
+/*
+int main() {
+	int N, num, size;
+	bool is_push = false;
+	std::stack<int> input;
+	std::vector<int> result, check;
+
+	std::cin >> N;
+
+	for (int i = 0; i < N; i++) {
+		std::cin >> num;
+		input.push(num);
+	}
+
+	while(!input.empty()) {
+		if (check.empty()) {
+			check.push_back(input.top());
+			result.push_back(-1);
+		}
+		else {
+			if (check.at(check.size() - 1) > input.top()) {
+				result.push_back(check.at(check.size() - 1));
+				check.push_back(input.top());
+			}
+
+			else {
+				size = static_cast<int>(check.size());
+				for (int i = size - 1; i >= 0; i--) {
+					if (input.top() < check.at(i)) {
+						result.push_back(check.at(i));
+						check.push_back(input.top());
+						is_push = true;
+						break;
+					}
+					else {
+						check.push_back(input.top());
+						is_push = false;
+					}
+				}
+
+				if (!is_push)
+					result.push_back(-1);
+			}
+		}
+		input.pop();
+	}
+
+	for (auto data = result.rbegin(); data != result.rend(); data++)
+		std::cout << *data << " ";
+
+	return 0;
+}
+*/
