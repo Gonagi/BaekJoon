@@ -247,16 +247,17 @@ int main() {
 }
 */
 
+/*
 // 17298번 문제
+
 #include <iostream>
-#include <algorithm>
-#include <vector>
 #include <stack>
+#include <vector>
 
 int main() {
 	int N, num;
-	std::vector<int> input, result;
 	std::stack<int> stack;
+	std::vector<int> input, result;
 
 	std::cin >> N;
 
@@ -264,10 +265,51 @@ int main() {
 		std::cin >> num;
 		input.push_back(num);
 	}
+	stack.push(input.at(input.size()-1));
+	result.push_back(-1);
+
+	for (int i = static_cast<int>(input.size()) - 2; i >= 0; i--) {
+		while (!stack.empty() && input.at(i) >= stack.top())
+			stack.pop();
+		
+		if (stack.empty()) {
+			result.push_back(-1);
+		}
+		else{
+			result.push_back(stack.top());
+		}
+		stack.push(input.at(i));
+	}
+
+	for (int i = static_cast<int>(result.size() - 1); i >= 0; i--)
+		std::cout << result.at(i) << " ";
+	
+	return 0;
+}
+*/
+
+// 17299번 문제
+
+#include <iostream>
+#include <stack>
+#include <vector>
+int arr[1000001] = { 0 };
+
+int main() {
+	int N, num;
+	std::stack<int> stack;
+	std::vector<int> input, result;
+
+	std::cin >> N;
+
+	for (int i = 0; i < N; i++) {
+		std::cin >> num;
+		arr[num - 1]++;
+		input.push_back(num);
+	}
 
 	for (int i = static_cast<int>(input.size()) - 1; i >= 0; i--) {
-
-		while (!stack.empty() && stack.top() <= input.at(i))
+		while (!stack.empty() && arr[input.at(i) - 1] >= arr[stack.top() - 1])
 			stack.pop();
 		if (stack.empty())
 			result.push_back(-1);
@@ -276,61 +318,8 @@ int main() {
 		stack.push(input.at(i));
 	}
 
-	for (int i = N-1; i >= 0; i--)
+	for (int i = static_cast<int>(result.size() - 1); i >= 0; i--)
 		std::cout << result.at(i) << " ";
 
 	return 0;
 }
-/*
-int main() {
-	int N, num, size;
-	bool is_push = false;
-	std::stack<int> input;
-	std::vector<int> result, check;
-
-	std::cin >> N;
-
-	for (int i = 0; i < N; i++) {
-		std::cin >> num;
-		input.push(num);
-	}
-
-	while(!input.empty()) {
-		if (check.empty()) {
-			check.push_back(input.top());
-			result.push_back(-1);
-		}
-		else {
-			if (check.at(check.size() - 1) > input.top()) {
-				result.push_back(check.at(check.size() - 1));
-				check.push_back(input.top());
-			}
-
-			else {
-				size = static_cast<int>(check.size());
-				for (int i = size - 1; i >= 0; i--) {
-					if (input.top() < check.at(i)) {
-						result.push_back(check.at(i));
-						check.push_back(input.top());
-						is_push = true;
-						break;
-					}
-					else {
-						check.push_back(input.top());
-						is_push = false;
-					}
-				}
-
-				if (!is_push)
-					result.push_back(-1);
-			}
-		}
-		input.pop();
-	}
-
-	for (auto data = result.rbegin(); data != result.rend(); data++)
-		std::cout << *data << " ";
-
-	return 0;
-}
-*/
