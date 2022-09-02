@@ -191,76 +191,51 @@ int prec(char ch) {
 }
 */
 
+/*
 #include <iostream>
 #include <stack>
-#include <vector>
 
 int prec(char ch);
 
 int main() {
 	std::string infix;
-	std::vector<char> postfix;
 	std::stack<char> stack;
-	int is_bracket = 0;
 
 	std::cin >> infix;
 
 	for (int i = 0; i < infix.size(); i++) {
 		if ('A' <= infix.at(i) && infix.at(i) <= 'Z')	// 피연산자일때
-			postfix.push_back(infix.at(i));
+			std::cout << infix.at(i);
 		else {	// 연산자일때
-			if(is_bracket != 0){
-				if (infix.at(i) == '(')
-					is_bracket++;
-				if(stack.top() == '(')
-					stack.push(infix.at(i));
-				else {
-					if (infix.at(i) == ')') {
-						while (stack.top() != '(') {
-							postfix.push_back(stack.top());
-							stack.pop();
-						}
-						stack.pop();
-						is_bracket--;
-					}
-					else if (prec(stack.top()) > prec(infix.at(i)))
-						stack.push(infix.at(i));
-					else {
-						while (stack.top() != '(' && prec(stack.top()) <= prec(infix.at(i))) {
-							postfix.push_back(stack.top());
-							stack.pop();
-						}
-						stack.push(infix.at(i));
-					}
+			if (stack.empty() || infix.at(i) == '(')
+				stack.push(infix.at(i));
+			else if (infix.at(i) == ')') {
+				while (stack.top() != '(') {
+					std::cout << stack.top();
+					stack.pop();
 				}
+				stack.pop();
 			}
-
-			else {
-				if (infix.at(i) == '(')
-					is_bracket++;
-				if (stack.empty())
-					stack.push(infix.at(i));
-				else if (prec(stack.top()) > prec(infix.at(i)))
-					stack.push(infix.at(i));
-				else {
-					while (!stack.empty() && prec(stack.top()) <= prec(infix.at(i))) {
-						postfix.push_back(stack.top());
-						stack.pop();
-					}
-					stack.push(infix.at(i));
+			else if (prec(stack.top()) > prec(infix.at(i)) || stack.top() == '(')
+				stack.push(infix.at(i));
+			else{
+				while (!stack.empty() && prec(stack.top()) <= prec(infix.at(i))) {
+					if (stack.top() == '(')
+						break;
+					std::cout << stack.top();
+					stack.pop();
 				}
+				stack.push(infix.at(i));
 			}
-		}
+		}	
 	}
 
 	while (!stack.empty()) {
-		postfix.push_back(stack.top());
+		if (stack.top() == '(' || stack.top() == ')')
+			stack.pop();
+		std::cout << stack.top();
 		stack.pop();
 	}
-
-	for (int i = 0; i < postfix.size(); i++)
-		std::cout << postfix.at(i);
-
 	return 0;
 }
 
@@ -273,4 +248,130 @@ int prec(char ch) {
 	case '+': case '-':
 		return 2;
 	}
+}
+*/
+
+/*
+// 10808번 문제
+#include <iostream>
+
+int main() {
+	int alphabet_num[26]{ 0 };
+	std::string str;
+
+	std::cin >> str;
+
+	for (int i = 0; i < str.size(); i++)
+		alphabet_num[str.at(i) - 'a']++;
+
+	for(int i = 0; i < 26; i++)
+		std::cout << alphabet_num[i] << " ";
+	return 0;
+}
+*/
+
+/*
+// 10820번 문제
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+	string s;
+	while (getline(cin, s)) {		// 문자열을 입력받을 때마다 반복
+		int a = 0, b = 0, c = 0, d = 0;
+		for (int i = 0; i < s.size(); i++) {	// 문자열의 길이마다 반복
+			if (s[i] >= 'a' && s[i] <= 'z') a++;
+			else if (s[i] >= 'A' && s[i] <= 'Z') b++;
+			else if (s[i] >= '0' && s[i] <= '9') c++;
+			else if (s[i] == ' ') d++;
+		}
+		cout << a << " " << b << " " << c << " " << d << '\n';
+	}
+	return 0;
+}
+*/
+
+/*
+// 2743번 문제
+#include <iostream>
+
+int main() {
+	std::string str;
+	std::cin >> str;
+
+	std::cout << str.length();
+	return 0;
+}
+*/
+
+/*
+// 11655번 문제
+#include <iostream>
+#include <string>
+#include <vector>
+
+int main() {
+	char ch;
+	std::string str;
+	std::vector<char> ROT13_str;
+	std::getline(std::cin, str);
+
+	for (int i = 0; i < str.length(); i++) {
+		ch = str.at(i);
+		if (isupper(str.at(i))) {
+			if ('A' <= ch - 13)
+				ch -= 13;
+			else
+				ch += 13;
+		}
+
+		else if (islower(str.at(i))) {
+			if ('a' <= ch - 13)
+				ch -= 13;
+			else
+				ch += 13;
+		}
+		ROT13_str.push_back(ch);
+	}
+
+	for (int i = 0; i < ROT13_str.size(); i++)
+		std::cout << ROT13_str.at(i);
+	return 0;
+}
+*/
+
+// 10824번 문제
+
+#include <iostream>
+
+int main() {
+	long long A, B, C, D, num1, num2, count1 = 0, count2 = 0, check1, check2;
+
+	std::cin >> A >> B >> C >> D;
+	check1 = B;
+	check2 = D;
+
+	while (check1) {
+		check1 /= 10;
+		count1++;
+	}
+
+	while (check2) {
+		check2 /= 10;
+		count2++;
+	}
+
+	for (int i = 0; i < count1; i++)
+		A *= 10;
+
+	for (int i = 0; i < count2; i++)
+		C *= 10;
+
+	num1 = A + B;
+	num2 = C + D;
+
+	std::cout << num1 + num2;
+
+	return 0;
 }
