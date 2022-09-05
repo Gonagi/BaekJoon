@@ -341,6 +341,7 @@ int main() {
 }
 */
 
+/*
 // 10824번 문제
 
 #include <iostream>
@@ -375,3 +376,98 @@ int main() {
 
 	return 0;
 }
+*/
+
+// 11656번 문제
+
+#include <iostream>
+#include <string>
+#include <algorithm>
+#include <vector>
+
+int main() {
+	std::string str;
+	std::vector<std::string> vec;
+	
+	std::cin >> str;
+
+	for (int i = 0; i < 8; i++) 
+		vec.push_back(str.substr(i, str.length()));
+
+	std::sort(vec.begin(), vec.end());
+
+	for (int i = 0; i < 8; i++)
+		std::cout << vec.at(i) << "\n";
+
+	return 0;
+}
+
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+int main(void){
+	string s;
+	cin >> s;
+	vector<string> v;
+
+	for (int i = 0; i < s.length(); i++)
+		v.push_back(s.substr(i, s.length()));
+
+	sort(v.begin(), v.end());
+
+	for (int i = 0; i < v.size(); i++)
+		cout << v[i] << "\n";
+	return 0;
+}
+
+/*
+// 2920번 문제
+
+#include <iostream>
+#include <vector>
+
+int main() {
+	int n;
+	std::vector<int> num;
+
+	for (int i = 0; i < 8; i++) {
+		std::cin >> n;
+		num.push_back(n);
+	}
+
+	for (int i = 1; i < 8; i++) {
+		if (num.at(i) != (num.at(i - 1) + 1) && num.at(i) != (num.at(i - 1) - 1)) {
+			std::cout << "mixed";
+			return 0;
+		}
+	}
+	
+	if (num.at(1) == num.at(0) + 1)
+		std::cout << "ascending";
+	else
+		std::cout << "descending";
+	return 0;
+}
+*/
+
+/*
+// 2475번 문제
+
+#include <iostream>
+
+int main() {
+	int num, square = 0;
+
+	for (int i = 0; i < 5; i++) {
+		std::cin >> num;
+		square += (num * num);
+	}
+
+	std::cout << square % 10;
+
+	return 0;
+}
+*/
