@@ -76,6 +76,7 @@ int main()
 }
 */
 
+/*
 // 6588번 문제
 
 #include <iostream>
@@ -83,12 +84,17 @@ int main()
 bool is_prime(int num);
 
 int main() {
+	std::ios_base::sync_with_stdio(false); 
+	std::cin.tie(NULL); 
+	std::cout.tie(NULL);
+
 	int n = 1;
 	bool is_exist = false;
 
 	while (n) {
 		std::cin >> n;
-		
+		if (n == 0)
+			return 0;
 		for (int i = 3; i <= n; i += 2) {
 			if (is_prime(i) && is_prime(n - i)) {
 				std::cout << n << " = " << i << " + " << n - i << "\n";
@@ -105,8 +111,69 @@ int main() {
 }
 
 bool is_prime(int num) {
-	for (int i = 2; (i * i) < num; i++) 
+	for (int i = 2; (i * i) <= num; i++) 
 		if (num % i == 0)
 			return false;
 	return true;
+}
+*/
+
+/*
+// 1676번 문제
+
+#include <iostream>
+
+int main() {
+	int num, check = 0, tmp;
+
+	std::cin >> num;
+	
+	for (int i = num; i >= 2; i--) {
+		tmp = i;
+
+		while (i % 5 == 0) {
+			check++;
+			i /= 5;
+		}
+		i = tmp;
+	}
+	std::cout << check;
+	return 0;
+}
+*/
+
+// 2004번 문제
+
+#include <iostream>
+#include <algorithm>
+
+int main() {
+	std::ios_base::sync_with_stdio(false);
+	std::cin.tie(NULL);
+	std::cout.tie(NULL);
+
+	long long n, r;
+	int count_2 = 0, count_5 = 0;
+
+	std::cin >> n >> r;
+
+	for (long long i = 2; i <= n; i *= 2)
+		count_2 += n / i;
+
+	for (long long i = 2; i <= n - r; i *= 2)
+		count_2 -= (n-r) / i;
+
+	for (long long i = 2; i <= r; i *= 2)
+		count_2 -= r / i;
+
+	for (long long i = 5; i <= n; i *= 5)
+		count_5 += n / i;
+
+	for (long long i = 5; i <= n - r; i *= 5)
+		count_5 -= (n-r) / i;
+
+	for (long long i = 5; i <= r; i *= 5)
+		count_5 -= r / i;
+
+	std::cout << std::min(count_2, count_5);
 }
