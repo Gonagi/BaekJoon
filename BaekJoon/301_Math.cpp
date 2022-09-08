@@ -39,16 +39,17 @@ long long GCD(long long num1, long long num2) {
 }
 */
 
+/*
 // 17087번 문제
 
 #include <iostream>
 #include <vector>
 #include <cstdlib>
 
-int GCD(int num1, int num2);
+long long GCD(long long num1, long long num2);
 
 int main() {
-	long long N, S, num;
+	long long N, S, num, result;
 	std::vector<long long> A_distance;
 
 	std::cin >> N >> S;
@@ -57,12 +58,45 @@ int main() {
 		std::cin >> num;
 		A_distance.push_back(std::abs(S-num));
 	}
-
+	
+	result = A_distance.at(0);
+	for (int i = 1; i < A_distance.size(); i++) 
+		result = GCD(result, A_distance.at(i));
+	
+	std::cout << result;
 
 	return 0;
 }
 
-int GCD(int num1, int num2) {
-	if (num1 == 0)return num2;
-	return GCD(num2, num1%num2)
+long long GCD(long long num1, long long num2) {
+	if (num2 == 0)return num1;
+	return GCD(num2, num1 % num2);
+}
+*/
+
+// 1373번 문제
+
+#include <iostream>
+#include <stack>
+
+int main() {
+	long long input; 
+	int num, cal = 1, result = 0;
+	std::stack<int> stack;
+	std::cin >> input;
+
+	while (input) {
+		num = input % 1000;
+		while (num) {
+			result += (num % 10)* cal;
+			num /= 10;
+			cal *= 2;
+		}
+		stack.push(result);
+		input /= 1000;
+		
+		result = 0;
+		cal = 1;
+	}
+	return 0;
 }
