@@ -74,29 +74,132 @@ long long GCD(long long num1, long long num2) {
 }
 */
 
+
 // 1373¹ø ¹®Á¦
+
+/*
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main()
+{
+	string binary;
+	cin >> binary;
+
+	int len = binary.length();
+	int i = 0;
+	if (len % 3 == 1) {
+		cout << binary[0];
+		i = 1;
+	}
+	else if (len % 3 == 2) {
+		cout << ((binary[0] - '0') * 2) + (binary[1] - '0');
+		i = 2;
+	}
+
+	for (; i < len; i += 3)	
+		cout << ((binary[i] - '0') * 4) + ((binary[i + 1] - '0') * 2) + (binary[i + 2] - '0');
+
+	cout << '\n';
+
+	return 0;
+}
+
 
 #include <iostream>
 #include <stack>
 
-int main() {
-	long long input; 
-	int num, cal = 1, result = 0;
+int main() { 
+	int num, input, cal = 1, result = 0;
 	std::stack<int> stack;
 	std::cin >> input;
+	if (input == 0)
+		std::cout << 0;
+	else {
+		while (input) {
+			num = input % 1000;
+			while (num) {
+				result += (num % 10) * cal;
+				num /= 10;
+				cal *= 2;
+			}
+			stack.push(result);
+			input /= 1000;
 
-	while (input) {
-		num = input % 1000;
-		while (num) {
-			result += (num % 10)* cal;
-			num /= 10;
-			cal *= 2;
+			result = 0;
+			cal = 1;
 		}
+		while (!stack.empty()) {
+			std::cout << stack.top();
+			stack.pop();
+		}
+	}
+	return 0;
+}
+*/
+
+#include <iostream>
+#include <string>
+#include <stack>
+
+int main() {
+	std::string str;
+	int num;
+	std::stack<std::string> stack;
+	std::cin >> str;
+
+	for (int i = static_cast<int>(str.length()) - 1; i >= 1; i--) {
+		std::string result;
+		num = str.at(i) - '0';
+
+		if (num - 4 >= 0) {
+			result = "1";
+			num -= 4;
+		}
+		else
+			result = "0";
+		if (num - 2 >= 0) {
+			result += "1";
+			num -= 2;
+		}
+		else
+			result += "0";
+		if (num - 1 >= 0) {
+			result += "1";
+			num -= 1;
+		}
+		else
+			result += "0";
 		stack.push(result);
-		input /= 1000;
+
+	}
+
+	
+	int result2 = 0;
+	num = str.at(0) - '0';
+	if (num == 0)
+		stack.push("0");
+	else {
+		if (num - 4 >= 0) {
+			result2 += 100;
+			num -= 4;
+		}
+		if (num - 2 >= 0) {
+			result2 += 10;
+			num -= 2;
+		}
+		if (num - 1 >= 0) {
+			result2 += 1;
+			num -= 1;
+		}
 		
-		result = 0;
-		cal = 1;
+		stack.push(std::to_string(result2));
+	}
+
+	while (!stack.empty()) {
+		std::cout << stack.top();
+		stack.pop();
 	}
 	return 0;
 }
