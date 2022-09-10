@@ -139,6 +139,8 @@ int main() {
 }
 */
 
+/*
+// 1212번 문제
 #include <iostream>
 #include <string>
 #include <stack>
@@ -200,6 +202,79 @@ int main() {
 	while (!stack.empty()) {
 		std::cout << stack.top();
 		stack.pop();
+	}
+	return 0;
+}
+
+
+#include <iostream>
+#include <string>
+
+int main() {
+	std::string octal;
+	std::cin >> octal;
+
+	if (octal == "0")
+		std::cout << 0;
+
+	std::string result;
+	for (int i = 0; i < octal.length(); i++) {
+		result += std::to_string((octal.at(i) - '0') / 4);		// 0
+		result += std::to_string(((octal.at(i) - '0') % 4) / 2);	// 1
+		result += std::to_string(((octal.at(i) - '0') % 4) % 2);	// 1
+	}
+
+	bool flag = false;
+
+	for (int i = 0; i < result.length(); i++) {
+		if (!flag) {
+			if (result[i] == '1') {
+				flag = true;
+				std::cout << result[i];
+			}
+		}
+		else
+			std::cout << result[i];	
+	}
+
+	std::cout << "\n";
+	return 0;
+}
+*/
+
+// 2089번 문제
+
+#include <iostream>
+#include <string>
+
+int main() {
+	long long N, result = 0, num = 1;
+	std::string str;
+
+	std::cin >> N;
+
+	while (1) {
+		result += num;
+
+		if (N <= result)
+			break;
+		num *= 4;
+	}
+
+	for (int i = num; i >= 1; i /= 2) {
+		if (N == num) {
+			std::cout << 1;
+			result = num;
+		}
+		else {
+			if (N <= (result - num)) {
+				std::cout << 1;
+				result -= num;
+			}
+			else {
+				std::cout << 0;
+			}
+		}
 	}
 	return 0;
 }
