@@ -242,39 +242,78 @@ int main() {
 }
 */
 
+/*
 // 2089번 문제
 
 #include <iostream>
 #include <string>
+#include <stack>
 
 int main() {
-	long long N, result = 0, num = 1;
-	std::string str;
+	long long N;
+	std::stack<int> result;
 
 	std::cin >> N;
 
-	while (1) {
-		result += num;
-
-		if (N <= result)
-			break;
-		num *= 4;
-	}
-
-	for (int i = num; i >= 1; i /= 2) {
-		if (N == num) {
-			std::cout << 1;
-			result = num;
-		}
-		else {
-			if (N <= (result - num)) {
-				std::cout << 1;
-				result -= num;
+	if (N == 0)
+		std::cout << 0;
+	else {
+		while (N != 0) {
+			if (N % -2 == 0) {
+				result.push(0);
+				N /= -2;
 			}
 			else {
-				std::cout << 0;
+				result.push(1);
+				N = (N - 1) / -2;
 			}
 		}
+	}
+
+	while (!result.empty()) {
+		std::cout << result.top();
+		result.pop();
+	}
+
+	return 0;
+}
+*/
+
+// 17103번 문제
+
+#include <iostream>
+
+int arr[1000001]{ 0, };
+
+int main() {
+	std::ios_base::sync_with_stdio(false);
+	std::cin.tie(NULL);
+	std::cout.tie(NULL);
+
+	int T, count = 0;
+	long long N;
+
+	for (int i = 2; i <= 1000000; i++)
+		arr[i] = i;
+
+	for (int i = 2; i*i <= 1000000; i++) {
+		if (arr[i] == 0)
+			continue;
+		for (int j = i * i; j <= 1000000; j += i)
+			arr[j] = 0;
+	}
+
+	std::cin >> T;
+
+	for (int i = 0; i < T; i++) {
+		std::cin >> N;
+
+		for (int i = 2; i <= N / 2; i++) {
+			if (arr[i] != 0 && arr[N - i] != 0)
+				count++;
+		}
+		std::cout << count << "\n";
+		count = 0;
 	}
 	return 0;
 }
