@@ -30,6 +30,8 @@ int main() {
 	return 0;
 }
 */
+
+/*
 // 2745번 문제
 
 #include <iostream>
@@ -55,5 +57,40 @@ int main() {
 	}
 
 	std::cout << result;
+	return 0;
+}	
+*/
+
+// 11576번 문제
+
+#include<iostream>
+#include <stack>
+
+int main() {
+	int A, B, m, input;
+	long long sum = 0, cal = 1;
+	std::stack<int> result;
+
+	std::cin >> A >> B;
+	std::cin >> m;
+
+	for (int i = 0; i < m - 1; i++)
+		cal *= A;
+
+	while (cal) {
+		std::cin >> input;
+		sum += input * cal;
+		cal /= A;
+	}
+
+	while (sum) {
+		result.push(sum % B);
+		sum /= B;
+	}
+
+	while (!result.empty()) {
+		std::cout << result.top() << ' ';
+		result.pop();
+	}
 	return 0;
 }
