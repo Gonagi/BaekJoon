@@ -1,4 +1,4 @@
-// 1935¹ø ¹®Á¦
+// 1935ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 /*
 #include <iostream>
@@ -36,11 +36,11 @@ int main() {
 
 	for (int i = static_cast<int>(str.size()) - 1; i >= 0; i--) {
 		if (str.at(i) == '*' || str.at(i) == '/' ||
-			str.at(i) == '+' || str.at(i) == '-') {										// ¿¬»êÀÚ
+			str.at(i) == '+' || str.at(i) == '-') {										// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			operator_stack.push(str.at(i));
 			count = 0;
 		}
-		else {	// ÇÇ¿¬½ÅÀÚ
+		else {	// ï¿½Ç¿ï¿½ï¿½ï¿½ï¿½ï¿½
 			operand_stack.push(static_cast<double>(input.at(i)));
 			count++;
 			if (count == 2) {
@@ -112,10 +112,10 @@ int main() {
 		std::cin >> vector[i];
 
 	for (int i = 0; i < str.length(); i++) {
-		if ('A' <= str[i] && str[i] <= 'Z')	// ÇÇ¿¬»êÀÚ
+		if ('A' <= str[i] && str[i] <= 'Z')	// ï¿½Ç¿ï¿½ï¿½ï¿½ï¿½ï¿½
 			stack.push(vector[str[i] - 'A']);
 		else {
-			if (!stack.empty()) {	// ¿¬»êÀÚ
+			if (!stack.empty()) {	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				double tmp = stack.top();
 				stack.pop();
 				if (str[i] == '+')
@@ -151,9 +151,9 @@ int main() {
 	std::cin >> infix;
 	
 	for (int i = 0; i < infix.size(); i++) {
-		if('A' <=infix.at(i) && infix.at(i) <= 'Z')	// ÇÇ¿¬»êÀÚÀÏ¶§
+		if('A' <=infix.at(i) && infix.at(i) <= 'Z')	// ï¿½Ç¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¶ï¿½
 			postfix.push_back(infix.at(i));
-		else {	// ¿¬»êÀÚÀÏ¶§
+		else {	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¶ï¿½
 			if (stack.empty())
 				stack.push(infix.at(i));
 			else if (prec(stack.top()) > prec(infix.at(i)))
@@ -204,9 +204,9 @@ int main() {
 	std::cin >> infix;
 
 	for (int i = 0; i < infix.size(); i++) {
-		if ('A' <= infix.at(i) && infix.at(i) <= 'Z')	// ÇÇ¿¬»êÀÚÀÏ¶§
+		if ('A' <= infix.at(i) && infix.at(i) <= 'Z')	// ï¿½Ç¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¶ï¿½
 			std::cout << infix.at(i);
-		else {	// ¿¬»êÀÚÀÏ¶§
+		else {	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¶ï¿½
 			if (stack.empty() || infix.at(i) == '(')
 				stack.push(infix.at(i));
 			else if (infix.at(i) == ')') {
@@ -252,7 +252,7 @@ int prec(char ch) {
 */
 
 /*
-// 10808¹ø ¹®Á¦
+// 10808ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 #include <iostream>
 
 int main() {
@@ -271,16 +271,16 @@ int main() {
 */
 
 /*
-// 10820¹ø ¹®Á¦
+// 10820ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 #include <iostream>
 #include <string>
 using namespace std;
 
 int main() {
 	string s;
-	while (getline(cin, s)) {		// ¹®ÀÚ¿­À» ÀÔ·Â¹ÞÀ» ¶§¸¶´Ù ¹Ýº¹
+	while (getline(cin, s)) {		// ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½Ô·Â¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ýºï¿½
 		int a = 0, b = 0, c = 0, d = 0;
-		for (int i = 0; i < s.size(); i++) {	// ¹®ÀÚ¿­ÀÇ ±æÀÌ¸¶´Ù ¹Ýº¹
+		for (int i = 0; i < s.size(); i++) {	// ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½Ýºï¿½
 			if (s[i] >= 'a' && s[i] <= 'z') a++;
 			else if (s[i] >= 'A' && s[i] <= 'Z') b++;
 			else if (s[i] >= '0' && s[i] <= '9') c++;
@@ -293,7 +293,7 @@ int main() {
 */
 
 /*
-// 2743¹ø ¹®Á¦
+// 2743ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 #include <iostream>
 
 int main() {
@@ -306,7 +306,7 @@ int main() {
 */
 
 /*
-// 11655¹ø ¹®Á¦
+// 11655ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 #include <iostream>
 #include <string>
 #include <vector>
@@ -342,7 +342,7 @@ int main() {
 */
 
 /*
-// 10824¹ø ¹®Á¦
+// 10824ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include <iostream>
 
@@ -378,7 +378,8 @@ int main() {
 }
 */
 
-// 11656¹ø ¹®Á¦
+/*
+// 11656ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include <iostream>
 #include <string>
@@ -422,9 +423,10 @@ int main(void){
 		cout << v[i] << "\n";
 	return 0;
 }
+*/
 
 /*
-// 2920¹ø ¹®Á¦
+// 2920ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include <iostream>
 #include <vector>
@@ -454,7 +456,7 @@ int main() {
 */
 
 /*
-// 2475¹ø ¹®Á¦
+// 2475ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include <iostream>
 

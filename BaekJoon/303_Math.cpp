@@ -1,5 +1,5 @@
 /*
-// 11005¹ø ¹®Á¦
+// 11005ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include <iostream>
 #include <string>
@@ -32,7 +32,7 @@ int main() {
 */
 
 /*
-// 2745¹ø ¹®Á¦
+// 2745ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include <iostream>
 #include <string>
@@ -61,7 +61,8 @@ int main() {
 }	
 */
 
-// 11576¹ø ¹®Á¦
+/*
+// 11576ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include<iostream>
 #include <stack>
@@ -94,3 +95,4 @@ int main() {
 	}
 	return 0;
 }
+*/

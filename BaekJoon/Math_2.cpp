@@ -1,5 +1,5 @@
 /*
-// 1978¹ø ¹®Á¦
+// 1978ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include <iostream>
 
@@ -28,7 +28,7 @@ int main() {
 */
 
 /*
-// 2581¸Õ ¹®Á¦
+// 2581ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 #include <iostream>
 #include <algorithm>
 
@@ -63,7 +63,7 @@ int main() {
 */
 
 /*
-// 11653¹ø ¹®Á¦
+// 11653ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include <iostream>
 
@@ -91,7 +91,7 @@ int main() {
 
 
 /*
-// 1929¹ø ¹®Á¦
+// 1929ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include <iostream>
 bool Is_prime(int num) {
@@ -117,7 +117,7 @@ int main() {
 */
 
 /*
-// 4948¹ø ¹®Á¦
+// 4948ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include<iostream>
 
@@ -152,6 +152,7 @@ int main() {
 }
 */
 
+/*
 #include <iostream>
 
 bool Is_prime(int num) {
@@ -178,3 +179,4 @@ int main() {
 	}
 	return 0;
 }
+*/

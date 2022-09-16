@@ -1,5 +1,5 @@
 /*
-// 15596¹ø ¹®Á¦
+// 15596ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include <iostream>
 #include <vector>
@@ -15,7 +15,7 @@ long long sum(std::vector<int>& a) {
 */
 
 /*
-// 4673¹ø ¹®Á¦
+// 4673ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include <iostream>
 
@@ -46,7 +46,8 @@ int main() {
 }
 */
 
-// 1065¹ø ¹®Á¦
+/*
+// 1065ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include <iostream>
 
@@ -87,3 +88,4 @@ bool Check(int N) {
 
 	return false;
 }
+*/

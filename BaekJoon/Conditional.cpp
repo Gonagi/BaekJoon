@@ -1,5 +1,5 @@
 /*
-* 1330¹ø ¹®Á¦
+* 1330ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 #include <iostream>
 
 int main() {
@@ -8,12 +8,12 @@ int main() {
 	try {
 		std::cin >> A >> B;
 		if (A < -10000 || A > 10000)
-			throw std::out_of_range("'A' ¹üÀ§ ¹þ¾î³²");
+			throw std::out_of_range("'A' ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³²");
 		if (B < -10000 || B > 10000)
-			throw std::out_of_range("'B' ¹üÀ§ ¹þ¾î³²");
+			throw std::out_of_range("'B' ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³²");
 	}
 	catch (std::out_of_range& e) {
-		std::cout << "¿¹¿Ü¹ß»ý : " << e.what();
+		std::cout << "ï¿½ï¿½ï¿½Ü¹ß»ï¿½ : " << e.what();
 	}
 
 	if (A > B)
@@ -28,7 +28,7 @@ int main() {
 */
 
 /*
-// 9498¹ø ¹®Á¦
+// 9498ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 #include <iostream>
 
 int main() {
@@ -36,7 +36,7 @@ int main() {
 	try {
 		std::cin >> score;
 		if (score < 0 || score > 100)
-			throw std::out_of_range("Á¡¼ö score°¡ ¹üÀ§¸¦ ¹þ¾î³µ´Ù");
+			throw std::out_of_range("ï¿½ï¿½ï¿½ï¿½ scoreï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³µï¿½ï¿½");
 
 		if (90 <= score && score <= 100)
 			std::cout << "A";
@@ -50,7 +50,7 @@ int main() {
 			std::cout << "F";
 	}
 	catch (std::out_of_range& e) {
-		std::cout << "¿¹¿Ü¹ß»ý : " << e.what();	
+		std::cout << "ï¿½ï¿½ï¿½Ü¹ß»ï¿½ : " << e.what();	
 	}
 
 	return 0;
@@ -58,7 +58,7 @@ int main() {
 */
 
 /*
-// 2753¹ø ¹®Á¦
+// 2753ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 #include <iostream>
 
 int main() {
@@ -67,7 +67,7 @@ int main() {
 	try {
 		std::cin >> year;
 		if (year < 1 || year > 4000)
-			throw std::out_of_range("'year' ¹üÀ§ ¹þ¾î³²");
+			throw std::out_of_range("'year' ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³²");
 
 		if (year % 400 == 0)
 			std::cout << 1;
@@ -77,7 +77,7 @@ int main() {
 			std::cout << 0;
 	}
 	catch (std::out_of_range& e) {
-		std::cout << "¿¹¿Ü¹ß»ý : " << e.what();
+		std::cout << "ï¿½ï¿½ï¿½Ü¹ß»ï¿½ : " << e.what();
 	}
 
 	return 0;
@@ -85,7 +85,7 @@ int main() {
 */
 
 /*
-// 14681¹ø ¹®Á¦
+// 14681ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 #include <iostream>
 
 int main() {
@@ -96,9 +96,9 @@ int main() {
 		std::cin >> y;
 
 		if (x < -1000 || x > 1000 || x == 0)
-			throw std::out_of_range("'x' ¹üÀ§ ¹þ¾î³²");
+			throw std::out_of_range("'x' ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³²");
 		if (y < -1000 || y > 1000 || y == 0)
-			throw std::out_of_range("'y' ¹üÀ§ ¹þ¾î³²");
+			throw std::out_of_range("'y' ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³²");
 
 		if (x > 0 && y > 0)
 			std::cout << 1;
@@ -110,14 +110,14 @@ int main() {
 			std::cout << 4;
 	}
 	catch (std::out_of_range& e) {
-		std::cout << "¿¹¿Ü¹ß»ý : " << e.what();
+		std::cout << "ï¿½ï¿½ï¿½Ü¹ß»ï¿½ : " << e.what();
 	}
 	return 0;
 }
 */
 
 /*
-// 2884¹ø ¹®Á¦
+// 2884ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 #include <iostream>
 
 int main() {
@@ -126,9 +126,9 @@ int main() {
 	try {
 		std::cin >> H >> M;
 		if (H < 0 || H > 23)
-			throw std::out_of_range("'½Ã' ¹üÀ§ ¹þ¾î³²");
+			throw std::out_of_range("'ï¿½ï¿½' ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³²");
 		if (M < 0 || M > 59)
-			throw std::out_of_range("'ºÐ' ¹üÀ§ ¹þ¾î³²");
+			throw std::out_of_range("'ï¿½ï¿½' ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³²");
 
 		if (M < 45) {
 			M += 15;
@@ -143,14 +143,14 @@ int main() {
 		std::cout << H << " " << M;
 	}
 	catch (std::out_of_range& e) {
-		std::cout << "¿¹¿Ü¹ß»ý : " << e.what();
+		std::cout << "ï¿½ï¿½ï¿½Ü¹ß»ï¿½ : " << e.what();
 	}
 	return 0;
 }
 */
 
 /*
-// 2525¹ø ¹®Á¦
+// 2525ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 #include <iostream>
 
 int main() {
@@ -160,14 +160,14 @@ int main() {
 		std::cin >> A >> B;
 
 		if (A < 0 || A > 23)
-			throw std::out_of_range("'½Ã' ¹üÀ§ ¹þ¾î³²");
+			throw std::out_of_range("'ï¿½ï¿½' ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³²");
 		if (B < 0 || B > 59)
-			throw std::out_of_range("'ºÐ' ¹üÀ§ ¹þ¾î³²");
+			throw std::out_of_range("'ï¿½ï¿½' ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³²");
 
 		std::cin >> C;
 
 		if (C < 0 || C > 1000)
-			throw std::out_of_range("'¿ä¸®ÇÏ´Âµ¥ ÇÊ¿äÇÑ ½Ã°£' ¹üÀ§ ¹þ¾î³²");
+			throw std::out_of_range("'ï¿½ä¸®ï¿½Ï´Âµï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½' ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³²");
 
 		B += C;
 		A += B / 60;
@@ -179,14 +179,14 @@ int main() {
 		std::cout << A << " " << B;
 	}
 	catch(std::out_of_range& e) {
-		std::cout << "¿¹¿Ü ¹ß»ý : " << e.what() << std::endl;
+		std::cout << "ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ : " << e.what() << std::endl;
 	}
 	return 0;
 }
 */
 
 /*
-// 2480¹ø ¹®Á¦
+// 2480ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 #include <iostream>
 
 int main() {
@@ -196,7 +196,7 @@ int main() {
 		std::cin >> num1 >> num2 >> num3;
 		if (num1 < 1 || num2 < 1 || num3 < 1 ||
 			6 < num1 || 6 < num2 || 6 < num3)
-			throw std::out_of_range("ÁÖ»çÀ§ ¹üÀ§ ¹þ¾î³²");
+			throw std::out_of_range("ï¿½Ö»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³²");
 
 		if (num1 == num2 && num2 == num3)
 			money = 10000 + (num1 * 1000);
@@ -217,13 +217,14 @@ int main() {
 		std::cout << money;
 	}
 	catch (std::out_of_range& e) {
-		std::cout << "¿¹¿Ü ¹ß»ý : " << e.what();
+		std::cout << "ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ : " << e.what();
 	}
 	return 0;
 }
 */
 
-// 7576¹ø ¹®Á¦
+/*
+// 7576ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 #include <iostream>
 #include <string.h>
 #include <queue>
@@ -250,20 +251,20 @@ int main() {
 	try {
 		std::cin >> M >> N;
 		if (M < 2 || M > 1000)
-			throw std::out_of_range("'°¡·ÎÄ­ ¼ö(¿­)' ¹üÀ§ ÀÔ·Â ¿À·ù");
+			throw std::out_of_range("'ï¿½ï¿½ï¿½ï¿½Ä­ ï¿½ï¿½(ï¿½ï¿½)' ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ ï¿½ï¿½ï¿½ï¿½");
 		if (N < 2 || N > 1000)
-			throw std::out_of_range("'¼¼·ÎÄ­ ¼ö(Çà)' ¹üÀ§ ÀÔ·Â ¿À·ù");
+			throw std::out_of_range("'ï¿½ï¿½ï¿½ï¿½Ä­ ï¿½ï¿½(ï¿½ï¿½)' ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ ï¿½ï¿½ï¿½ï¿½");
 
-		for (int i = 0; i < N; i++)			// BOX ÃÊ±âÈ­
+		for (int i = 0; i < N; i++)			// BOX ï¿½Ê±ï¿½È­
 			for (int j = 0; j < M; j++)
 				std::cin >> Box[i][j];
 
-		for (int i = 0; i < N; i++)			// queue¿¡ ÀÍÀº Åä¸¶Åä Á¤º¸ ÀÔ·Â
+		for (int i = 0; i < N; i++)			// queueï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ä¸¶ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½
 			for (int j = 0; j < M; j++)
 				if (Box[i][j] == 1)
 					q.push(std::make_pair(i, j));
 
-		if (q.empty()) {	// ÀÍÀº Åä¸¶Åä°¡ ÇÏ³ªµµ ¾ø´Â »óÈ²
+		if (q.empty()) {	// ï¿½ï¿½ï¿½ï¿½ ï¿½ä¸¶ï¿½ä°¡ ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È²
 			std::cout << -1;
 			return -1;
 		}
@@ -285,7 +286,7 @@ int main() {
 	}
 
 	catch (std::out_of_range& e) {
-		std::cout << "¿À·ù ¹ß»ý : " << e.what();
+		std::cout << "ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ : " << e.what();
 	}
 	return 0;
 }
@@ -293,27 +294,27 @@ int main() {
 
 bool Movable(Pos cur, int dir) {
 	switch (dir) {
-		case 0: cur.x--; break;	// ºÏ
-		case 1: cur.y++; break;	// µ¿
-		case 2: cur.x++; break;	// ³²
-		case 3: cur.y--; break;	// ¼­
+		case 0: cur.x--; break;	// ï¿½ï¿½
+		case 1: cur.y++; break;	// ï¿½ï¿½
+		case 2: cur.x++; break;	// ï¿½ï¿½
+		case 3: cur.y--; break;	// ï¿½ï¿½
 	}
 
-	if (cur.x < 0 || cur.y < 0 || cur.x >= N || cur.y >= M)	// ¹üÀ§ ¹þ¾î³²
+	if (cur.x < 0 || cur.y < 0 || cur.x >= N || cur.y >= M)	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³²
 		return false;
-	else if(Box[cur.x][cur.y] == 0)	// ÀÍÁö¾ÊÀº Åä¸¶Åä
+	else if(Box[cur.x][cur.y] == 0)	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ä¸¶ï¿½ï¿½
 		return true;
-	else // Åä¸¶Åä°¡ ÀÍ¾îÀÖ°Å³ª Åä¸¶Åä°¡ ¾øÀ»¶§
+	else // ï¿½ä¸¶ï¿½ä°¡ ï¿½Í¾ï¿½ï¿½Ö°Å³ï¿½ ï¿½ä¸¶ï¿½ä°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		return false;
 
 }
 
 Pos Move_to(Pos cur, int dir) {
 	switch (dir) {
-		case 0: cur.x--; break;	// ºÏ
-		case 1: cur.y++; break;	// µ¿
-		case 2: cur.x++; break;	// ³²
-		case 3: cur.y--; break;	// ¼­
+		case 0: cur.x--; break;	// ï¿½ï¿½
+		case 1: cur.y++; break;	// ï¿½ï¿½
+		case 2: cur.x++; break;	// ï¿½ï¿½
+		case 3: cur.y--; break;	// ï¿½ï¿½
 	}
 	return cur;
 }
@@ -334,3 +335,4 @@ void End() {
 	std::cout << result - 1;
 	return;
 }
+*/

@@ -1,4 +1,4 @@
-// 2609¹ø ¹®Á¦
+// 2609ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 /*
 #include <iostream>
 #include <algorithm>
@@ -44,7 +44,7 @@ int main() {
 */
 
 /*
-// 1934¹ø ¹®Á¦
+// 1934ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include <iostream>
 using namespace std;
@@ -77,7 +77,7 @@ int main()
 */
 
 /*
-// 6588¹ø ¹®Á¦
+// 6588ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include <iostream>
 
@@ -119,7 +119,7 @@ bool is_prime(int num) {
 */
 
 /*
-// 1676¹ø ¹®Á¦
+// 1676ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include <iostream>
 
@@ -142,7 +142,8 @@ int main() {
 }
 */
 
-// 2004¹ø ¹®Á¦
+/*
+// 2004ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include <iostream>
 #include <algorithm>
@@ -177,3 +178,4 @@ int main() {
 
 	std::cout << std::min(count_2, count_5);
 }
+*/

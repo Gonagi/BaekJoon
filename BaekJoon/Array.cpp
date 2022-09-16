@@ -1,5 +1,5 @@
 /*
-// 10818¹ø ¹®Á¦
+// 10818ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 #include <iostream>
 #include <algorithm>
 
@@ -9,7 +9,7 @@ int main() {
 	try {
 		std::cin >> N;
 		if (N < 1 || N > 1000000)
-			throw std::out_of_range("NÀÌ ¹üÀ§¸¦ ¹þ¾î³²");
+			throw std::out_of_range("Nï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³²");
 
 		for (int i = 0; i < N; i++) {
 			std::cin >> input;
@@ -19,14 +19,14 @@ int main() {
 		std::cout << min << " " << max;
 	}
 	catch (std::out_of_range& e) {
-		std::cerr << "¿À·ù¹ß»ý" << e.what();
+		std::cerr << "ï¿½ï¿½ï¿½ï¿½ï¿½ß»ï¿½" << e.what();
 	}
 	return 0;
 }
 */
 
 /*
-// 2562¹ø ¹®Á¦
+// 2562ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include <iostream>
 #include <algorithm>
@@ -39,7 +39,7 @@ int main() {
 			std::cin >> input;
 
 			if (input < 1 || input > 100)
-				throw std::out_of_range("InputÀÌ ¹üÀ§¸¦ ¹þ¾î³²");
+				throw std::out_of_range("Inputï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³²");
 
 			max = std::max(max, input);
 
@@ -50,7 +50,7 @@ int main() {
 		std::cout << max << "\n" << index;
 	}
 	catch (std::out_of_range& e) {
-		std::cerr << "¿À·ù ¹ß»ý : " << e.what();
+		std::cerr << "ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ : " << e.what();
 	}
 
 	return 0;
@@ -58,7 +58,7 @@ int main() {
 */
 
 /*
-// 2577¹ø ¹®Á¦
+// 2577ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 #include <iostream>
 #include <string>
 
@@ -68,11 +68,11 @@ int main() {
 	try {
 		std::cin >> A >> B >> C;
 		if (A < 100 || A > 1000)
-			throw std::out_of_range("A°¡ ¹üÀ§¸¦ ¹þ¾î³²");
+			throw std::out_of_range("Aï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³²");
 		if (B < 100 || B > 1000)
-			throw std::out_of_range("B°¡ ¹üÀ§¸¦ ¹þ¾î³²");
+			throw std::out_of_range("Bï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³²");
 		if (C < 100 || C > 1000)
-			throw std::out_of_range("C°¡ ¹üÀ§¸¦ ¹þ¾î³²");
+			throw std::out_of_range("Cï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³²");
 
 		result = A * B * C;
 		std::string s_num = std::to_string(result);
@@ -96,7 +96,7 @@ int main() {
 			std::cout << num[i] << "\n";
 	}
 	catch (std::out_of_range& e) {
-		std::cerr << "¿À·ù ¹ß»ý : " << e.what();
+		std::cerr << "ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ : " << e.what();
 	}
 	return 0;
 }
@@ -153,7 +153,7 @@ int main() {
 */
 
 /*
-// 3052¹ø ¹®Á¦
+// 3052ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 #include <iostream>
 
 int main() {
@@ -173,14 +173,14 @@ int main() {
 		std::cout << result;
 	}
 	catch (std::out_of_range& e) {
-		std::cerr << "¿À·ù ¹ß»ý : " << e.what();
+		std::cerr << "ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ : " << e.what();
 	}
 	return 0;
 }
 */
 
 /*
-* // 1546¹ø ¹®Á¦
+* // 1546ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 #include <iostream>
 #include <algorithm>
 
@@ -195,18 +195,18 @@ int main() {
 	try {
 		std::cin >> N;
 		if (N < 0 || N > 100)
-			throw std::out_of_range("°ú¸ñÀÇ °³¼ö 'N'ÀÌ ¹üÀ§¸¦ ¹þ¾î³²");
+			throw std::out_of_range("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 'N'ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³²");
 
 		for (int i = 0; i < N; i++) {
 			std::cin >> score[i];
 			if (score[i] < 0 || score[i] > 100)
-				throw std::out_of_range("Á¡¼ö°¡ À½¼ö°Å³ª 100À» ÃÊ°úÇÔ");
+				throw std::out_of_range("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Å³ï¿½ 100ï¿½ï¿½ ï¿½Ê°ï¿½ï¿½ï¿½");
 			if (score[i] == 0)
 				count++;
 		}
 
 		if (count == N)
-			throw std::out_of_range("¸ðµç Á¡¼ö°¡ 0ÀÌ´Ù.");
+			throw std::out_of_range("ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0ï¿½Ì´ï¿½.");
 
 		std::sort(score, score + N);
 
@@ -216,7 +216,7 @@ int main() {
 		std::cout << average / N;
 	}
 	catch (std::out_of_range& e) {
-		std::cerr << "¿À·ù ¹ß»ý : " << e.what();
+		std::cerr << "ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ : " << e.what();
 	}
 	return 0;
 }
@@ -251,7 +251,7 @@ int main() {
 */
 
 /*
-// 8958¹ø ¹®Á¦
+// 8958ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 #include <iostream>
 #include <string>
 
@@ -281,7 +281,8 @@ int main() {
 }
 */
 
-// 4344¹ø ¹®Á¦
+/*
+// 4344ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include <iostream>
 
@@ -292,12 +293,12 @@ int main() {
 	try {
 		std::cin >> C;
 		if (C < 1)
-			throw std::out_of_range("Å×½ºÆ® ÄÉÀÌ½ºÀÇ °³¼ö 'C'°¡ ¹üÀ§¸¦ ¹þ¾î³²");
+			throw std::out_of_range("ï¿½×½ï¿½Æ® ï¿½ï¿½ï¿½Ì½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 'C'ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³²");
 		
 		for (int i = 0; i < C; i++) {
 			std::cin >> N;
 			if (N < 1 || N > 1000)
-				throw std::out_of_range("ÇÐ»ý ¼ö 'N'ÀÌ ¹üÀ§¸¦ ¹þ¾î³²");
+				throw std::out_of_range("ï¿½Ð»ï¿½ ï¿½ï¿½ 'N'ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³²");
 			for (int j = 0; j < N; j++) {
 				std::cin >> score[j];
 				sum += score[j];
@@ -319,7 +320,8 @@ int main() {
 		}
 	}
 	catch (std::out_of_range& e) {
-		std::cerr << "¿À·ù ¹ß»ý : " << e.what();
+		std::cerr << "ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ : " << e.what();
 	}
 	return 0;
 }
+*/

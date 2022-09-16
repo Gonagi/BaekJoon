@@ -1,5 +1,5 @@
 /*
-// 2750, 2751¹ø ¹®Á¦
+// 2750, 2751ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include <iostream>
 #include <vector>
@@ -25,7 +25,7 @@ int main() {
 */
 
 /*
-// 10989¹ø ¹®Á¦
+// 10989ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include<iostream>
 using namespace std;
@@ -51,7 +51,7 @@ int main() {
 */
 
 /*
-// 25305¹ø ¹®Á¦
+// 25305ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include <iostream>
 #include <vector>
@@ -76,7 +76,7 @@ int main() {
 */
 
 /*
-// 2018¹ø ¹®Á¦
+// 2018ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include <iostream>
 #include <vector>
@@ -146,7 +146,7 @@ int main() {
 */
 
 /*
-// 1427¹ø ¹®Á¦
+// 1427ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 #include <iostream>
 #include <string>
 #include <algorithm>
@@ -166,7 +166,7 @@ int main() {
 */
 
 /*
-// 11650¹ø ¹®Á¦
+// 11650ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include <iostream>
 #include <algorithm>
@@ -194,7 +194,7 @@ int main() {
 */
 
 /*
-// 11651¹ø ¹®Á¦
+// 11651ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 #include <iostream>
 #include <algorithm>
 #include <vector>
@@ -228,7 +228,7 @@ int main() {
 */
 
 /*
-// 1181¹ø ¹®Á¦
+// 1181ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include <iostream>
 #include <vector>
@@ -266,7 +266,7 @@ int main() {
 */
 
 /*
-// 10814¹ø ¹®Á¦
+// 10814ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include <iostream>
 #include <vector>
@@ -302,7 +302,8 @@ bool compare(std::tuple<int, int, std::string> a, std::tuple<int, int, std::stri
 }
 */
 
-// 18870¹ø ¹®Á¦
+/*
+// 18870ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include <iostream>
 #include <vector>
@@ -333,3 +334,4 @@ int main() {
 
 	return 0;
 }
+*/

@@ -1,5 +1,5 @@
 /*
-// 1712¹ø ¹®Á¦
+// 1712ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include <iostream>
 
@@ -19,7 +19,7 @@ int main() {
 */
 
 /*
-// 2292¹ø ¹®Á¦
+// 2292ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include <iostream>
 
@@ -38,7 +38,7 @@ int main() {
 */
 
 /*
-// 1193¹ø ¹®Á¦
+// 1193ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include <iostream>
 
@@ -69,7 +69,7 @@ int main() {
 */
 
 /*
-// 2869¹ø ¹®Á¦
+// 2869ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include <iostream>
 
@@ -90,7 +90,7 @@ int main() {
 */
 
 /*
-// 10250¹ø ¹®Á¦
+// 10250ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include <iostream>
 
@@ -114,7 +114,7 @@ int main() {
 */
 
 /*
-// 2775¹ø ¹®Á¦
+// 2775ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include <iostream>
 #define Max 100
@@ -162,7 +162,7 @@ int main(){
 */
 
 /*
-// 2839¹ø ¹®Á¦
+// 2839ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include <iostream>
 
@@ -172,7 +172,7 @@ int main() {
 	try {
 		std::cin >> N;
 		if (N < 3 || N > 100) {
-			throw std::out_of_range("'N'ÀÌ ¹üÀ§¸¦ ¹þ¾î³µ½À´Ï´Ù.");
+			throw std::out_of_range("'N'ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³µï¿½ï¿½ï¿½Ï´ï¿½.");
 		}
 
 		for (int a = 0; a < N / 3; a++) {
@@ -194,7 +194,7 @@ int main() {
 
 	}
 	catch (std::out_of_range& exception) {
-		std::cerr << "¿À·ù ¹ß»ý : " << exception.what();
+		std::cerr << "ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ : " << exception.what();
 	}
 
 	return 0;
@@ -223,8 +223,8 @@ int main() {
 */
 
 
-
-// 10757¹ø ¹®Á¦
+/*
+// 10757ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 #include <iostream>
 #include <vector>
 #include <string>
@@ -274,3 +274,4 @@ int main() {
 		std::cout << result.at(i);
 	return 0;
 }
+*/

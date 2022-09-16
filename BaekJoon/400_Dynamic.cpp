@@ -1,5 +1,5 @@
 /*
-// 1463¹ø ¹®Á¦
+// 1463ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include <iostream>
 #include <vector>
@@ -32,7 +32,7 @@ int main() {
 */
 
 /*
-// 11726¹ø ¹®Á¦
+// 11726ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include <iostream>
 #include <vector>
@@ -55,7 +55,7 @@ int main() {
 */
 
 /*
-// 11727¹ø ¹®Á¦
+// 11727ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include <iostream>
 #include <vector>
@@ -77,7 +77,7 @@ int main() {
 */
 
 /*
-// 9095¹ø ¹®Á¦
+// 9095ë²ˆ ë¬¸ì œ 
 
 #include <iostream>
 #include <vector>
@@ -103,7 +103,8 @@ int main() {
 }
 */
 
-// 11052¹ø ¹®Á¦
+/*
+// 11052ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include <iostream>
 #include <vector>
@@ -129,4 +130,32 @@ int main() {
 	}
 
 	return 0;
+}
+*/
+
+// 10052ë²ˆ ë¬¸ì œ
+
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+const int MAX = 1001;
+int dp[MAX];
+int cards[MAX];
+
+int main(){
+    int n;
+    cin >> n;
+    
+    for(int i=1;i<=n;i++)
+        cin >> cards[i];
+    
+    for(int i=1;i<=n;i++)
+        for(int j=1;j<=i;j++)
+            dp[i] = max(dp[i], dp[i-j] + cards[j]);
+    
+    cout << dp[n] << endl;
+    
+    return 0;
 }

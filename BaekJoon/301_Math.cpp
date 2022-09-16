@@ -1,5 +1,5 @@
 /*
-// 9613¹ø ¹®Á¦
+// 9613ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include <iostream>
 #include <vector>
@@ -40,7 +40,7 @@ long long GCD(long long num1, long long num2) {
 */
 
 /*
-// 17087¹ø ¹®Á¦
+// 17087ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include <iostream>
 #include <vector>
@@ -75,7 +75,7 @@ long long GCD(long long num1, long long num2) {
 */
 
 
-// 1373¹ø ¹®Á¦
+// 1373ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 /*
 #include <iostream>
@@ -140,7 +140,7 @@ int main() {
 */
 
 /*
-// 1212¹ø ¹®Á¦
+// 1212ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 #include <iostream>
 #include <string>
 #include <stack>
@@ -243,7 +243,7 @@ int main() {
 */
 
 /*
-// 2089¹ø ¹®Á¦
+// 2089ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include <iostream>
 #include <string>
@@ -279,7 +279,8 @@ int main() {
 }
 */
 
-// 17103¹ø ¹®Á¦
+/*
+// 17103ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include <iostream>
 
@@ -317,3 +318,4 @@ int main() {
 	}
 	return 0;
 }
+*/

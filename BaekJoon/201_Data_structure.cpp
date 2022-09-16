@@ -1,5 +1,5 @@
 /*
-// 17413¹ø ¹®Á¦
+// 17413ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 #include <iostream>
 #include <string>
 #include <stack>
@@ -48,7 +48,7 @@ int main() {
 */
 
 /*
-// 10799¹ø ¹®Á¦
+// 10799ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include <iostream>
 #include <stack>
@@ -88,7 +88,7 @@ int main() {
 }
 */
 
-// ¸Þ¸ð¸® ´©¼ö °øºÎ
+// ï¿½Þ¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 /*
 #include <iostream>
 #include <stdlib.h>
@@ -124,7 +124,7 @@ public:
 		check = 0;
 	}
 	~STACK() {
-		std::cout << "¼Ò¸êÀÚ ÀÛµ¿" << "\n";
+		std::cout << "ï¿½Ò¸ï¿½ï¿½ï¿½ ï¿½Ûµï¿½" << "\n";
 		delete stack;
 	}
 	Node* create_node();
@@ -236,7 +236,7 @@ void pDelete(int* p) {
 }
 
 int main() {
-		// _CrtSetBreakAlloc(78);	¸Þ¸ð¸® ´©¼ö ÀÏ¾î³­°÷À¸·Î ÀÌµ¿
+		// _CrtSetBreakAlloc(78);	ï¿½Þ¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ï¾î³­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
 	//_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
 	auto ptr = aNew();
@@ -248,7 +248,7 @@ int main() {
 */
 
 /*
-// 17298¹ø ¹®Á¦
+// 17298ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include <iostream>
 #include <stack>
@@ -288,7 +288,8 @@ int main() {
 }
 */
 
-// 17299¹ø ¹®Á¦
+/*
+// 17299ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include <iostream>
 #include <stack>
@@ -323,3 +324,4 @@ int main() {
 
 	return 0;
 }
+*/

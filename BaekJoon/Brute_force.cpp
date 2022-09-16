@@ -1,5 +1,5 @@
 /*
-// 2798¹ø ¹®Á¦
+// 2798ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include <iostream>
 #include <algorithm>
@@ -40,7 +40,7 @@ int main() {
 */
 
 /*
-// 2231¹ø ¹®Á¦
+// 2231ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 #include <iostream>
 bool isConstructor(int, int);
 
@@ -75,7 +75,7 @@ bool isConstructor(int num, int N) {
 */
 
 /*
-// 7568¹ø ¹®Á¦
+// 7568ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 #include <iostream>
 #include <vector>
 #include <utility>
@@ -106,7 +106,7 @@ int main() {
 */
 
 /*
-// 1018¹ø ¹®Á¦
+// 1018ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include<iostream>
 #include <algorithm>
@@ -146,8 +146,8 @@ int main() {
 	return 0;
 }
 */
-
-// 1436¹ø ¹®Á¦
+/*
+// 1436ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 #include <iostream>
 
 bool is_num(int);
@@ -185,3 +185,4 @@ bool is_num(int num) {
 	}
 	return false;
 }
+*/

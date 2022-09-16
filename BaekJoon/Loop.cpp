@@ -1,5 +1,5 @@
 /*
-// 2739¹ø ¹®Á¦
+// 2739ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include <iostream>
 
@@ -11,12 +11,12 @@ int main() {
 	try {
 		std::cin >> N;
 		if (N < 1 || N > 9)
-			throw std::out_of_range("¹üÀ§ ¹þ¾î³²");
+			throw std::out_of_range("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³²");
 
 		Multiplication_table(N);
 	}
 	catch (std::out_of_range& e) {
-		std::cout << "¿À·ù ¹ß»ý : " << e.what();
+		std::cout << "ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ : " << e.what();
 	}
 	return 0;
 }
@@ -28,7 +28,7 @@ void Multiplication_table(int N) {
 */
 
 /*
-// 10950¹ø ¹®Á¦
+// 10950ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include <iostream>
 
@@ -40,9 +40,9 @@ int main() {
 		for (int i = 0; i < T; i++) {
 			std::cin >> A >> B;
 			if (A <= 0)
-				throw(std::out_of_range("¹üÀ§ ¹þ¾î³²"));
+				throw(std::out_of_range("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³²"));
 			if (B >= 10)
-				throw(std::out_of_range("¹üÀ§ ¹þ¾î³²"));
+				throw(std::out_of_range("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³²"));
 			result[i] = A + B;
 		}
 
@@ -50,14 +50,14 @@ int main() {
 			std::cout << result[i] << std::endl;
 	}
 	catch (std::out_of_range& e) {
-		std::cout << "¿À·ù ¹ß»ý : " << e.what();
+		std::cout << "ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ : " << e.what();
 	}
 	return 0;
 }
 */
 
 /*
-// 8393¹ø ¹®Á¦
+// 8393ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 #include <iostream>
 
 int main() {
@@ -66,19 +66,20 @@ int main() {
 	try {
 		std::cin >> n;
 		if (n < 1 || n > 10000)
-			throw std::out_of_range("nÀÌ ¹üÀ§¸¦ ¹þ¾î³²");
+			throw std::out_of_range("nï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³²");
 		for (int i = 1; i <= n; i++)
 			sum += i;
 		std::cout << 6;
 	}
 	catch (std::out_of_range& e) {
-		std::cerr << "¿À·ù ¹ß»ý : " << e.what();
+		std::cerr << "ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ : " << e.what();
 	}
 	return 0;
 }
 */
 
-// 25304¹ø ¹®Á¦
+/*
+// 25304ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 #include <iostream>
 
 int main() {
@@ -99,55 +100,56 @@ int main() {
 
 	return 0;
 }
+*/
 /*
-// 15552¹ø ¹®Á¦
+// 15552ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include <iostream>
 
 int main() {
 	int T, A, B;
 
-	std::ios_base::sync_with_stdio(false);	// C, C++ µ¿±âÈ­ ÇØÁ¦
-	std::cin.tie(NULL);	// ÀÔ·Â°ú Ãâ·ÂÀ» ºÐ¸®
+	std::ios_base::sync_with_stdio(false);	// C, C++ ï¿½ï¿½ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½
+	std::cin.tie(NULL);	// ï¿½Ô·Â°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð¸ï¿½
 
 	try {
 		std::cin >> T;
 		if (T > 1000000)
-			throw(std::out_of_range("¹üÀ§ ¹þ¾î³²"));
+			throw(std::out_of_range("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³²"));
 
 		for (int i = 0; i < T; i++) {
 			std::cin >> A >> B;
-			if (A < 1 || A > 1000) throw(std::out_of_range("¹üÀ§ ¹þ¾î³²"));
-			if (B < 1 || B > 1000) throw(std::out_of_range("¹üÀ§ ¹þ¾î³²"));
+			if (A < 1 || A > 1000) throw(std::out_of_range("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³²"));
+			if (B < 1 || B > 1000) throw(std::out_of_range("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³²"));
 			std::cout << A + B << "\n";
 		}
 	}
 	catch (std::out_of_range& e) {
-		std::cout << "¿À·ù ¹ß»ý : " << e.what();
+		std::cout << "ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ : " << e.what();
 	}
 	return 0;
 }
 */
 
 /*
-// 2741¹ø ¹®Á¦
+// 2741ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include <iostream>
 
 int main() {
 	int N;
-	std::ios_base::sync_with_stdio(false);	// C, C++ µ¿±âÈ­ ÇØÁ¦
-	std::cin.tie(NULL);	// ÀÔ·Â°ú Ãâ·ÂÀ» ºÐ¸®
+	std::ios_base::sync_with_stdio(false);	// C, C++ ï¿½ï¿½ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½
+	std::cin.tie(NULL);	// ï¿½Ô·Â°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð¸ï¿½
 
 	try {
 		std::cin >> N;
 		if (N < 1 || N > 1000000)
-			throw std::out_of_range("¹üÀ§ ¹þ¾î³²");
+			throw std::out_of_range("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³²");
 		for (int i = 1; i <= N; i++)
 			std::cout << i << "\n";
 	}
 	catch (std::out_of_range& e) {
-		std::cout << "¿À·ù ¹ß»ý : " << e.what();
+		std::cout << "ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ : " << e.what();
 	}
 
 	return 0;
@@ -155,7 +157,7 @@ int main() {
 */
 
 /*
-// 2742¹ø ¹®Á¦
+// 2742ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 #include <iostream>
 
 int main() {
@@ -166,12 +168,12 @@ int main() {
 	try {
 		std::cin >> N;
 		if (N < 1 || N > 1000000)
-			throw std::out_of_range("¹üÀ§ ¹þ¾î³²");
+			throw std::out_of_range("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³²");
 		for (int i = N; i >= 1; i--)
 			std::cout << i << "\n";
 	}
 	catch (std::out_of_range& e) {
-		std::cout << "¿À·ù ¹ß»ý : " << e.what();
+		std::cout << "ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ : " << e.what();
 	}
 
 	return 0;
@@ -179,65 +181,65 @@ int main() {
 */
 
 /*
-// 11021¹ø ¹®Á¦ 
+// 11021ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 
 #include <iostream>
 
 int main() {
 	int T, A, B;
 
-	std::ios_base::sync_with_stdio(false);	// C, C++ µ¿±âÈ­ ÇØÁ¦
-	std::cin.tie(NULL);	// ÀÔ·Â°ú Ãâ·ÂÀ» ºÐ¸®
+	std::ios_base::sync_with_stdio(false);	// C, C++ ï¿½ï¿½ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½
+	std::cin.tie(NULL);	// ï¿½Ô·Â°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð¸ï¿½
 
 	try {
 		std::cin >> T;
 		if (T > 1000000)
-			throw(std::out_of_range("¹üÀ§ ¹þ¾î³²"));
+			throw(std::out_of_range("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³²"));
 
 		for (int i = 0; i < T; i++) {
 			std::cin >> A >> B;
-			if (A < 1 || A > 1000) throw(std::out_of_range("¹üÀ§ ¹þ¾î³²"));
-			if (B < 1 || B > 1000) throw(std::out_of_range("¹üÀ§ ¹þ¾î³²"));
+			if (A < 1 || A > 1000) throw(std::out_of_range("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³²"));
+			if (B < 1 || B > 1000) throw(std::out_of_range("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³²"));
 			std::cout << "Case #" << i + 1 << ": " << A + B << "\n";
 		}
 	}
 	catch (std::out_of_range& e) {
-		std::cout << "¿À·ù ¹ß»ý : " << e.what();
+		std::cout << "ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ : " << e.what();
 	}
 	return 0;
 }
 */
 
-// 11022¹ø ¹®Á¦
+// 11022ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 /*
 #include <iostream>
 
 int main() {
 	int T, A, B;
 
-	std::ios_base::sync_with_stdio(false);	// C, C++ µ¿±âÈ­ ÇØÁ¦
-	std::cin.tie(NULL);	// ÀÔ·Â°ú Ãâ·ÂÀ» ºÐ¸®
+	std::ios_base::sync_with_stdio(false);	// C, C++ ï¿½ï¿½ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½
+	std::cin.tie(NULL);	// ï¿½Ô·Â°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð¸ï¿½
 
 	try {
 		std::cin >> T;
 		if (T > 1000000)
-			throw(std::out_of_range("¹üÀ§ ¹þ¾î³²"));
+			throw(std::out_of_range("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³²"));
 
 		for (int i = 0; i < T; i++) {
 			std::cin >> A >> B;
-			if (A < 1 || A > 1000) throw(std::out_of_range("¹üÀ§ ¹þ¾î³²"));
-			if (B < 1 || B > 1000) throw(std::out_of_range("¹üÀ§ ¹þ¾î³²"));
+			if (A < 1 || A > 1000) throw(std::out_of_range("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³²"));
+			if (B < 1 || B > 1000) throw(std::out_of_range("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³²"));
 			std::cout << "Case #" << i + 1 << ": " << A << " + " << B << " = " << A + B << "\n";
 		}
 	}
 	catch (std::out_of_range& e) {
-		std::cout << "¿À·ù ¹ß»ý : " << e.what();
+		std::cout << "ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ : " << e.what();
 	}
 	return 0;
 }
 */
 
 /*
-// 2438¹ø ¹®Á¦
+// 2438ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 #include <iostream>
 
 int main() {
@@ -246,7 +248,7 @@ int main() {
 	try {
 		std::cin >> N;
 		if (N < 1 || N > 100)
-			throw std::out_of_range("¹üÀ§ ¹þ¾î³²");
+			throw std::out_of_range("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³²");
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j <= i; j++)
 				std::cout << "*";
@@ -254,14 +256,14 @@ int main() {
 		}
 	}
 	catch (std::out_of_range& e) {
-		std::cout << "¿À·ù ¹ß»ý : " << e.what();
+		std::cout << "ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ : " << e.what();
 	}
 	return 0;
 }
 */
 
 /*
-// 2439¹ø ¹®Á¦
+// 2439ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 #include <iostream>
 
 int main() {
@@ -270,7 +272,7 @@ int main() {
 	try {
 		std::cin >> N;
 		if (N < 1 || N > 100)
-			throw std::out_of_range("¹üÀ§ ¹þ¾î³²");
+			throw std::out_of_range("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³²");
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) {
 				if (j < N - i - 1)
@@ -282,14 +284,14 @@ int main() {
 		}
 	}
 	catch (std::out_of_range& e) {
-		std::cout << "¿À·ù ¹ß»ý : " << e.what();
+		std::cout << "ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ : " << e.what();
 	}
 	return 0;
 }
 */
 
 /*
-// 10871¹ø ¹®Á¦
+// 10871ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include <iostream>
 
@@ -299,9 +301,9 @@ int main() {
 	try {
 		std::cin >> N >> X;
 		if (N < 1)
-			throw std::out_of_range("NÀÌ ÀÔ·Â¹üÀ§¸¦ ¹þ¾î³²");
+			throw std::out_of_range("Nï¿½ï¿½ ï¿½Ô·Â¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³²");
 		if(X > 10000)
-			throw std::out_of_range("X°¡ ÀÔ·Â¹üÀ§¸¦ ¹þ¾î³²");
+			throw std::out_of_range("Xï¿½ï¿½ ï¿½Ô·Â¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³²");
 
 		for (int i = 0; i < N; i++)
 			std::cin >> A[i];
@@ -311,14 +313,14 @@ int main() {
 				std::cout << A[i] << " ";
 	}
 	catch (std::out_of_range& e) {
-		std::cerr << "¿À·ù ¹ß»ý : " << e.what();
+		std::cerr << "ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ : " << e.what();
 	}
 	return 0;
 }
 */
 
 /*
-// 10952¹ø ¹®Á¦
+// 10952ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include <iostream>
 
@@ -331,15 +333,15 @@ int main() {
 			if (A == 0 && B == 0)
 				break;
 			if (A <= 0)
-				throw std::out_of_range("A°¡ ¹üÀ§ ¹þ¾î³²");
+				throw std::out_of_range("Aï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³²");
 			if (B >= 10)
-				throw std::out_of_range("B°¡ ¹üÀ§ ¹þ¾î³²");
+				throw std::out_of_range("Bï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³²");
 
 			std::cout << A + B << "\n";
 		}
 	}
 	catch (std::out_of_range& e) {
-		std::cerr << "¿À·ù ¹ß»ý : " << e.what();
+		std::cerr << "ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ : " << e.what();
 	}
 	
 	return 0;
@@ -347,7 +349,7 @@ int main() {
 */
 
 /*
-// 10951¹ø ¹®Á¦
+// 10951ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include <iostream>
 
@@ -357,22 +359,22 @@ int main() {
 	try {
 		while (!(std::cin>>A>>B).eof()) {
 			if (A <= 0)
-				throw std::out_of_range("A°¡ ¹üÀ§ ¹þ¾î³²");
+				throw std::out_of_range("Aï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³²");
 			if (B >= 10)
-				throw std::out_of_range("B°¡ ¹üÀ§ ¹þ¾î³²");
+				throw std::out_of_range("Bï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³²");
 
 			std::cout << A + B << "\n";
 		}
 	}
 	catch (std::out_of_range& e) {
-		std::cerr << "¿À·ù ¹ß»ý : " << e.what();
+		std::cerr << "ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ : " << e.what();
 	}
 	return 0;
 }
 */
 
 /*
-// 1110¹ø ¹®Á¦
+// 1110ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include<iostream>
 
@@ -384,12 +386,12 @@ int main() {
 	try {
 		std::cin >> num;
 		if (num < 0 || num > 99)
-			throw std::out_of_range("numÀÌ ¹üÀ§¸¦ ¹þ¾î³²");
+			throw std::out_of_range("numï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³²");
 
 		std::cout << Calculation(num);
 	}
 	catch (std::out_of_range& e) {
-		std::cerr << "¿À·ù ¹ß»ý : " << e.what();
+		std::cerr << "ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ : " << e.what();
 	}
 	return 0;
 }

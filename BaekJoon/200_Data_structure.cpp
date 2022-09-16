@@ -1,5 +1,5 @@
 /*
-// 10828¹ø ¹®Á¦
+// 10828ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 #include <iostream>
 #include <stdlib.h>
 
@@ -118,7 +118,7 @@ int main() {
 */
 
 /*
-// 9093¹ø ¹®Á¦
+// 9093ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 #include <iostream>
 #include <sstream>
 
@@ -146,7 +146,7 @@ int main() {
 */
 
 /*
-// 9012¹ø ¹®Á¦
+// 9012ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include <iostream>
 #include <stack>
@@ -186,7 +186,7 @@ int main() {
 */
 
 /*
-// 1874¹ø ¹®Á¦
+// 1874ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include <iostream>
 #include <stack>
@@ -224,7 +224,7 @@ int main() {
 */
 
 /*
-// 1406¹ø ¹®Á¦
+// 1406ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include <iostream>
 #include <stack>
@@ -284,7 +284,7 @@ int main() {
 */
 
 /*
-// 10845¹ø ¹®Á¦
+// 10845ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include <iostream>
 
@@ -438,7 +438,7 @@ int main() {
 */
 
 /*
-// 1158¹ø ¹®Á¦
+// 1158ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include <iostream>
 #include <queue>
@@ -471,7 +471,8 @@ int main() {
 }
 */
 
-// 10866¹ø ¹®Á¦
+/*
+// 10866ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 #include <iostream>
 
@@ -657,3 +658,4 @@ int main() {
 	}
 	return 0;
 }
+*/
