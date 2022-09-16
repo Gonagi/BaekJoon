@@ -156,6 +156,5 @@ int main(){
             dp[i] = max(dp[i], dp[i-j] + cards[j]);
     
     cout << dp[n] << endl;
-    
     return 0;
 }
