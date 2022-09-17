@@ -133,28 +133,97 @@ int main() {
 }
 */
 
+/*
 // 10052번 문제
+#include <iostream>
+#include <algorithm>
+#include <vector>
+
+int main(){
+	int N, num;
+	std::vector<int> vec, dp(1001);
+	std::cin >> N;
+
+	for(int i = 1; i <= N; i++){
+		std::cin >> num;
+		vec.push_back(num);
+	}
+
+	for(int i = 1; i <= N; i++)
+		for(int j = 1; j <= i; j++)
+			dp.at(i) = std::max(dp.at(i), dp.at(j-1) + vec.at(i-j));
+	
+	std::cout << dp.at(N);
+	return 0;
+}
+*/
+
+/*
+// 16194번 문제
 
 #include <iostream>
 #include <algorithm>
-
-using namespace std;
-
-const int MAX = 1001;
-int dp[MAX];
-int cards[MAX];
+#include <vector>
 
 int main(){
-    int n;
-    cin >> n;
-    
-    for(int i=1;i<=n;i++)
-        cin >> cards[i];
-    
-    for(int i=1;i<=n;i++)
-        for(int j=1;j<=i;j++)
-            dp[i] = max(dp[i], dp[i-j] + cards[j]);
-    
-    cout << dp[n] << endl;
-    return 0;
+	long long N, num, max = 0;
+	std::vector<long long> dp, card;
+
+	std::cin >> N;
+	dp.push_back(0);
+
+	for(int i = 1; i <= N; i++){
+		std::cin >> num;
+		card.push_back(num);
+		max += 10001;
+		dp.push_back(num);
+	}
+
+	for(int i = 1; i <= N; i++)
+		for(int j = i; j >= 1; j--)
+		dp.at(i) = std::min(dp.at(i), (dp.at(i-j) + card.at(j-1)));
+
+	std::cout << dp.at(N)<<"\n";
+
+	return 0;
+}
+*/
+
+// 15990번 문제
+
+
+#include <iostream>
+#include <vector>
+
+int main(){
+	long long T, n, result;
+	std::vector<long long> D[3];
+
+	D[0].push_back(1);
+	D[0].push_back(0);
+	D[0].push_back(1);
+
+	D[1].push_back(0);
+	D[1].push_back(1);
+	D[1].push_back(1);
+
+	D[2].push_back(0);
+	D[2].push_back(0);
+	D[2].push_back(1);
+	
+	std::cin >> T;
+
+	for(int i = 0; i < T; i++){
+		std::cin >> n;
+
+		if(D->size()/3 < n)
+			for(int j = 4; j <= n; j++){
+				D[0].push_back(D[1].at(j-2) + D[2].at(j-2));
+				D[1].push_back(D[0].at(j-3) + D[2].at(j-3));
+				D[2].push_back(D[0].at(j-4) + D[1].at(j-4));
+			}
+
+		std::cout << D[0].at(n-1) + D[1].at(n-1) + D[2].at(n-1)<<"\n";
+	}
+	return 0;
 }
