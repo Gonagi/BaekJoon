@@ -216,14 +216,12 @@ int main(){
 	for(int i = 0; i < T; i++){
 		std::cin >> n;
 
-		if(D->size()/3 < n)
-			for(int j = 4; j <= n; j++){
-				D[0].push_back(D[1].at(j-2) + D[2].at(j-2));
-				D[1].push_back(D[0].at(j-3) + D[2].at(j-3));
-				D[2].push_back(D[0].at(j-4) + D[1].at(j-4));
-			}
-
-		std::cout << D[0].at(n-1) + D[1].at(n-1) + D[2].at(n-1)<<"\n";
+		for(int j = D->size(); j < n; j++){
+			D[0].push_back(D[1].at(j-1) + D[2].at(j-1));
+			D[1].push_back(D[0].at(j-2) + D[2].at(j-2));
+			D[2].push_back(D[0].at(j-3) + D[1].at(j-3));
+		}
+		std::cout << (D[0].at(n-1) + D[1].at(n-1) + D[2].at(n-1))%1000000009 <<"\n";
 	}
 	return 0;
 }
