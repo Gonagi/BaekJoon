@@ -189,8 +189,8 @@ int main(){
 }
 */
 
+/*
 // 15990번 문제
-
 
 #include <iostream>
 #include <vector>
@@ -217,11 +217,151 @@ int main(){
 		std::cin >> n;
 
 		for(int j = D->size(); j < n; j++){
-			D[0].push_back(D[1].at(j-1) + D[2].at(j-1));
-			D[1].push_back(D[0].at(j-2) + D[2].at(j-2));
-			D[2].push_back(D[0].at(j-3) + D[1].at(j-3));
+			D[0].push_back((D[1].at(j-1) + D[2].at(j-1))%1000000009);
+			D[1].push_back((D[0].at(j-2) + D[2].at(j-2))%1000000009);
+			D[2].push_back((D[0].at(j-3) + D[1].at(j-3))%1000000009);
 		}
 		std::cout << (D[0].at(n-1) + D[1].at(n-1) + D[2].at(n-1))%1000000009 <<"\n";
 	}
+	return 0;
+}
+*/
+
+/*
+// 10844번 문제
+
+#include <iostream>
+#include <vector>
+
+int main(){
+	int N;
+	long long result = 0;
+	std::vector<long long> DP[10];
+	
+	DP[0].push_back(0);
+	for(int i = 1; i <= 9; i++)
+		DP[i].push_back(1);
+
+	std::cin >> N;
+
+	for(int i = 1; i < N; i++){
+		for(int j = 0; j < 10; j++){
+			if(j == 0)
+				DP[j].push_back(DP[j+1].at(i-1) % 1000000000);
+			else if(j == 9)
+				DP[j].push_back(DP[j-1].at(i-1) % 1000000000);
+			else
+				DP[j].push_back(DP[j-1].at(i-1)% 1000000000 + DP[j+1].at(i-1) % 1000000000);
+		}
+		int n = i;
+	}
+
+	for(int i = 0; i < 10; i++)
+		result += DP[i].at(N-1);
+	
+	std::cout << result% 1000000000;
+
+	return 0;
+}
+*/
+
+/*
+// 2193번 문제
+
+#include <iostream>
+#include <vector>
+
+int main(){
+	int N;
+	std::vector<long long> DP[2];
+
+	DP[0].push_back(0);
+	DP[1].push_back(1);
+	DP[0].push_back(1);
+	DP[1].push_back(0);
+
+	std::cin >> N;
+
+	for(int i = 2; i < N; i++){
+		DP[0].push_back(DP[0].at(i-1) + DP[0].at(i-2));
+		DP[1].push_back(DP[1].at(i-1) + DP[1].at(i-2));
+	}
+
+	std::cout << DP[0].at(N-1) + DP[1].at(N-1)<<"\n";	
+	return 0;
+}
+*/
+
+/*
+// 11053번 문제
+
+#include <iostream>
+#include <vector>
+#include <iostream>
+
+int main(){
+	int N, num;
+	std::vector<int> vec;
+	std::cin >> N;
+	std::vector<int> DP(N, 1);
+	
+	for(int i = 0; i < N; i++){
+		std::cin >> num;
+		vec.push_back(num);
+	}
+
+	for(int i = 0; i < N; i++)
+		for(int j = 0; j < i; j++)
+			if(vec.at(i) > vec.at(j))
+				DP.at(i) = std::max(DP.at(j)+1, DP.at(i));
+
+	int result = 0;
+
+	for(int i = 0; i < N; i++)
+		result = std::max(result, DP.at(i));
+
+	std::cout << result;
+
+	return 0;
+}
+*/
+
+// 14002번 문제
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+int main(){
+	int N, num, result = 0, check = 1;
+	std::vector<int> A;
+	std::cin >> N;
+	std::vector<int> DP(N, 1);
+	
+	for(int i = 0; i < N; i++){
+		std::cin >> num;
+		A.push_back(num);
+	}
+	
+	for(int i = 0; i < N; i++)
+		for(int j = 0; j < i; j++){
+			if(A.at(i) > A.at(j))
+				DP.at(i) = std::max(DP.at(j) + 1, DP.at(i));
+		}
+
+	for(int i = 0; i < N; i++)
+		result = std::max(result, DP.at(i));
+
+	std::cout << result << "\n";
+
+	for(int i = 0; i < N; i++){
+		if(DP.at(i) == check){
+			std::cout << A.at(i) << " ";
+			check++;
+		}
+		if(check == result+1)
+			break;
+	}
+
 	return 0;
 }
