@@ -326,6 +326,7 @@ int main(){
 }
 */
 
+/*
 // 14002번 문제
 
 #include <iostream>
@@ -333,8 +334,8 @@ int main(){
 #include <algorithm>
 
 int main(){
-	int N, num, result = 0, check = 1;
-	std::vector<int> A;
+	int N, num, max_num = 0;
+	std::vector<int> A, result;
 	std::cin >> N;
 	std::vector<int> DP(N, 1);
 	
@@ -350,18 +351,56 @@ int main(){
 		}
 
 	for(int i = 0; i < N; i++)
-		result = std::max(result, DP.at(i));
+		max_num = std::max(max_num, DP.at(i));
 
-	std::cout << result << "\n";
+	std::cout << max_num << "\n";
 
-	for(int i = 0; i < N; i++){
-		if(DP.at(i) == check){
-			std::cout << A.at(i) << " ";
-			check++;
+	for(int i = N-1; i >= 0; i--){
+		if(DP.at(i) == max_num){
+			result.push_back(A.at(i));
+			max_num--;
 		}
-		if(check == result+1)
-			break;
 	}
+
+	std::sort(result.begin(), result.end());
+
+	for(int i = 0; i< result.size(); i++)
+		std::cout << result.at(i) <<" ";
+
+	return 0;
+}
+*/
+
+// 1912번 문제
+
+#include<iostream>
+#include <vector>
+#include <algorithm>
+
+int main(){
+	int N, num, sum = 0;
+	std::vector<int> result;
+
+	std::cin >> N;
+	for(int i = 0; i < N; i++){
+		std::cin >> num;
+
+		if(sum == 0 || num == 0){
+			sum += num;
+			result.push_back(sum);	
+		}
+
+		else if(sum + num > 0){
+			result.push_back(sum+num);
+			sum += num;
+		}
+		
+		else
+			sum = 0;
+	}
+
+	std::sort(result.rbegin(), result.rend());
+	std::cout << result.at(0);
 
 	return 0;
 }
