@@ -48,7 +48,7 @@ int main() {
 
 	for (int i = 2; i < n; i++)
 		vec.push_back((vec.at(i - 1) + vec.at(i - 2)) % 10007);
-	
+
 	std::cout << vec.at(n - 1);
 	return 0;
 }
@@ -77,7 +77,7 @@ int main() {
 */
 
 /*
-// 9095번 문제 
+// 9095번 문제
 
 #include <iostream>
 #include <vector>
@@ -152,7 +152,7 @@ int main(){
 	for(int i = 1; i <= N; i++)
 		for(int j = 1; j <= i; j++)
 			dp.at(i) = std::max(dp.at(i), dp.at(j-1) + vec.at(i-j));
-	
+
 	std::cout << dp.at(N);
 	return 0;
 }
@@ -210,7 +210,7 @@ int main(){
 	D[2].push_back(0);
 	D[2].push_back(0);
 	D[2].push_back(1);
-	
+
 	std::cin >> T;
 
 	for(int i = 0; i < T; i++){
@@ -237,7 +237,7 @@ int main(){
 	int N;
 	long long result = 0;
 	std::vector<long long> DP[10];
-	
+
 	DP[0].push_back(0);
 	for(int i = 1; i <= 9; i++)
 		DP[i].push_back(1);
@@ -258,7 +258,7 @@ int main(){
 
 	for(int i = 0; i < 10; i++)
 		result += DP[i].at(N-1);
-	
+
 	std::cout << result% 1000000000;
 
 	return 0;
@@ -287,7 +287,7 @@ int main(){
 		DP[1].push_back(DP[1].at(i-1) + DP[1].at(i-2));
 	}
 
-	std::cout << DP[0].at(N-1) + DP[1].at(N-1)<<"\n";	
+	std::cout << DP[0].at(N-1) + DP[1].at(N-1)<<"\n";
 	return 0;
 }
 */
@@ -304,7 +304,7 @@ int main(){
 	std::vector<int> vec;
 	std::cin >> N;
 	std::vector<int> DP(N, 1);
-	
+
 	for(int i = 0; i < N; i++){
 		std::cin >> num;
 		vec.push_back(num);
@@ -338,12 +338,12 @@ int main(){
 	std::vector<int> A, result;
 	std::cin >> N;
 	std::vector<int> DP(N, 1);
-	
+
 	for(int i = 0; i < N; i++){
 		std::cin >> num;
 		A.push_back(num);
 	}
-	
+
 	for(int i = 0; i < N; i++)
 		for(int j = 0; j < i; j++){
 			if(A.at(i) > A.at(j))
@@ -373,30 +373,41 @@ int main(){
 
 // 1912번 문제
 
-#include<iostream>
+#include <iostream>
 #include <vector>
 #include <algorithm>
 
-int main(){
+int main()
+{
 	int N, num, sum = 0;
 	std::vector<int> result;
 
 	std::cin >> N;
-	for(int i = 0; i < N; i++){
+
+	for (int i = 0; i < N; i++)
+	{
 		std::cin >> num;
 
-		if(sum == 0 || num == 0){
-			sum += num;
-			result.push_back(sum);	
+		if (sum == 0)
+		{
+			sum = num;
+			result.push_back(sum);
 		}
 
-		else if(sum + num > 0){
-			result.push_back(sum+num);
-			sum += num;
-		}
-		
 		else
-			sum = 0;
+		{
+			if (sum + num < num)
+			{
+				result.push_back(num);
+				sum = num;
+			}
+
+			else
+			{
+				result.push_back(sum + num);
+				sum += num;
+			}
+		}
 	}
 
 	std::sort(result.rbegin(), result.rend());
