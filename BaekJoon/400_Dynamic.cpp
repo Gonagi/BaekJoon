@@ -371,6 +371,7 @@ int main(){
 }
 */
 
+/*
 // 1912번 문제
 
 #include <iostream>
@@ -412,6 +413,28 @@ int main()
 
 	std::sort(result.rbegin(), result.rend());
 	std::cout << result.at(0);
+
+	return 0;
+}
+*/
+
+// 1699번 문제
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+int main(){
+	int N, count = 1, num;
+	std::cin >> N;
+
+	std::vector<int> DP(N+1, 0);
+
+	for(int i = 1; i < N; i++){
+		DP[i] = i;
+		for(int j = 1; j * j <= i; j++)
+			DP[i] = std::min(DP[i], DP[i-j*j]+1);
+	}
+	std::cout << DP[N];
 
 	return 0;
 }
