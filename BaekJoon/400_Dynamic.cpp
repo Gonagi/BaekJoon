@@ -418,23 +418,52 @@ int main()
 }
 */
 
+/*
 // 1699번 문제
 #include <iostream>
 #include <vector>
 #include <algorithm>
 
 int main(){
-	int N, count = 1, num;
+	int N;
 	std::cin >> N;
 
 	std::vector<int> DP(N+1, 0);
 
-	for(int i = 1; i < N; i++){
+	for(int i = 1; i <= N; i++){
 		DP[i] = i;
 		for(int j = 1; j * j <= i; j++)
 			DP[i] = std::min(DP[i], DP[i-j*j]+1);
 	}
 	std::cout << DP[N];
+
+	return 0;
+}
+*/
+
+// 2225번 문제
+
+#include <iostream>
+#include <vector>
+
+int main(){
+	int N, K;
+	
+	std::cin >> N >> K;
+	std::vector<long long> DP[200];
+
+	for(int i = 0; i <= N; i++)
+		DP[i].push_back(1); 
+
+	for(int j = 2; j <= K; j++)
+		DP[0].push_back(1);
+
+	for(int i = 1; i <= N; i++)
+		for(int j = 1; j <= K; j++)
+			DP[i].push_back((DP[i-1].at(j) + DP[i].at(j-1))%1000000000);
+		
+	std::cout << DP[N][K];
+	
 
 	return 0;
 }
