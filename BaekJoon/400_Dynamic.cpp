@@ -450,20 +450,19 @@ int main(){
 	int N, K;
 	
 	std::cin >> N >> K;
-	std::vector<long long> DP[200];
+	std::vector<long long> DP[201];
 
 	for(int i = 0; i <= N; i++)
 		DP[i].push_back(1); 
 
-	for(int j = 2; j <= K; j++)
+	for(int j = 0; j < K-1; j++)
 		DP[0].push_back(1);
 
 	for(int i = 1; i <= N; i++)
-		for(int j = 1; j <= K; j++)
+		for(int j = 1; j < K; j++)
 			DP[i].push_back((DP[i-1].at(j) + DP[i].at(j-1))%1000000000);
 		
-	std::cout << DP[N][K];
-	
+	std::cout << DP[N][K-1];
 
 	return 0;
 }
