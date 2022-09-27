@@ -38,6 +38,7 @@ int main(){
 }
 */
 
+/*
 // 1149번 문제
 
 #include <iostream>
@@ -68,6 +69,77 @@ int main(){
     }
 
     std::cout << std::min({DP[0].at(N-1), DP[1].at(N-1), DP[2].at(N-1)});
+
+    return 0;
+}
+*/
+
+/*
+// 1309번 문제
+#include <iostream>
+#include <vector>
+
+int main()
+{
+    long long N;
+    std::vector<int> DP[3];
+
+    std::cin >> N;
+
+    DP[0].push_back(1);
+    DP[1].push_back(1);
+    DP[2].push_back(1);
+
+    for (int i = 1; i < N; i++)
+    {
+        DP[0].push_back((DP[0].at(i - 1) + DP[1].at(i - 1) + DP[2].at(i - 1)) % 9901);
+        DP[1].push_back((DP[0].at(i - 1) + DP[2].at(i - 1)) % 9901);
+        DP[2].push_back((DP[0].at(i - 1) + DP[1].at(i - 1)) % 9901);
+    }
+
+    std::cout << (DP[0].at(N - 1) + DP[1].at(N - 1) + DP[2].at(N - 1)) % 9901 << "\n";
+    return 0;
+}
+*/
+
+// 11057번 문제
+
+#include <iostream>
+#include <vector>
+
+int main()
+{
+    int N;
+    std::vector<long long> DP[10];
+
+    DP[0].push_back(1);
+    DP[1].push_back(1);
+    DP[2].push_back(1);
+    DP[3].push_back(1);
+    DP[4].push_back(1);
+    DP[5].push_back(1);
+    DP[6].push_back(1);
+    DP[7].push_back(1);
+    DP[8].push_back(1);
+    DP[9].push_back(1);
+
+    std::cin >> N;
+
+    for (int i = 1; i < N; i++)
+    {
+        DP[0].push_back((DP[0].at(i - 1) + DP[1].at(i - 1) + DP[2].at(i - 1) + DP[3].at(i - 1) + DP[4].at(i - 1) + DP[5].at(i - 1) + DP[6].at(i - 1) + DP[7].at(i - 1) + DP[8].at(i - 1) + DP[9].at(i - 1)) % 10007 );
+        DP[1].push_back((DP[1].at(i - 1) + DP[2].at(i - 1) + DP[3].at(i - 1) + DP[4].at(i - 1) + DP[5].at(i - 1) + DP[6].at(i - 1) + DP[7].at(i - 1) + DP[8].at(i - 1) + DP[9].at(i - 1)) % 10007 );
+        DP[2].push_back((DP[2].at(i - 1) + DP[3].at(i - 1) + DP[4].at(i - 1) + DP[5].at(i - 1) + DP[6].at(i - 1) + DP[7].at(i - 1) + DP[8].at(i - 1) + DP[9].at(i - 1)) % 10007 );
+        DP[3].push_back((DP[3].at(i - 1) + DP[4].at(i - 1) + DP[5].at(i - 1) + DP[6].at(i - 1) + DP[7].at(i - 1) + DP[8].at(i - 1) + DP[9].at(i - 1)) % 10007 );
+        DP[4].push_back((DP[4].at(i - 1) + DP[5].at(i - 1) + DP[6].at(i - 1) + DP[7].at(i - 1) + DP[8].at(i - 1) + DP[9].at(i - 1)) % 10007 );
+        DP[5].push_back((DP[5].at(i - 1) + DP[6].at(i - 1) + DP[7].at(i - 1) + DP[8].at(i - 1) + DP[9].at(i - 1)) % 10007 );
+        DP[6].push_back((DP[6].at(i - 1) + DP[7].at(i - 1) + DP[8].at(i - 1) + DP[9].at(i - 1)) % 10007 );
+        DP[7].push_back((DP[7].at(i - 1) + DP[8].at(i - 1) + DP[9].at(i - 1)) % 10007 );
+        DP[8].push_back((DP[8].at(i - 1) + DP[9].at(i - 1)) % 10007 );
+        DP[9].push_back((DP[9].at(i - 1)) % 10007 );
+    }
+
+    std::cout << (DP[0].at(N - 1) + DP[1].at(N - 1) + DP[2].at(N - 1) + DP[3].at(N - 1) + DP[4].at(N - 1) + DP[5].at(N - 1) + DP[6].at(N - 1) + DP[7].at(N - 1) + DP[8].at(N - 1) + DP[9].at(N - 1)) % 10007 << "\n";
 
     return 0;
 }
