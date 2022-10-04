@@ -211,6 +211,7 @@ int main()
 }
 */
 
+/*
 // 2156번 문제
 
 #include <iostream>
@@ -245,5 +246,169 @@ int main(){
 
     std::cout << dp.at(n-1);
 
+    return 0;
+}
+*/
+
+/*
+// 1932번 문제
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+int main()
+{
+    int n, num;
+    long long max = 0;
+    std::cin >> n;
+
+    std::vector<int> triangle[n];
+
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j <= i; j++)
+        {
+            std::cin >> num;
+            triangle[i].push_back(num);
+        }
+    }
+
+    for (int i = 1; i < n; i++)
+    {
+        for (int j = 0; j <= i; j++)
+        {
+            if (j == 0)
+                triangle[i].at(j) = triangle[i - 1].at(j) + triangle[i].at(j);
+            else if (i == j)
+                triangle[i].at(j) = triangle[i - 1].at(j - 1) + triangle[i].at(j);
+            else
+                triangle[i].at(j) = std::max(triangle[i - 1].at(j - 1), triangle[i - 1].at(j)) + triangle[i].at(j);
+        }
+    }
+
+    for (int j = 0; j < n; j++)
+        max = std::max(max, static_cast<long long>(triangle[n - 1].at(j)));
+
+    std::cout << max << "\n";
+
+    return 0;
+}
+*/
+/*
+// 11055번 문제
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+int main()
+{
+    int n, num;
+    long long max = 0;
+
+    std::cin >> n;
+    std::vector<int> A, DP;
+
+    for (int i = 0; i < n; i++)
+    {
+        std::cin >> num;
+        A.push_back(num);
+        DP.push_back(num);
+    }
+
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < i; j++)
+        {
+            if (A.at(i) > A.at(j) && DP.at(i) < DP.at(j) + A.at(i))
+                DP.at(i) = DP.at(j) + A.at(i);
+        }
+    }
+
+    for (int i = 0; i < n; i++)
+        max = std::max(max, static_cast<long long>(DP.at(i)));
+
+    std::cout << max << "\n";
+    return 0;
+}
+*/
+
+/*
+// 11722번 문제
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+int main()
+{
+    int n, num, max = 1;
+    std::vector<int> A;
+
+    std::cin >> n;
+
+    for (int i = 0; i < n; i++)
+    {
+        std::cin >> num;
+        A.push_back(num);
+    }
+
+    std::vector<int> dp(n, 1);
+
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < i; j++)
+        {
+            if (A.at(j) > A.at(i) && dp.at(j) >= dp.at(i))
+            {
+                dp.at(i) = dp.at(j) + 1;
+            }
+        }
+    }
+
+    for (int i = 0; i < n; i++)
+        max = std::max(max, dp.at(i));
+
+    std::cout << max << "\n";
+    return 0;
+}
+*/
+
+// 11054번 문제
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+int main()
+{
+    int n, num, max = 1;
+    std::vector<int> A;
+
+    std::cin >> n;
+
+    for (int i = 0; i < n; i++)
+    {
+        std::cin >> num;
+        A.push_back(num);
+    }
+
+    std::vector<int> dp1(n, 1), dp2(n,1);
+
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < i; j++)
+            if (A.at(i) > A.at(j))
+                dp1.at(i) = std::max(dp1.at(j) + 1, dp1.at(i));
+
+    for(int i = n-1; i >= 0; i--)
+        for(int j = n-1; j > i; j--)
+            if(A.at(i) > A.at(j))
+                dp2.at(i) = std::max(dp2.at(j) + 1, dp2.at(i));
+
+    for (int i = 0; i < n; i++)
+        max = std::max(max, dp1.at(i) + dp2.at(i));
+
+    std::cout << max - 1<< "\n";
     return 0;
 }
