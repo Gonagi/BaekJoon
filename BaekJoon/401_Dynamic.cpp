@@ -375,6 +375,7 @@ int main()
 }
 */
 
+/*
 // 11054번 문제
 
 #include <iostream>
@@ -410,5 +411,169 @@ int main()
         max = std::max(max, dp1.at(i) + dp2.at(i));
 
     std::cout << max - 1<< "\n";
+    return 0;
+}
+*/
+
+/*
+
+// 13398번 문제
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+int main(){
+    int n, num;
+    std::vector<int> vec, dp[2];
+    std::cin >> n;
+
+    for(int i = 0; i < n; i++){
+        std::cin >> num;
+        vec.push_back(num);
+    }
+
+    dp[0].push_back(vec.at(0));
+    dp[1].push_back(vec.at(0));
+    long long max = dp[0].at(0);
+
+    for (int i = 1; i < n; i++)
+    {
+        dp[0].push_back(std::max(vec.at(i), dp[0].at(i - 1) + vec.at(i)));
+        dp[1].push_back(std::max(dp[0].at(i - 1), dp[1].at(i - 1) + vec.at(i)));
+        max = std::max({max, static_cast<long long>(dp[0].at(i)), static_cast<long long>(dp[1].at(i))});
+    }
+
+    std::cout << max << "\n";
+
+    return 0;
+}
+
+// #include <iostream>
+// #include <vector>
+// #include <algorithm>
+
+// int main()
+// {
+//     int n, num, result;
+//     std::vector<int> vec, dp[2];
+
+//     std::cin >> n;
+
+//     for (int i = 0; i < n; i++)
+//     {
+//         std::cin >> num;
+//         vec.push_back(num);
+//     }
+
+//     dp[0].push_back(vec.at(0));
+//     dp[1].push_back(vec.at(0));
+
+//     for (int i = 1; i < n; i++)
+//     {
+//         dp[0].push_back(std::max(dp[0].at(i - 1) + vec.at(i), vec.at(i)));
+//         dp[1].push_back(std::max(dp[0].at(i - 1), dp[1].at(i - 1) + vec.at(i)));
+//         result = std::max(result, std::max(dp[0].at(i), dp[1].at(i)));
+//     }
+
+//     std::cout << result << "\n";
+// }
+*/
+
+/*
+// 2133번 문제
+
+#include <iostream>
+#include <vector>
+
+int main(){
+    int N;
+    long long sum = 0;
+    std::vector<long long> dp;
+
+    std::cin >> N;
+
+    dp.push_back(1);
+    dp.push_back(0);
+    dp.push_back(3);
+
+    for (int i = 3; i <= N; i++)
+    {
+        if (i % 2 == 1)
+            dp.push_back(0);
+        else
+        {
+            sum += dp.at(i - 2) * 3;
+            for (int j = i - 4; j >= 0; j -= 2)
+            {
+                sum += dp.at(j) * 2;
+            }
+            dp.push_back(sum);
+            sum = 0;
+        }
+    }
+
+    std::cout << dp.at(N) << "\n";
+    return 0;
+}
+*/
+
+// 17404번 문제
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+int main()
+{
+    int N, num;
+    long long min;
+    std::vector<long long> DP[3], RGB[3];
+
+    std::cin >> N;
+
+    min = 1000 * N + 1;
+    for (int i = 0; i < N; i++)
+    {
+        for (int j = 0; j < 3; j++)
+        {
+            std::cin >> num;
+            RGB[j].push_back(num);
+        }
+    }
+
+    for (int i = 0; i < 3; i++)
+    {
+        for (int j = 0; j < 3; j++)
+        {
+            if (i == j)
+                DP[i].push_back(RGB[i].at(0));
+            else
+                DP[j].push_back(1001);
+        }
+
+        for (int j = 1; j < N; j++)
+        {
+            DP[0].push_back(std::min(DP[1].at(j - 1), DP[2].at(j - 1)) + RGB[0].at(j));
+            DP[1].push_back(std::min(DP[0].at(j - 1), DP[2].at(j - 1)) + RGB[1].at(j));
+            DP[2].push_back(std::min(DP[0].at(j - 1), DP[1].at(j - 1)) + RGB[2].at(j));
+        }
+
+        for (int j = 0; j < 3; j++)
+        {
+            if (i != j)
+                min = std::min(min, DP[j].at(N - 1));
+        }
+
+        DP[0].clear();
+        DP[1].clear();
+        DP[2].clear();
+        DP[0].shrink_to_fit();
+        DP[1].shrink_to_fit();
+        DP[2].shrink_to_fit();
+    }
+
+    std::cout << min << "\n";
+
     return 0;
 }
