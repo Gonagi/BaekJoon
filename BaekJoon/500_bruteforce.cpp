@@ -134,6 +134,7 @@ int check_y(const std::vector<std::vector<char>> &vec, int N)
 }
 */
 
+/*
 // 1476번 문제
 
 #include <iostream>
@@ -154,4 +155,122 @@ int main()
 
     std::cout << i << "\n";
     return 0;
+}
+*/
+
+/*
+// 1107번 문제
+
+#include <iostream>
+#include <algorithm>
+#include <vector>
+
+std::vector<bool> broken(10, false);
+
+int possible(int num){
+    if(num == 0)
+        return broken[0] ? 0 : 1;
+    
+    int length = 0;
+    while(num > 0)
+    {
+        if(broken[num % 10]) return 0;
+        length++;
+        num /= 10;
+    }
+
+    return length;
+}
+
+int main(){
+    int N, M, num;
+
+    std::cin >> N >> M;
+
+    for (int i = 0; i < M; i++)
+    {
+        std::cin >> num;
+        broken.at(num) = true;
+    }
+
+    int min = std::max(100 - N, N - 100);
+
+    if (N != 100)
+    {
+        for (int num = 0; num < 1000000; num++)
+        {
+            if(possible(num))
+                min = std::min(min, possible(num) + std::max(N-num, num-N));
+        }
+    }
+
+    std::cout << min << "\n";
+
+    return 0;
+}
+*/
+
+// 14500번 문제
+
+#include <iostream>
+#include <algorithm>
+#include <vector>
+
+std::vector<std::vector<int>> box;
+
+long long case1(int N, int M);
+long long case2();
+long long case3();
+long long case4();
+
+int main()
+{
+    int N, M, num;
+
+    std::cin >> N >> M;
+    std::vector<int> vec;
+
+    for (int i = 0; i < N; i++)
+    {
+        for (int j = 0; j < M; j++)
+        {
+            std::cin >> num;
+            vec.push_back(num);
+        }
+        box.push_back(vec);
+        vec.clear();
+        vec.shrink_to_fit();
+    }
+
+    long long result = case1(N, M);
+
+    std::cout << result<<"\n";
+    return 0;
+}
+
+long long case1(int N, int M)
+{
+    long long max = 0, sum = 0;
+
+    for (int i = 0; i < N; i++)
+    {
+        for (int j = 0; j < M - 4; j++)
+        {
+            sum += (box[i].at(j) + box[i].at(j + 1) + box[i].at(j + 2) + box[i].at(j + 3));
+            max = std::max(max, sum);
+            sum = 0;
+        }
+    }
+
+    for (int j = 0; j < M; j++)
+    {
+        for (int i = 0; i < N - 4; i++)
+        {
+            sum += (box[i].at(j) + box[i + 1].at(j) + box[i + 2].at(j) + box[i + 3].at(j));
+            max = std::max(max, sum);
+            sum = 0;
+        }
+    }
+
+    return max;
 }
