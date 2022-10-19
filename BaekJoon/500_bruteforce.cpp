@@ -210,25 +210,28 @@ int main(){
 }
 */
 
+/*
 // 14500번 문제
 
 #include <iostream>
 #include <algorithm>
 #include <vector>
 
-std::vector<std::vector<int>> box;
+std::vector<std::vector<long long>> box;
 
 long long case1(int N, int M);
-long long case2();
-long long case3();
-long long case4();
+long long case2(int N, int M);
+long long case3(int N, int M);
+long long case4(int N, int M);
+long long case5(int N, int M);
 
 int main()
 {
-    int N, M, num;
+    int N, M;
+    long long num;
 
     std::cin >> N >> M;
-    std::vector<int> vec;
+    std::vector<long long> vec;
 
     for (int i = 0; i < N; i++)
     {
@@ -242,9 +245,8 @@ int main()
         vec.shrink_to_fit();
     }
 
-    long long result = case1(N, M);
+    std::cout << std::max({case1(N, M), case2(N, M), case3(N, M), case4(N, M), case5(N, M)}) << "\n";
 
-    std::cout << result<<"\n";
     return 0;
 }
 
@@ -254,23 +256,127 @@ long long case1(int N, int M)
 
     for (int i = 0; i < N; i++)
     {
-        for (int j = 0; j < M - 4; j++)
+        for (int j = 0; j < M - 3; j++)
         {
-            sum += (box[i].at(j) + box[i].at(j + 1) + box[i].at(j + 2) + box[i].at(j + 3));
+            sum = box[i].at(j) + box[i].at(j + 1) + box[i].at(j + 2) + box[i].at(j + 3);
             max = std::max(max, sum);
-            sum = 0;
         }
     }
 
-    for (int j = 0; j < M; j++)
+    for (int i = 0; i < N - 3; i++)
     {
-        for (int i = 0; i < N - 4; i++)
+        for (int j = 0; j < M; j++)
         {
-            sum += (box[i].at(j) + box[i + 1].at(j) + box[i + 2].at(j) + box[i + 3].at(j));
+            sum = (box[i].at(j) + box[i + 1].at(j) + box[i + 2].at(j) + box[i + 3].at(j));
             max = std::max(max, sum);
-            sum = 0;
         }
     }
 
     return max;
+}
+
+long long case2(int N, int M)
+{
+    long long max = 0, sum = 0;
+
+    for (int i = 0; i < N - 1; i++)
+    {
+        for (int j = 0; j < M - 1; j++)
+        {
+            sum = box[i].at(j) + box[i + 1].at(j) + box[i].at(j + 1) + box[i + 1].at(j + 1);
+            max = std::max(max, sum);
+        }
+    }
+    return max;
+}
+
+long long case3(int N, int M)
+{
+    long long max1 = 0, max2 = 0, sum = 0;
+    for(int i = 0; i < N-1; i++)
+        for(int j = 0; j < M-2; j++)
+            max1 = std::max({max1, 
+                            box[i].at(j) + box[i+1].at(j) + box[i+1].at(j+1) + box[i+1].at(j+2),
+                            box[i].at(j+2)+ box[i+1].at(j) + box[i+1].at(j+1) + box[i+1].at(j+2),
+                            box[i].at(j) + box[i].at(j+1) + box[i].at(j+2) + box[i+1].at(j+2),
+                            box[i].at(j) + box[i].at(j+1) + box[i].at(j+2) + box[i+1].at(j)});
+    
+    for(int i = 0; i < N-2; i++)
+        for(int j = 0; j < M-1; j++)
+            max2 = std::max({max2,
+                             box[i].at(j) + box[i+1].at(j) + box[i+2].at(j) + box[i+2].at(j+1),
+                             box[i].at(j) + box[i].at(j+1) + box[i+1].at(j) + box[i+2].at(j),
+                             box[i].at(j+1) + box[i+1].at(j+1) + box[i+2].at(j) + box[i+2].at(j+1),
+                             box[i].at(j) + box[i].at(j+1) + box[i+1].at(j+1) + box[i+2].at(j+1)});
+
+    return std::max(max1, max2);
+}
+
+long long case4(int N, int M)
+{
+    long long max1 = 0, max2 = 0, sum = 0;
+
+    for (int i = 0; i < N - 2; i++)
+        for (int j = 0; j < M - 1; j++)
+            max1 = std::max({max1, 
+                            box[i].at(j) + box[i + 1].at(j) + box[i + 1].at(j + 1) + box[i + 2].at(j + 1),
+                            box[i].at(j + 1) + box[i + 1].at(j) + box[i + 1].at(j + 1) + box[i + 2].at(j)});
+
+    for (int i = 0; i < N - 1; i++)
+        for (int j = 0; j < M - 2; j++)
+            max2 = std::max({max2,
+                            box[i].at(j + 1) + box[i].at(j + 2) + box[i + 1].at(j) + box[i + 1].at(j + 1),
+                            box[i].at(j) + box[i].at(j + 1) + box[i + 1].at(j + 1) + box[i + 1].at(j + 2)});
+
+    return std::max(max1, max2);
+}
+
+long long case5(int N, int M)
+{
+    long long max1 = 0, max2 = 0, sum = 0;
+
+    for (int i = 0; i < N - 1; i++)
+        for (int j = 0; j < M - 2; j++)
+            max1 = std::max({max1, 
+                            box[i].at(j) + box[i].at(j + 1) + box[i].at(j + 2) + box[i + 1].at(j + 1),
+                            box[i].at(j + 1) + box[i + 1].at(j) + box[i + 1].at(j + 1) + box[i + 1].at(j + 2)});
+
+    for (int i = 0; i < N - 2; i++)
+        for (int j = 0; j < M - 1; j++)
+            max2 = std::max({max2,
+                            box[i].at(j) + box[i + 1].at(j) + box[i + 1].at(j + 1) + box[i + 2].at(j),
+                            box[i].at(j + 1) + box[i + 1].at(j) + box[i + 1].at(j + 1) + box[i + 2].at(j + 1)});
+
+    return std::max(max1, max2);
+}
+*/
+
+
+#include <iostream>
+#include <algorithm>
+#include <vector>
+
+std::vector<std::vector<long long>> box;
+
+int main()
+{
+    int N, M;
+    long long num;
+
+    std::cin >> N >> M;
+    std::vector<long long> vec;
+
+    for (int i = 0; i < N; i++)
+    {
+        for (int j = 0; j < M; j++)
+        {
+            std::cin >> num;
+            vec.push_back(num);
+        }
+        box.push_back(vec);
+        vec.clear();
+        vec.shrink_to_fit();
+    }
+
+    return 0;
 }
