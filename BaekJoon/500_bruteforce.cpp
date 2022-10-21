@@ -349,19 +349,28 @@ long long case5(int N, int M)
 
     return std::max(max1, max2);
 }
-*/
-
 
 #include <iostream>
 #include <algorithm>
 #include <vector>
 
+typedef struct{
+    long long y, x;
+}Dir;
+
+Dir move[4] = {{1,0}, {-1,0}, {0,1}, {0,-1}};
+
 std::vector<std::vector<long long>> box;
+std::vector<std::vector<bool>> visited;
+
+long long DFS(int y, int x, int count);
+long long Hshape(int y, int x);
+int N, M;
+
 
 int main()
 {
-    int N, M;
-    long long num;
+    long long num, result = 0;
 
     std::cin >> N >> M;
     std::vector<long long> vec;
@@ -378,5 +387,75 @@ int main()
         vec.shrink_to_fit();
     }
 
+    std::vector<bool> b_vec(M, false);
+
+    for (int i = 0; i < N; i++)
+        visited.push_back(b_vec);
+
+    for(int y = 0; y < N; y++){
+        for(int x = 0; x < M; x++){
+            visited[y].at(x) = true;
+            result = std::max(result, DFS(y, x, 1));
+            result = std::max(result, Hshape(y, x));
+            visited[y].at(x) = false;
+        }
+    }
+    std::cout << result << "\n";
+    return 0;
+}
+
+long long DFS(int y, int x, int count){
+    long long result = 0;
+    int next_x, next_y;
+
+    if(count == 4){
+        return box[y].at(x);
+    }
+
+    for(int i = 0; i < 4; i++){
+        int next_x = x + move[i].x;
+        int next_y = y + move[i].y;        
+
+        if(0 <= next_y && next_y < N && 0 <= next_x && next_x < M && !visited[next_y].at(next_x)){
+            visited[next_y].at(next_x) = true;
+            result = std::max(result, box[y].at(x) + DFS(next_y, next_x, count + 1));
+            visited[next_y].at(next_x) = false;
+        }
+    }
+    
+    return result;
+}
+
+long long Hshape(int y, int x)
+{
+    long long result = 0;
+
+    if (0 <= y && y <= N - 2 && 0 <= x && x <= M - 3)
+    {
+        result = std::max(result, box[y].at(x) + box[y].at(x + 1) + box[y].at(x + 2) + box[y + 1].at(x + 1));
+        result = std::max(result, box[y].at(x + 1) + box[y + 1].at(x) + box[y + 1].at(x + 1) + box[y + 1].at(x + 2));
+    }
+    if (0 <= y && y <= N - 3 && 0 <= x && x <= M - 2)
+    {
+        result = std::max(result, box[y].at(x) + box[y + 1].at(x) + box[y + 2].at(x) + box[y + 1].at(x + 1));
+        result = std::max(result, box[y + 1].at(x) + box[y].at(x + 1) + box[y + 1].at(x + 1) + box[y + 2].at(x + 1));
+    }
+    return result;
+}
+*/
+
+// 6064번 문제
+
+#include <iostream>
+
+int main(){
+    int T, N, M, x, y, year;
+
+    std::cin >> T;
+
+    for(int i = 0; i < T; i++){
+        std::cin >> M >> N >> x >> y;
+
+    }
     return 0;
 }
