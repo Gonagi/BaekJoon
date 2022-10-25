@@ -19,10 +19,10 @@ int main(){
     std::sort(vec.begin(), vec.end());
 
     for(int i = 0; i < 8; i++){
-        for(int j = i+1; j<9; j++){
-            if((sum - vec.at(i) - vec.at(j)) == 100){
+        for(int year = i+1; year<9; year++){
+            if((sum - vec.at(i) - vec.at(year)) == 100){
                 for(int a = 0; a < 9; a++){
-                    if(a == i || a == j)
+                    if(a == i || a == year)
                         continue;
                     std::cout << vec.at(a)<<"\n";
                 }
@@ -54,7 +54,7 @@ int main(){
     std::cin >> N;
 
     for(int i = 0; i < N; i++){
-        for(int j = 0; j < N; j++){
+        for(int year = 0; year < N; year++){
             std::cin >> ch;
             vec2.push_back(ch);
         }
@@ -67,26 +67,26 @@ int main(){
 
     for (int i = 0; i < N; i++)
     {
-        for (int j = 0; j < N - 1; j++)
+        for (int year = 0; year < N - 1; year++)
         {
-            if (vec1[i].at(j) != vec1[i].at(j + 1))
+            if (vec1[i].at(year) != vec1[i].at(year + 1))
             {
-                std::swap(vec1[i].at(j), vec1[i].at(j + 1));
+                std::swap(vec1[i].at(year), vec1[i].at(year + 1));
                 max = std::max({max, check_x(vec1, N), check_y(vec1, N)});
-                std::swap(vec1[i].at(j), vec1[i].at(j + 1));
+                std::swap(vec1[i].at(year), vec1[i].at(year + 1));
             }
         }
     }
 
     for (int i = 0; i < N - 1; i++)
     {
-        for (int j = 0; j < N; j++)
+        for (int year = 0; year < N; year++)
         {
-            if (vec1[i].at(j) != vec1[i+1].at(j))
+            if (vec1[i].at(year) != vec1[i+1].at(year))
             {
-                std::swap(vec1[i].at(j), vec1[i+1].at(j));
+                std::swap(vec1[i].at(year), vec1[i+1].at(year));
                 max = std::max({max, check_x(vec1, N), check_y(vec1, N)});
-                std::swap(vec1[i].at(j), vec1[i+1].at(j));
+                std::swap(vec1[i].at(year), vec1[i+1].at(year));
             }
         }
     }
@@ -101,9 +101,9 @@ int check_x(const std::vector<std::vector<char>> &vec, int N)
 
     for (int i = 0; i < N; i++)
     {
-        for (int j = 0; j < N - 1; j++)
+        for (int year = 0; year < N - 1; year++)
         {
-            if (vec[i].at(j) == vec[i].at(j + 1))
+            if (vec[i].at(year) == vec[i].at(year + 1))
                 max = std::max(max, ++check);
             else
                 check = 1;
@@ -117,11 +117,11 @@ int check_y(const std::vector<std::vector<char>> &vec, int N)
 {
     int max = 1, check = 1;
 
-    for (int j = 0; j < N; j++)
+    for (int year = 0; year < N; year++)
     {
         for (int i = 0; i < N - 1; i++)
         {
-            if (vec[i].at(j) == vec[i + 1].at(j))
+            if (vec[i].at(year) == vec[i + 1].at(year))
                 max = std::max(max, ++check);
 
             else
@@ -235,7 +235,7 @@ int main()
 
     for (int i = 0; i < N; i++)
     {
-        for (int j = 0; j < M; j++)
+        for (int year = 0; year < M; year++)
         {
             std::cin >> num;
             vec.push_back(num);
@@ -256,18 +256,18 @@ long long case1(int N, int M)
 
     for (int i = 0; i < N; i++)
     {
-        for (int j = 0; j < M - 3; j++)
+        for (int year = 0; year < M - 3; year++)
         {
-            sum = box[i].at(j) + box[i].at(j + 1) + box[i].at(j + 2) + box[i].at(j + 3);
+            sum = box[i].at(year) + box[i].at(year + 1) + box[i].at(year + 2) + box[i].at(year + 3);
             max = std::max(max, sum);
         }
     }
 
     for (int i = 0; i < N - 3; i++)
     {
-        for (int j = 0; j < M; j++)
+        for (int year = 0; year < M; year++)
         {
-            sum = (box[i].at(j) + box[i + 1].at(j) + box[i + 2].at(j) + box[i + 3].at(j));
+            sum = (box[i].at(year) + box[i + 1].at(year) + box[i + 2].at(year) + box[i + 3].at(year));
             max = std::max(max, sum);
         }
     }
@@ -281,9 +281,9 @@ long long case2(int N, int M)
 
     for (int i = 0; i < N - 1; i++)
     {
-        for (int j = 0; j < M - 1; j++)
+        for (int year = 0; year < M - 1; year++)
         {
-            sum = box[i].at(j) + box[i + 1].at(j) + box[i].at(j + 1) + box[i + 1].at(j + 1);
+            sum = box[i].at(year) + box[i + 1].at(year) + box[i].at(year + 1) + box[i + 1].at(year + 1);
             max = std::max(max, sum);
         }
     }
@@ -294,20 +294,20 @@ long long case3(int N, int M)
 {
     long long max1 = 0, max2 = 0, sum = 0;
     for(int i = 0; i < N-1; i++)
-        for(int j = 0; j < M-2; j++)
+        for(int year = 0; year < M-2; year++)
             max1 = std::max({max1, 
-                            box[i].at(j) + box[i+1].at(j) + box[i+1].at(j+1) + box[i+1].at(j+2),
-                            box[i].at(j+2)+ box[i+1].at(j) + box[i+1].at(j+1) + box[i+1].at(j+2),
-                            box[i].at(j) + box[i].at(j+1) + box[i].at(j+2) + box[i+1].at(j+2),
-                            box[i].at(j) + box[i].at(j+1) + box[i].at(j+2) + box[i+1].at(j)});
+                            box[i].at(year) + box[i+1].at(year) + box[i+1].at(year+1) + box[i+1].at(year+2),
+                            box[i].at(year+2)+ box[i+1].at(year) + box[i+1].at(year+1) + box[i+1].at(year+2),
+                            box[i].at(year) + box[i].at(year+1) + box[i].at(year+2) + box[i+1].at(year+2),
+                            box[i].at(year) + box[i].at(year+1) + box[i].at(year+2) + box[i+1].at(year)});
     
     for(int i = 0; i < N-2; i++)
-        for(int j = 0; j < M-1; j++)
+        for(int year = 0; year < M-1; year++)
             max2 = std::max({max2,
-                             box[i].at(j) + box[i+1].at(j) + box[i+2].at(j) + box[i+2].at(j+1),
-                             box[i].at(j) + box[i].at(j+1) + box[i+1].at(j) + box[i+2].at(j),
-                             box[i].at(j+1) + box[i+1].at(j+1) + box[i+2].at(j) + box[i+2].at(j+1),
-                             box[i].at(j) + box[i].at(j+1) + box[i+1].at(j+1) + box[i+2].at(j+1)});
+                             box[i].at(year) + box[i+1].at(year) + box[i+2].at(year) + box[i+2].at(year+1),
+                             box[i].at(year) + box[i].at(year+1) + box[i+1].at(year) + box[i+2].at(year),
+                             box[i].at(year+1) + box[i+1].at(year+1) + box[i+2].at(year) + box[i+2].at(year+1),
+                             box[i].at(year) + box[i].at(year+1) + box[i+1].at(year+1) + box[i+2].at(year+1)});
 
     return std::max(max1, max2);
 }
@@ -317,16 +317,16 @@ long long case4(int N, int M)
     long long max1 = 0, max2 = 0, sum = 0;
 
     for (int i = 0; i < N - 2; i++)
-        for (int j = 0; j < M - 1; j++)
+        for (int year = 0; year < M - 1; year++)
             max1 = std::max({max1, 
-                            box[i].at(j) + box[i + 1].at(j) + box[i + 1].at(j + 1) + box[i + 2].at(j + 1),
-                            box[i].at(j + 1) + box[i + 1].at(j) + box[i + 1].at(j + 1) + box[i + 2].at(j)});
+                            box[i].at(year) + box[i + 1].at(year) + box[i + 1].at(year + 1) + box[i + 2].at(year + 1),
+                            box[i].at(year + 1) + box[i + 1].at(year) + box[i + 1].at(year + 1) + box[i + 2].at(year)});
 
     for (int i = 0; i < N - 1; i++)
-        for (int j = 0; j < M - 2; j++)
+        for (int year = 0; year < M - 2; year++)
             max2 = std::max({max2,
-                            box[i].at(j + 1) + box[i].at(j + 2) + box[i + 1].at(j) + box[i + 1].at(j + 1),
-                            box[i].at(j) + box[i].at(j + 1) + box[i + 1].at(j + 1) + box[i + 1].at(j + 2)});
+                            box[i].at(year + 1) + box[i].at(year + 2) + box[i + 1].at(year) + box[i + 1].at(year + 1),
+                            box[i].at(year) + box[i].at(year + 1) + box[i + 1].at(year + 1) + box[i + 1].at(year + 2)});
 
     return std::max(max1, max2);
 }
@@ -336,16 +336,16 @@ long long case5(int N, int M)
     long long max1 = 0, max2 = 0, sum = 0;
 
     for (int i = 0; i < N - 1; i++)
-        for (int j = 0; j < M - 2; j++)
+        for (int year = 0; year < M - 2; year++)
             max1 = std::max({max1, 
-                            box[i].at(j) + box[i].at(j + 1) + box[i].at(j + 2) + box[i + 1].at(j + 1),
-                            box[i].at(j + 1) + box[i + 1].at(j) + box[i + 1].at(j + 1) + box[i + 1].at(j + 2)});
+                            box[i].at(year) + box[i].at(year + 1) + box[i].at(year + 2) + box[i + 1].at(year + 1),
+                            box[i].at(year + 1) + box[i + 1].at(year) + box[i + 1].at(year + 1) + box[i + 1].at(year + 2)});
 
     for (int i = 0; i < N - 2; i++)
-        for (int j = 0; j < M - 1; j++)
+        for (int year = 0; year < M - 1; year++)
             max2 = std::max({max2,
-                            box[i].at(j) + box[i + 1].at(j) + box[i + 1].at(j + 1) + box[i + 2].at(j),
-                            box[i].at(j + 1) + box[i + 1].at(j) + box[i + 1].at(j + 1) + box[i + 2].at(j + 1)});
+                            box[i].at(year) + box[i + 1].at(year) + box[i + 1].at(year + 1) + box[i + 2].at(year),
+                            box[i].at(year + 1) + box[i + 1].at(year) + box[i + 1].at(year + 1) + box[i + 2].at(year + 1)});
 
     return std::max(max1, max2);
 }
@@ -377,7 +377,7 @@ int main()
 
     for (int i = 0; i < N; i++)
     {
-        for (int j = 0; j < M; j++)
+        for (int year = 0; year < M; year++)
         {
             std::cin >> num;
             vec.push_back(num);
@@ -444,18 +444,79 @@ long long Hshape(int y, int x)
 }
 */
 
+/*
 // 6064번 문제
 
 #include <iostream>
 
-int main(){
+int GCD(int M, int N){
+    int r;
+    if(M > N){
+        int tmp = M;
+        M = N;
+        N = tmp;
+    }
+
+    while(N != 0){
+        r = M % N;
+        M = N;
+        N = r;
+    }
+
+    return M;
+}
+
+int main()
+{
     int T, N, M, x, y, year;
 
     std::cin >> T;
 
-    for(int i = 0; i < T; i++){
+    for (int i = 0; i < T; i++)
+    {
         std::cin >> M >> N >> x >> y;
 
+        int max = (M * N) / GCD(M, N);
+        for (year = x; year <= max; year += M)
+        {   
+            int check = year % N;
+            if(check== 0)
+                check = N;
+            
+            if (check == y)
+            {
+                std::cout << year << "\n";
+                break;
+            }
+
+        }
+        if(year > max)
+           std::cout << -1 << "\n";
     }
+    return 0;
+}
+*/
+
+// 1748번 문제
+
+#include<iostream>
+#include <string.h>
+
+int main()
+{
+    std::string N;
+    long long check = 9, result = 0;
+    
+    std::cin >> N;
+
+    for(int i = 1; i <= N.size()-1; i++){
+        result += check*i;
+        check*=10;
+    }
+
+    check/=9;
+
+    result += (std::stoull(N) - check+1)*N.size();
+    std::cout << result << "\n";
     return 0;
 }
