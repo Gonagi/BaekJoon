@@ -201,6 +201,7 @@ void DFS(int count)
 }
 */
 
+/*
 // 15655번 문제
 
 #include <algorithm>
@@ -240,7 +241,71 @@ void DFS(int count, int cur_num) {
       vec.at(count) = input.at(num);
       visited.at(num) = true;
       DFS(count + 1, num+1);
-      //visited.at(num) = false;
+      visited.at(num) = false;
     }
   }
+}
+*/
+
+/*
+// 15656번 문제
+#include <algorithm>
+#include <iostream>
+#include <vector>
+
+int N, M;
+std::vector<int> input, vec(8);
+
+void DFS(int count);
+
+int main() {
+  int num;
+  std::cin >> N >> M;
+
+  for (int i = 1; i <= N; i++) {
+    std::cin >> num;
+    input.push_back(num);
+  }
+
+  std::sort(input.begin(), input.end());
+  DFS(0);
+
+  return 0;
+}
+
+void DFS(int count) {
+  if (count == M) {
+    for (int index = 1; index <= M; index++)
+      std::cout << vec.at(index) << " ";
+    std::cout << "\n";
+    return;
+  }
+
+  for (int index = 1; index <= N; index++) {
+    vec.at(count + 1) = input.at(index - 1);
+    DFS(count + 1);
+  }
+}
+*/
+
+// 15657번 문제
+
+// 15663번 문제
+
+#include <algorithm>
+#include <iostream>
+#include <vector>
+
+int N, M;
+std::vector<int> input(9), vec(9);
+
+int main() {
+  int num;
+  std::cin >> N >> M;
+
+  for (int index = 1; index <= N; index++) {
+    std::cin >> num;
+    input.at(index) = num;
+  }
+  return 0;
 }
