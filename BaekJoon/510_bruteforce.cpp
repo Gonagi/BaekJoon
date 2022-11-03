@@ -288,8 +288,7 @@ void DFS(int count) {
 }
 */
 
-// 15657번 문제
-
+/*
 // 15663번 문제
 
 #include <algorithm>
@@ -297,7 +296,9 @@ void DFS(int count) {
 #include <vector>
 
 int N, M;
-std::vector<int> input(9), vec(9);
+std::vector<int> input, vec(9, -1);
+std::vector<bool> visited(9, false);
+void DFS(int count);
 
 int main() {
   int num;
@@ -305,7 +306,123 @@ int main() {
 
   for (int index = 1; index <= N; index++) {
     std::cin >> num;
-    input.at(index) = num;
+    input.push_back(num);
   }
+
+  std::sort(input.begin(), input.end());
+  DFS(0);
   return 0;
+}
+
+void DFS(int count) {
+  if (count == M) {
+    for (int index = 1; index <= M; index++)
+      std::cout << vec.at(index) << " ";
+    std::cout << "\n";
+    return;
+  }
+
+  int check = 0;
+
+  for (int index = 1; index <= N; index++) {
+    if (!visited.at(index)&& (input.at(index-1) != check)){
+      vec.at(count + 1) = input.at(index - 1);
+      check = vec.at(count + 1);
+      visited.at(index) = true;
+      DFS(count + 1);
+      visited.at(index) = false;
+    }
+  }
+}
+*/
+
+/*
+// 15664번 문제
+
+#include <algorithm>
+#include <iostream>
+#include <vector>
+
+int N, M;
+std::vector<int> input, vec(9, -1);
+std::vector<bool> visited(9, false);
+void DFS(int count, int cur);
+
+int main() {
+  int num;
+  std::cin >> N >> M;
+
+  for (int index = 1; index <= N; index++) {
+    std::cin >> num;
+    input.push_back(num);
+  }
+
+  std::sort(input.begin(), input.end());
+  DFS(0, 1);
+  return 0;
+}
+
+void DFS(int count, int cur) {
+  if (count == M) {
+    for (int index = 1; index <= M; index++)
+      std::cout << vec.at(index) << " ";
+    std::cout << "\n";
+    return;
+  }
+
+  int check = 0;
+
+  for (int index = cur; index <= N; index++) {
+    if (!visited.at(index) && (input.at(index - 1) != check)) {
+      vec.at(count + 1) = input.at(index - 1);
+      check = vec.at(count + 1);
+      visited.at(index) = true;
+      DFS(count + 1, index);
+      visited.at(index) = false;
+    }
+  }
+}
+*/
+
+// 15665번 문제
+
+#include <algorithm>
+#include <iostream>
+#include <vector>
+
+int N, M;
+std::vector<int> input, vec(8);
+std::vector<bool> visited(8, false);
+
+void DFS(int count);
+
+int main() {
+  int num;
+
+  std::cin >> N >> M;
+  for (int i = 1; i <= N; i++) {
+    std::cin >> num;
+    input.push_back(num);
+  }
+
+  std::sort(input.begin(), input.end());
+  input.erase(std::unique(input.begin(), input.end()), input.end());
+
+  DFS(0);
+
+  return 0;
+}
+
+void DFS(int count) {
+  if (count == M) {
+    for (int index = 0; index < M; index++)
+      std::cout << vec.at(index) << " ";
+    std::cout << "\n";
+    return;
+  }
+
+  for (int index = 0; index < input.size(); index++) {
+    vec.at(count) = input.at(index);
+    DFS(count + 1);
+  }
 }
