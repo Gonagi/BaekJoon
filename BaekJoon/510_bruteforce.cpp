@@ -384,6 +384,7 @@ void DFS(int count, int cur) {
 }
 */
 
+/*
 // 15665번 문제
 
 #include <algorithm>
@@ -424,5 +425,50 @@ void DFS(int count) {
   for (int index = 0; index < input.size(); index++) {
     vec.at(count) = input.at(index);
     DFS(count + 1);
+  }
+}
+*/
+
+
+// 15666번 문제
+
+#include <algorithm>
+#include <iostream>
+#include <vector>
+
+int N, M;
+std::vector<int> input, vec(8);
+std::vector<bool> visited(8, false);
+
+void DFS(int count, int cur);
+
+int main() {
+  int num;
+
+  std::cin >> N >> M;
+  for (int i = 1; i <= N; i++) {
+    std::cin >> num;
+    input.push_back(num);
+  }
+
+  std::sort(input.begin(), input.end());
+  input.erase(std::unique(input.begin(), input.end()), input.end());
+
+  DFS(0, 0);
+
+  return 0;
+}
+
+void DFS(int count, int cur) {
+  if (count == M) {
+    for (int index = 0; index < M; index++)
+      std::cout << vec.at(index) << " ";
+    std::cout << "\n";
+    return;
+  }
+
+  for (int index = cur; index < input.size(); index++) {
+    vec.at(count) = input.at(index);
+    DFS(count + 1, index);
   }
 }
