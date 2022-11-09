@@ -67,6 +67,7 @@ void DFS(int count) {
 }
 */
 
+/*
 // 10972번 문제
 
 #include <algorithm>
@@ -97,6 +98,55 @@ int main() {
       std::swap(input[index - 1], input[min]);
       std::sort(input.begin() + index, input.end());
 
+      result = true;
+      break;
+    }
+  }
+
+  if (result) {
+    for (int index = 0; index < N; index++)
+      std::cout << input.at(index) << " ";
+    std::cout << "\n";
+  }
+
+  else
+    std::cout << -1 << "\n";
+
+  return 0;
+}
+*/
+
+// 10973번 문제
+
+#include <algorithm>
+#include <iostream>
+#include <vector>
+
+bool compare(int a, int b) { return a > b; }
+
+int main() {
+  int N, num;
+  bool result = false;
+  std::cin >> N;
+  std::vector<int> input;
+
+  for (int i = 0; i < N; i++) {
+    std::cin >> num;
+    input.push_back(num);
+  }
+
+  for (int index = N - 1; index > 0; index--) {
+
+    if (input.at(index - 1) > input.at(index)) {
+      int min = index;
+
+      for (int check = index; check < N; check++)
+        if (input.at(check) < input.at(index - 1) &&
+            input.at(min) < input.at(check))
+          min = check;
+
+      std::swap(input.at(index - 1), input.at(min));
+      std::sort(input.begin() + index, input.end(), compare);
       result = true;
       break;
     }
