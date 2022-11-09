@@ -116,6 +116,7 @@ int main() {
 }
 */
 
+/*
 // 10973번 문제
 
 #include <algorithm>
@@ -162,4 +163,74 @@ int main() {
     std::cout << -1 << "\n";
 
   return 0;
+}
+*/
+
+/*
+// 10974번 문제
+
+#include <algorithm>
+#include <iostream>
+#include <vector>
+
+int main() {
+  int N;
+  std::vector<int> vec;
+
+  std::cin >> N;
+  for (int i = 0; i < N; i++) {
+    vec.push_back(i + 1);
+  }
+
+  long long count = 1;
+
+  for (int i = 1; i <= N; i++)
+    count *= static_cast<long long>(i);
+
+  for (long long a = 1; a <= count; a++) {
+    for (int i = 0; i < N; i++)
+      std::cout << vec.at(i) << " ";
+    std::cout << "\n";
+
+    for (int index = N - 1; index > 0; index--) {
+      if (vec.at(index - 1) < vec.at(index)) {
+        int min = index;
+
+        for (int check = index; check < N; check++)
+          if (vec.at(index - 1) < vec.at(check) && vec.at(min) > vec.at(check))
+            min = check;
+
+        std::swap(vec[index - 1], vec[min]);
+        std::sort(vec.begin() + index, vec.end());
+        break;
+      }
+    }
+  }
+  return 0;
+}
+*/
+
+#include <algorithm>
+#include <iostream>
+#include <vector>
+
+int main() {
+    int N;
+    std::cin >> N;
+
+    std::vector<int> vec(N);
+
+    for (int i = 1; i <= N; i++)
+        vec.at(i - 1) = i;
+
+    do {
+        for (auto p : vec)
+            std::cout << p << " ";
+        std::cout << "\n";
+    } while (std::next_permutation(vec.begin(), vec.end()));
+
+    return 0;
+}
+
+void solve() {
 }
