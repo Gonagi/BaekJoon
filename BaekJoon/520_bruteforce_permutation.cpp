@@ -210,6 +210,7 @@ int main() {
 }
 */
 
+/*
 #include <algorithm>
 #include <iostream>
 #include <vector>
@@ -231,6 +232,89 @@ int main() {
 
     return 0;
 }
+*/
 
-void solve() {
+/*
+// 10819번 문제
+
+#include <algorithm>
+#include <cmath>
+#include <iostream>
+#include <vector>
+
+int main() {
+    int N, num, result = 0;
+    long long max = 0;
+    bool is_ascending = true;
+    std::cin >> N;
+    std::vector<int> vec, vec2;
+
+    for (int index = 0; index < N; index++) {
+        std::cin >> num;
+        vec.push_back(num);
+    }
+
+    std::sort(vec.begin(), vec.end());
+
+    do {
+        for (int index = 0; index < N - 1; index++)
+            result += std::abs(vec.at(index + 1) - vec.at(index));
+
+        max = std::max(max, static_cast<long long>(result));
+        result = 0;
+    } while (std::next_permutation(vec.begin(), vec.end()));
+
+    std::cout << max << "\n";
+    return 0;
+}
+*/
+
+#include <algorithm>
+#include <cmath>
+#include <iostream>
+#include <vector>
+
+void DFS(int count, std::vector<int> &vec, std::vector<int> &result);
+void Cal(std::vector<int> &result);
+
+int N, count = 0, max = 0;
+std::vector<bool> visited(8, false);
+
+int main() {
+    int num;
+    std::vector<int> vec, result(8);
+    std::cin >> N;
+
+    for (int i = 0; i < N; i++) {
+        std::cin >> num;
+        vec.push_back(num);
+    }
+
+    std::sort(vec.begin(), vec.end());
+    DFS(0, vec, result);
+    std::cout << max << "\n";
+}
+
+void DFS(int count, std::vector<int> &vec, std::vector<int> &result) {
+    if (count == N) {
+        Cal(result);
+        return;
+    }
+
+    for (int index = 0; index < N; index++) {
+        if (!visited.at(index)) {
+            visited.at(index) = true;
+            result.at(count) = vec.at(index);
+            DFS(count + 1, vec, result);
+            visited.at(index) = false;
+        }
+    }
+}
+
+void Cal(std::vector<int> &result) {
+    int cal = 0;
+    for (int index = 0; index < N - 1; index++)
+        cal += std::abs(result.at(index + 1) - result.at(index));
+
+    max = std::max(max, cal);
 }
