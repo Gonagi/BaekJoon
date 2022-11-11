@@ -269,6 +269,7 @@ int main() {
 }
 */
 
+/*
 #include <algorithm>
 #include <cmath>
 #include <iostream>
@@ -317,4 +318,70 @@ void Cal(std::vector<int> &result) {
         cal += std::abs(result.at(index + 1) - result.at(index));
 
     max = std::max(max, cal);
+}
+*/
+
+// 외판원 순회2
+// 10971번 문제
+
+#include <iostream>
+#include <vector>
+
+void DFS(int count);
+void Cal();
+
+int N, min = 10000000;
+std::vector<std::vector<int>> W;
+std::vector<bool> visited(10, false);
+std::vector<int> input(10, 0), result(10, 0), vec;
+
+int main() {
+    int num;
+    std::cin >> N;
+
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            std::cin >> num;
+            input.at(j) = num;
+        }
+        W.push_back(input);
+        vec.push_back(i);
+    }
+
+    DFS(0);
+    std::cout << min << "\n";
+    return 0;
+}
+
+void DFS(int count) {
+    if (count == N) {
+        Cal();
+        return;
+    }
+
+    for (int index = 0; index < N; index++) {
+        if (!visited.at(index)) {
+            visited.at(index) = true;
+            result.at(count) = vec.at(index);
+            DFS(count + 1);
+            visited.at(index) = false;
+        }
+    }
+}
+
+void Cal() {
+    int cal = 0;
+
+    for (int index = 0; index < N; index++) {
+        if (index == N - 1) {
+            if (W[result.at(N - 1)].at(result.at(0)) == 0)
+                return; // 갈 수 없는 길인 경우 종료
+            cal += W[result.at(N - 1)].at(result.at(0));
+        } else {
+            if (W[result.at(index)].at(result.at(index + 1)) == 0)
+                return; // 갈 수 없는 길인 경우 종료
+            cal += W[result.at(index)].at(result.at(index + 1));
+        }
+    }
+    min = std::min(min, cal);
 }
