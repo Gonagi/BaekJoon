@@ -321,6 +321,7 @@ void Cal(std::vector<int> &result) {
 }
 */
 
+/*
 // 외판원 순회2
 // 10971번 문제
 
@@ -384,4 +385,66 @@ void Cal() {
         }
     }
     min = std::min(min, cal);
+}
+*/
+
+// 로또
+// 6603
+
+#include <algorithm>
+#include <iostream>
+#include <vector>
+
+void print(std::vector<int> &result);
+void DFS(std::vector<int> &result, int count, int cur_index);
+void clear();
+
+int k;
+std::vector<int> S;
+
+int main() {
+    int num;
+    std::vector<int> result(6, 0);
+
+    while (1) {
+        std::cin >> k;
+        if (k == 0)
+            break;
+
+        for (int i = 0; i < k; i++) {
+            std::cin >> num;
+            S.push_back(num);
+        }
+
+        DFS(result, 0, 0);
+        std::cout << "\n";
+        clear();
+    }
+    return 0;
+}
+
+void print(std::vector<int> &result) {
+    std::sort(result.begin(), result.end());
+
+    for (int index = 0; index < 6; index++)
+        std::cout << result.at(index) << " ";
+    std::cout << "\n";
+    return;
+}
+
+void DFS(std::vector<int> &result, int count, int cur_index) {
+    if (count == 6) {
+        print(result);
+        return;
+    }
+
+    for (int index = cur_index; index < k; index++) {
+        result.at(count) = S.at(index);
+        DFS(result, count + 1, index + 1);
+    }
+}
+
+void clear() {
+    S.clear();
+    S.shrink_to_fit();
 }
