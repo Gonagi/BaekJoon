@@ -1,3 +1,4 @@
+/*
 // 암호 만들기
 // 1759
 
@@ -77,4 +78,81 @@ void pop() {
             consonants--;
         result.pop_back();
     }
+}
+*/
+
+// 퇴사
+// 14501
+
+/*
+#include <algorithm>
+#include <iostream>
+#include <vector>
+
+int main() {
+    int N, num1, num2, max = 0;
+    std::vector<int> T, P;
+
+    std::cin >> N;
+
+    std::vector<int> result(N + 1, 0);
+
+    for (int index = 0; index < N; index++) {
+        std::cin >> num1 >> num2;
+        T.push_back(num1);
+        P.push_back(num2);
+    }
+
+    for (int index = N - 1; index >= 0; index--) {
+        if (T.at(index) + index > N)
+            result.at(index) = result.at(index + 1);
+
+        else
+            result.at(index) =
+                std::max(result.at(index + T.at(index)) + P.at(index),
+                         result.at(index + 1));
+    }
+
+    for (int index = 0; index < N; index++)
+        max = std::max(max, result.at(index));
+
+    std::cout << max << "\n";
+    return 0;
+}
+*/
+
+#include <algorithm>
+#include <iostream>
+#include <vector>
+
+void DFS(std::vector<int> &T, std::vector<int> &p, int index);
+int main() {
+    int N, num1, num2, max = 0;
+    std::vector<int> T, P;
+
+    std::cin >> N;
+
+    std::vector<int> result(N + 1, 0);
+
+    for (int index = 0; index < N; index++) {
+        std::cin >> num1 >> num2;
+        T.push_back(num1);
+        P.push_back(num2);
+    }
+
+    for (int index = N - 1; index >= 0; index--) {
+        if (T.at(index) + index > N)
+            result.at(index) = result.at(index + 1);
+
+        else
+            result.at(index) =
+                std::max(result.at(index + T.at(index)) + P.at(index),
+                         result.at(index + 1));
+    }
+
+    for (int index = 0; index < N; index++)
+        max = std::max(max, result.at(index));
+
+    std::cout << max << "\n";
+    return 0;
 }
