@@ -222,6 +222,7 @@ void cal() {
 }
 */
 
+/*
 #include <algorithm>
 #include <cmath>
 #include <iostream>
@@ -262,7 +263,7 @@ void DFS(int count, int cur) {
         return;
     }
 
-    for (int index = cur; index < N/2; index++) {
+    for (int index = cur; index < N; index++) {
         visited.at(index) = true;
         DFS(count + 1, index + 1);
         visited.at(index) = false;
@@ -273,8 +274,8 @@ void cal() {
     int start = 0;
     int link = 0;
 
-    for (int y = 0; y < N/2; y++) {
-        for (int x = 0; x < N/2; x++) {
+    for (int y = 0; y < N; y++) {
+        for (int x = 0; x < N; x++) {
             if (visited.at(y) && visited.at(x))
                 start += S[y].at(x);
             if (!visited.at(y) && !visited.at(x))
@@ -284,4 +285,128 @@ void cal() {
 
     int result = std::abs(start - link);
     min = std::min(min, result);
+}
+*/
+
+/*
+// 링크와 스타트
+// 15661
+
+#include <algorithm>
+#include <iostream>
+#include <vector>
+
+void DFS(int count, std::vector<int> &input, std::vector<bool> &visited);
+void cal(std::vector<bool> &visited);
+
+int N, min = 20000000;
+std::vector<std::vector<int>> S;
+
+int main() {
+    int num;
+    std::cin >> N;
+
+    std::vector<int> input(N, 0);
+    std::vector<bool> visited(N, false);
+
+    for (int y = 0; y < N; y++) {
+        for (int x = 0; x < N; x++) {
+            std::cin >> num;
+            input.at(x) = num;
+        }
+        S.push_back(input);
+    }
+
+    DFS(0, input, visited);
+    std::cout << min << "\n";
+    return 0;
+}
+
+void DFS(int count, std::vector<int> &input, std::vector<bool> &visited) {
+    if (count == N) {
+        cal(visited);
+        return;
+    }
+
+    visited.at(count) = true;
+    DFS(count + 1, input, visited);
+    visited.at(count) = false;
+    DFS(count + 1, input, visited);
+}
+
+void cal(std::vector<bool> &visited) {
+    int start = 0;
+    int link = 0;
+
+    for (int y = 0; y < N; y++) {
+        for (int x = 0; x < N; x++) {
+            if (visited.at(y) && visited.at(x))
+                start += S[y].at(x);
+            if (!visited.at(y) && !visited.at(x))
+                link += S[y].at(x);
+        }
+    }
+
+    min = std::min(min, std::abs(start - link));
+}
+*/
+
+#include <algorithm>
+#include <iostream>
+#include <vector>
+
+int N, min = 987654321;
+std::vector<std::vector<int>> S;
+
+void DFS(int count, int cur, std::vector<bool> &visited);
+void cal(std::vector<bool> &visited);
+
+int main() {
+    int num;
+    std::cin >> N;
+
+    std::vector<int> input(N, 0);
+    std::vector<bool> visited(N, false);
+
+    for (int y = 0; y < N; y++) {
+        for (int x = 0; x < N; x++) {
+            std::cin >> num;
+            input.at(x) = num;
+        }
+        S.push_back(input);
+    }
+
+    DFS(0, 0, visited);
+    std::cout << min << "\n";
+
+    return 0;
+}
+
+void DFS(int count, int cur, std::vector<bool> &visited) {
+    if (count > N / 2)
+        return;
+    if (count > 0)
+        cal(visited);
+
+    for (int index = cur; index < N; index++) {
+        visited.at(index) = true;
+        DFS(count+1, index + 1, visited);
+        visited.at(index) = false;
+    }
+}
+
+void cal(std::vector<bool> &visited) {
+    int start = 0;
+    int link = 0;
+
+    for (int y = 0; y < N - 1; y++) {
+        for (int x = y + 1; x < N; x++) {
+            if (visited.at(y) && visited.at(x))
+                start += S[y].at(x) + S[x].at(y);
+            if (!visited.at(y) && !visited.at(x))
+                link += S[y].at(x) + S[x].at(y);
+        }
+    }
+
+    min = std::min(min, std::abs(start - link));
 }
