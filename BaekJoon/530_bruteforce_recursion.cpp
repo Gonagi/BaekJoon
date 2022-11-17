@@ -548,3 +548,132 @@ int cal(std::vector<int> &start, std::vector<int> &link) {
     return std::abs(start_sum - link_sum);
 }
 */
+
+// 부등호
+// 2529
+
+/*
+#include <iostream>
+#include <string>
+#include <vector>
+
+int k, count = 0;
+std::vector<std::string> ans;
+
+std::vector<char> inequality;
+std::vector<bool> check(10, false);
+
+void go(int index, std::string num);
+bool ok(std::string num);
+
+int main() {
+    char ch;
+
+    std::cin >> k;
+
+    for (int index = 0; index < k; index++) {
+        std::cin >> ch;
+        inequality.push_back(ch);
+    }
+
+    go(0, "");
+
+    auto p = std::minmax_element(ans.begin(), ans.end());
+    std::cout << *p.second << "\n";
+    std::cout << *p.first << "\n";
+
+    return 0;
+}
+
+void go(int index, std::string num) {
+    if (index == k + 1) {
+        if (ok(num))
+            ans.push_back(num);
+        return;
+    }
+
+    for (int i = 0; i <= 9; i++) {
+        if (check.at(i))
+            continue;
+        check.at(i) = true;
+        go(index + 1, num + std::to_string(i));
+        check.at(i) = false;
+    }
+}
+
+bool ok(std::string num) {
+    for (int i = 0; i < k; i++) {
+        if (inequality.at(i) == '>') {
+            if (num.at(i) < num.at(i + 1))
+                return false;
+        }
+
+        else if (inequality.at(i) == '<') {
+            if (num.at(i) > num.at(i + 1))
+                return false;
+        }
+    }
+    return true;
+}
+*/
+
+// 부등호
+// 2529
+
+#include <algorithm>
+#include <iostream>
+#include <string>
+#include <vector>
+
+int k;
+std::vector<char> inequality;
+std::vector<std::string> ans;
+std::vector<bool> visited(10, false);
+
+void func(int count, std::string num);
+void is_correct(std::string num);
+
+int main() {
+    char ch;
+    std::cin >> k;
+
+    for (int i = 0; i < k; i++) {
+        std::cin >> ch;
+        inequality.push_back(ch);
+    }
+
+    func(0, "");
+    std::sort(ans.begin(), ans.end());
+
+    std::cout << ans.at(ans.size() - 1) << "\n";
+    std::cout << ans.at(0) << "\n";
+    return 0;
+}
+
+void func(int count, std::string num) {
+    if (count == k + 1) {
+        is_correct(num);
+        return;
+    }
+
+    for (int i = 0; i < 10; i++) {
+        if (!visited.at(i)) {
+            visited.at(i) = true;
+            func(count + 1, num + std::to_string(i));
+            visited.at(i) = false;
+        }
+    }
+}
+
+void is_correct(std::string num) {
+    for (int index = 0; index < k; index++) {
+        if (inequality.at(index) == '<') {
+            if (num.at(index) > num.at(index + 1))
+                return;
+        } else {
+            if (num.at(index) < num.at(index + 1))
+                return;
+        }
+    }
+    ans.push_back(num);
+}
