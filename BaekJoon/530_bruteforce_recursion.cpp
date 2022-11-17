@@ -289,6 +289,78 @@ void cal() {
 */
 
 /*
+// 비트 마스크
+
+#include <algorithm>
+#include <iostream>
+#include <vector>
+
+int N, min = 987654321;
+std::vector<std::vector<int>> S;
+
+int divide(int check);
+int cal(std::vector<int> &start, std::vector<int> &link);
+
+int main() {
+    int num, count = 0;
+    std::vector<int> input;
+    std::cin >> N;
+
+    for (int y = 0; y < N; y++) {
+        for (int x = 0; x < N; x++) {
+            std::cin >> num;
+            input.push_back(num);
+        }
+        S.push_back(input);
+        input.clear();
+        input.shrink_to_fit();
+    }
+
+    for (int check = 1; check < (1 << N) / 2; check++) {
+        for (int index = 0; index < N; index++)
+            if ((check & (1 << index)) == 0)
+                count++;
+        if (count == N / 2)
+            min = std::min(min, divide(check));
+
+        count = 0;
+    }
+
+    std::cout << min << "\n";
+
+    return 0;
+}
+
+int divide(int check) {
+    std::vector<int> start, link;
+
+    for (int index = 0; index < N; index++) {
+        if ((check & (1 << index)) == 0)
+            start.push_back(index);
+        else
+            link.push_back(index);
+    }
+
+    int ans = cal(start, link);
+    return ans;
+}
+
+int cal(std::vector<int> &start, std::vector<int> &link) {
+    int start_sum = 0, link_sum = 0;
+
+    for (int y = 0; y < start.size(); y++)
+        for (int x = 0; x < start.size(); x++)
+            start_sum += S[start.at(y)].at(start.at(x));
+
+    for (int y = 0; y < link.size(); y++)
+        for (int x = 0; x < link.size(); x++)
+            link_sum += S[link.at(y)].at(link.at(x));
+
+    return std::abs(start_sum - link_sum);
+}
+*/
+
+/*
 // 링크와 스타트
 // 15661
 
@@ -351,6 +423,7 @@ void cal(std::vector<bool> &visited) {
 }
 */
 
+/*
 #include <algorithm>
 #include <iostream>
 #include <vector>
@@ -410,3 +483,68 @@ void cal(std::vector<bool> &visited) {
 
     min = std::min(min, std::abs(start - link));
 }
+*/
+
+/*
+// 비트 마스크
+#include <algorithm>
+#include <iostream>
+#include <vector>
+
+int N, min = 987654321;
+std::vector<std::vector<int>> S;
+
+int divide(int check);
+int cal(std::vector<int> &start, std::vector<int> &link);
+
+int main() {
+    int num;
+    std::vector<int> input;
+    std::cin >> N;
+
+    for (int y = 0; y < N; y++) {
+        for (int x = 0; x < N; x++) {
+            std::cin >> num;
+            input.push_back(num);
+        }
+        S.push_back(input);
+        input.clear();
+        input.shrink_to_fit();
+    }
+
+    for (int check = 1; check < (1 << N) / 2; check++)
+        min = std::min(min, divide(check));
+
+    std::cout << min << "\n";
+
+    return 0;
+}
+
+int divide(int check) {
+    std::vector<int> start, link;
+
+    for (int index = 0; index < N; index++) {
+        if ((check & (1 << index)) == 0)
+            start.push_back(index);
+        else
+            link.push_back(index);
+    }
+
+    int ans = cal(start, link);
+    return ans;
+}
+
+int cal(std::vector<int> &start, std::vector<int> &link) {
+    int start_sum = 0, link_sum = 0;
+
+    for (int y = 0; y < start.size(); y++)
+        for (int x = 0; x < start.size(); x++)
+            start_sum += S[start.at(y)].at(start.at(x));
+
+    for (int y = 0; y < link.size(); y++)
+        for (int x = 0; x < link.size(); x++)
+            link_sum += S[link.at(y)].at(link.at(x));
+
+    return std::abs(start_sum - link_sum);
+}
+*/
