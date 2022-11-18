@@ -617,6 +617,7 @@ bool ok(std::string num) {
 }
 */
 
+/*
 // 부등호
 // 2529
 
@@ -676,4 +677,82 @@ void is_correct(std::string num) {
         }
     }
     ans.push_back(num);
+}
+*/
+
+// Guess
+// 1248
+
+#include <algorithm>
+#include <iostream>
+#include <string>
+#include <vector>
+
+std::vector<std::vector<char>> S;
+std::vector<bool> visited(22, false);
+std::vector<int> result;
+int n;
+bool check = false;
+std::string str;
+
+void DFS(int count);
+bool is_correct(int count);
+
+int main() {
+    std::vector<char> input;
+    int index = 0;
+    std::cin >> n >> str;
+
+    for (int y = 0; y < n; y++) {
+        for (int x = 0; x < n; x++) {
+            if (y > x)
+                input.push_back(' ');
+            else {
+                input.push_back(str.at(index));
+                index++;
+            }
+        }
+        S.push_back(input);
+        input.clear();
+        input.shrink_to_fit();
+    }
+
+    DFS(0);
+    return 0;
+}
+
+void DFS(int count) {
+    if (count == n) {
+        for (int index = 0; index < n; index++)
+            std::cout << result.at(index) << " ";
+        std::cout << "\n";
+        check = true;
+        return;
+    }
+
+    for (int num = 0; num < 21; num++) {
+        if (!check) {
+            result.push_back(num - 10);
+            if (is_correct(count + 1))
+                DFS(count + 1);
+            result.pop_back();
+        }
+    }
+}
+
+bool is_correct(int count) {
+
+    for (int y = 0; y < count; y++) {
+        int sum = 0;
+        for (int x = y; x < count; x++) {
+            sum += result.at(x);
+            if (S[y].at(x) == '+' && sum <= 0)
+                return false;
+            else if (S[y].at(x) == '-' && sum >= 0)
+                return false;
+            else if (S[y].at(x) == '0' && sum != 0)
+                return false;
+        }
+    }
+    return true;
 }
