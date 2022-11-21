@@ -182,6 +182,7 @@ void check(int cur, int sum) {
 }
 */
 
+/*
 // 종이 조각
 // 14391
 
@@ -235,8 +236,6 @@ void DFS(int cur_y, int cur_x) {
     }
 
     if (cur_x == M) {
-        if(cur_y == N && cur_x == M)
-            int a = 3;
         cal();
         return;
     }
@@ -285,4 +284,162 @@ void cal() {
     }
 
     max = std::max(max, sum);
+}
+*/
+
+/*
+// 비트 마스크
+#include <algorithm>
+#include <iostream>
+#include <string>
+#include <vector>
+
+int N, M, max = 0;
+std::vector<std::vector<int>> Square;
+
+void input();
+void count_max();
+
+int main() {
+    input();
+    count_max();
+    std::cout << max << "\n";
+
+    return 0;
+}
+
+void input() {
+    std::vector<int> input;
+    std::vector<bool> vec;
+    std::string num;
+
+    std::cin >> N >> M;
+
+    for (int y = 0; y < N; y++) {
+        std::cin >> num;
+        for (int x = 0; x < M; x++) {
+            input.push_back(num.at(x) - '0');
+        }
+        Square.push_back(input);
+        input.clear();
+        input.shrink_to_fit();
+    }
+}
+
+void count_max() {
+    for (int count = 0; count < (1 << (N * M)); count++) {
+        int sum = 0;
+        for (int y = 0; y < N; y++) {
+            int cur_sum = 0;
+            for (int x = 0; x < M; x++) {
+                if ((count & (1 << (y * M + x))) == 0)
+                    cur_sum = 10 * cur_sum + Square[y].at(x);
+                else {
+                    sum += cur_sum;
+                    cur_sum = 0;
+                }
+            }
+            sum += cur_sum;
+        }
+
+        for (int x = 0; x < M; x++) {
+            int cur_sum = 0;
+            for (int y = 0; y < N; y++) {
+                if ((count & (1 << (y * M + x))) != 0)
+                    cur_sum = 10 * cur_sum + Square[y].at(x);
+                else {
+                    sum += cur_sum;
+                    cur_sum = 0;
+                }
+            }
+            sum += cur_sum;
+        }
+        max = std::max(max, sum);
+    }
+}
+*/
+
+#include <algorithm>
+#include <iostream>
+#include <string>
+#include <vector>
+
+int N, M, max = 0;
+bool bool_Square[4][4];
+std::vector<std::vector<int>> Square;
+
+void input();
+void count_max(int y, int x);
+void cal();
+
+int main() {
+    input();
+    count_max(0, 0);
+    std::cout << max << "\n";
+}
+
+void input() {
+    std::string num;
+    std::vector<int> input;
+
+    std::cin >> N >> M;
+
+    for (int y = 0; y < N; y++) {
+        std::cin >> num;
+        for (int x = 0; x < M; x++) {
+            input.push_back((num.at(x) - '0'));
+        }
+        Square.push_back(input);
+
+        input.clear();
+        input.shrink_to_fit();
+    }
+}
+
+void count_max(int y, int x) {
+    if (y == N) {
+        cal();
+        return;
+    }
+
+    if (x == M) {
+        count_max(y + 1, 0);
+        return;
+    }
+
+    bool_Square[y][x] = true;
+    count_max(y, x + 1);
+    bool_Square[y][x] = false;
+    count_max(y, x + 1);
+}
+
+void cal() {
+    int sum = 0;
+    for (int y = 0; y < N; y++) {
+        int cur_sum = 0;
+        for (int x = 0; x < M; x++) {
+            if (bool_Square[y][x])
+                cur_sum = 10 * cur_sum + Square[y].at(x);
+            else {
+                sum += cur_sum;
+                cur_sum = 0;
+            }
+        }
+        sum += cur_sum;
+    }
+
+    for (int x = 0; x < M; x++) {
+        int cur_sum = 0;
+        for (int y = 0; y < N; y++) {
+            if (!bool_Square[y][x])
+                cur_sum = 10 * cur_sum + Square[y].at(x);
+            else {
+                sum += cur_sum;
+                cur_sum = 0;
+            }
+        }
+        sum += cur_sum;
+    }
+    max = std::max(max, sum);
+    return;
 }
