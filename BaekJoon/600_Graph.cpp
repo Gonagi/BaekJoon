@@ -233,6 +233,7 @@ void BFS(int cur, int count) {
 }
 */
 
+/*
 // 연결 요소의 개수
 // 11724
 
@@ -283,4 +284,256 @@ void DFS(int num) {
             DFS(to);
         }
     }
+}
+*/
+
+/*
+// 이분 그래프
+// 1707
+
+#include <cstring>
+#include <iostream>
+#include <vector>
+
+int K, V, E, u, v;
+bool is_exist = true, visited[20002];
+int check[20002];
+std::vector<int> linked[20002];
+
+void input();
+void print();
+void clear();
+void DFS(int num, int count);
+
+int main() {
+    std::cin >> K;
+
+    for (int i = 1; i <= K; i++) {
+        input();
+        for (int j = 1; j <= V; j++) {
+            if (!visited[j]) {
+                memset(visited, false, sizeof(visited));
+                memset(check, 0, sizeof(check));
+                DFS(j, 0);
+                if (!is_exist)
+                    break;
+            }
+        }
+        print();
+        clear();
+    }
+    return 0;
+}
+
+void input() {
+    std::cin >> V >> E;
+    for (int i = 1; i <= E; i++) {
+        std::cin >> u >> v;
+        linked[u].push_back(v);
+        linked[v].push_back(u);
+    }
+}
+
+void print() {
+    if (is_exist)
+        std::cout << "YES\n";
+    else
+        std::cout << "NO\n";
+}
+
+void clear() {
+    is_exist = true;
+
+    for (int a = 1; a <= V; a++)
+        linked[a].clear();
+    memset(visited, false, sizeof(visited));
+    memset(check, 0, sizeof(check));
+}
+
+void DFS(int num, int count) {
+    if (count == V)
+        return;
+
+    visited[num] = true;
+
+    for (int index = 0; index < linked[num].size(); index++) {
+        int next = linked[num][index];
+        if (is_exist) {
+            if (!visited[next]) {
+                if (check[num] % 2 == 0)
+                    check[next] += 1;
+                else
+                    check[next] += 2;
+
+                DFS(next, count + 1);
+                continue;
+            }
+
+            if ((check[next] % 2 == 0 && check[num] % 2 == 0) ||
+                (check[next] % 2 == 1 && check[num] % 2 == 1))
+                is_exist = false;
+        }
+    }
+}
+*/
+
+/*
+// DFS
+#include <cstring>
+#include <iostream>
+#include <vector>
+
+#define RED 1
+#define BLUE 2
+
+int K, V, E, u, v;
+bool is_exist = true;
+std::vector<int> visited;
+std::vector<std::vector<int>> linked;
+
+void input();
+void DFS(int num);
+bool is_bipartite_graph();
+
+int main() {
+    std::cin >> K;
+
+    while (K--) {
+        input();
+
+        for (int i = 1; i <= V; i++)
+            if (visited[i] == 0)
+                DFS(i);
+
+        if (is_bipartite_graph())
+            std::cout << "YES\n";
+        else
+            std::cout << "NO\n";
+    }
+    return 0;
+}
+
+void input() {
+    std::cin >> V >> E;
+
+    visited.assign(V + 1, false);
+    linked.assign(V + 1, std::vector<int>(0, 0));
+
+    for (int i = 1; i <= E; i++) {
+        std::cin >> u >> v;
+        linked[u].emplace_back(v);
+        linked[v].emplace_back(u);
+    }
+}
+
+void DFS(int num) {
+
+    if (!visited.at(num))
+        visited.at(num) = RED;
+
+    for (int index = 0; index < linked[num].size(); index++) {
+        int next_num = linked[num].at(index);
+        if (!visited[next_num]) {
+            if (visited.at(num) == RED)
+                visited.at(next_num) = BLUE;
+            else if (visited.at(num) == BLUE)
+                visited.at(next_num) = RED;
+            DFS(next_num);
+        }
+    }
+}
+
+bool is_bipartite_graph() {
+    for (int index = 1; index <= V; index++) {
+        for (int i = 0; i < linked[index].size(); i++) {
+            int next_num = linked[index].at(i);
+            if (visited.at(index) == visited.at(next_num))
+                return false;
+        }
+    }
+
+    return true;
+}
+*/
+
+// BFS
+
+#include <iostream>
+#include <queue>
+#include <vector>
+#define RED 1
+#define BLUE 2
+
+int K, V, E;
+std::vector<int> visited;
+std::vector<std::vector<int>> linked;
+
+void input();
+void BFS(int num);
+bool is_bipartite_graph();
+
+int main() {
+    std::cin >> K;
+
+    while (K--) {
+        input();
+        for (int num = 1; num <= V; num++)
+            if (visited.at(num) == 0)
+                BFS(num);
+
+        if (is_bipartite_graph())
+            std::cout << "YES\n";
+        else
+            std::cout << "NO\n";
+    }
+    return 0;
+}
+
+void input() {
+    int u, v;
+
+    std::cin >> V >> E;
+
+    visited.assign(V + 1, false);
+    linked.assign(V + 1, std::vector<int>(0, 0));
+
+    for (int i = 1; i <= E; i++) {
+        std::cin >> u >> v;
+        linked[u].emplace_back(v);
+        linked[v].emplace_back(u);
+    }
+}
+
+void BFS(int num) {
+    std::queue<int> que;
+    que.push(num);
+    visited.at(num) = RED;
+
+    while (!que.empty()) {
+        int cur = que.front();
+        que.pop();
+
+        for (int index = 0; index < linked[cur].size(); index++) {
+            int next_num = linked[cur].at(index);
+            if (visited.at(next_num) == 0) {
+                que.push(next_num);
+
+                if (visited.at(cur) == RED)
+                    visited.at(next_num) = BLUE;
+                else if (visited.at(cur) == BLUE)
+                    visited.at(next_num) = RED;
+            }
+        }
+    }
+}
+
+bool is_bipartite_graph() {
+    for (int num = 1; num <= V; num++) {
+        for (int index = 0; index < linked[num].size(); index++) {
+            int next_num = linked[num].at(index);
+            if (visited.at(num) == visited.at(next_num))
+                return false;
+        }
+    }
+    return true;
 }
