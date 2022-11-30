@@ -540,6 +540,7 @@ bool is_bipartite_graph() {
 }
 */
 
+/*
 // 단지번호붙이기
 // 2667
 
@@ -601,8 +602,7 @@ void DFS(int y, int x) {
         next_y = y + dir[d].y;
         next_x = x + dir[d].x;
         if ((0 <= next_y && next_y <= N - 1 && 0 <= next_x &&
-             next_x <= N - 1) &&
-            map[next_y][next_x] == 1)
+             next_x <= N - 1) && map[next_y][next_x] == 1)
             DFS(next_y, next_x);
     }
     return;
@@ -616,4 +616,99 @@ void solve() {
                 result.push_back(count);
                 count = 0;
             }
+}
+*/
+
+// 섬의 개수
+// 4963
+
+#include <iostream>
+#include <queue>
+#include <vector>
+
+struct direction {
+    int y, x;
+};
+
+direction dir[8] = {{-1, 0}, {-1, 1}, {0, 1},  {1, 1},
+                    {1, 0},  {1, -1}, {0, -1}, {-1, -1}};
+
+int w, h;
+std::vector<std::vector<int>> map;
+std::vector<int> input;
+
+void input_map();
+void BFS(int y, int x);
+void clear_map();
+
+int main() {
+    while (1) {
+        int count = 0;
+
+        std::cin >> w >> h;
+        if (w == 0 && h == 0)
+            break;
+        input_map();
+
+        for (int y = 0; y < h; y++) {
+            for (int x = 0; x < w; x++) {
+                if (map[y][x] == 1) {
+                    BFS(y, x);
+                    count++;
+                }
+            }
+        }
+        std::cout << count << "\n";
+
+        clear_map();
+    }
+    return 0;
+}
+
+void input_map() {
+    int num;
+
+    for (int y = 0; y < h; y++) {
+        for (int x = 0; x < w; x++) {
+            std::cin >> num;
+            input.push_back(num);
+        }
+        map.push_back(input);
+
+        input.clear();
+        input.shrink_to_fit();
+    }
+}
+
+void BFS(int y, int x) {
+    direction cur = {y, x};
+    map[y][x] = -1;
+    std::queue<struct direction> que;
+    que.push(cur);
+
+    while (!que.empty()) {
+        cur = que.front();
+        direction next{cur.y, cur.x};
+        que.pop();
+
+        for (int d = 0; d < 8; d++) {
+            next.y = cur.y + dir[d].y;
+            next.x = cur.x + dir[d].x;
+            if ((0 <= next.y && next.y <= h - 1 && 0 <= next.x &&
+                 next.x <= w - 1) &&
+                map[next.y][next.x] == 1) {
+                que.push(next);
+                map[next.y][next.x] = -1;
+            }
+        }
+    }
+}
+
+void clear_map() {
+    for (int y = 0; y < h; y++) {
+        map[y].clear();
+        map[y].shrink_to_fit();
+    }
+    map.clear();
+    map.shrink_to_fit();
 }
