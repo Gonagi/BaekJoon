@@ -456,6 +456,7 @@ bool is_bipartite_graph() {
 }
 */
 
+/*
 // BFS
 
 #include <iostream>
@@ -536,4 +537,83 @@ bool is_bipartite_graph() {
         }
     }
     return true;
+}
+*/
+
+// 단지번호붙이기
+// 2667
+
+#include <algorithm>
+#include <iostream>
+#include <string>
+#include <vector>
+
+int N, count;
+std::string str;
+std::vector<int> result;
+std::vector<std::vector<int>> map;
+
+struct direction {
+    int y, x;
+};
+
+direction dir[4] = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+
+void input_house();
+void DFS(int y, int x);
+void solve();
+
+int main() {
+    input_house();
+    solve();
+
+    std::sort(result.begin(), result.end());
+    std::cout << result.size() << "\n";
+    for (int i = 0; i < result.size(); i++)
+        std::cout << result.at(i) << "\n";
+
+    return 0;
+}
+
+void input_house() {
+    std::vector<int> input;
+    std::cin >> N;
+
+    for (int y = 0; y < N; y++) {
+        std::cin >> str;
+        for (int x = 0; x < N; x++)
+            input.push_back(str.at(x) - '0');
+        map.push_back(input);
+
+        input.clear();
+        input.shrink_to_fit();
+    }
+}
+
+void DFS(int y, int x) {
+    map[y][x] = -1;
+    count++;
+
+    int next_y = y;
+    int next_x = x;
+
+    for (int d = 0; d < 4; d++) {
+        next_y = y + dir[d].y;
+        next_x = x + dir[d].x;
+        if ((0 <= next_y && next_y <= N - 1 && 0 <= next_x &&
+             next_x <= N - 1) &&
+            map[next_y][next_x] == 1)
+            DFS(next_y, next_x);
+    }
+    return;
+}
+
+void solve() {
+    for (int y = 0; y < N; y++)
+        for (int x = 0; x < N; x++)
+            if (map[y][x] == 1) {
+                DFS(y, x);
+                result.push_back(count);
+                count = 0;
+            }
 }
