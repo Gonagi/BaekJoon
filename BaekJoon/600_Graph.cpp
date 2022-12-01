@@ -619,6 +619,7 @@ void solve() {
 }
 */
 
+/*
 // 섬의 개수
 // 4963
 
@@ -711,4 +712,153 @@ void clear_map() {
     }
     map.clear();
     map.shrink_to_fit();
+}
+*/
+
+/*
+// DFS 시간초과
+// 미로 탐색
+// 2178
+
+#include <algorithm>
+#include <iostream>
+#include <string>
+#include <vector>
+
+struct Direction {
+    int y, x;
+};
+
+Direction dir[4]{{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+
+int N, M, count = 1, min = 10001;
+std::vector<std::vector<int>> map;
+
+void input_map();
+void DFS(int y, int x);
+
+int main() {
+    input_map();
+
+    DFS(0, 0);
+
+    std::cout << min << "\n";
+
+    return 0;
+}
+
+void input_map() {
+    std::string str;
+    std::vector<int> input_x;
+
+    std::cin >> N >> M;
+
+    for (int y = 0; y < N; y++) {
+        std::cin >> str;
+        for (int x = 0; x < M; x++)
+            input_x.push_back(str.at(x) - '0');
+
+        map.push_back(input_x);
+
+        input_x.clear();
+        input_x.shrink_to_fit();
+    }
+}
+
+void DFS(int y, int x) {
+    if (y == N - 1 && x == M - 1) {
+        min = std::min(min, count);
+        return;
+    }
+
+    for (int d = 0; d < 4; d++) {
+        int next_y = y + dir[d].y;
+        int next_x = x + dir[d].x;
+
+        if (0 <= next_y && next_y <= N - 1 && 0 <= next_x && next_x <= M - 1 &&
+            map[next_y][next_x] == 1) {
+            count++;
+            map[y][x] = -1;
+            DFS(next_y, next_x);
+            map[y][x] = 1;
+            count--;
+        }
+    }
+}
+*/
+
+#include <iostream>
+#include <queue>
+#include <string>
+#include <vector>
+
+struct Direction {
+    int y, x;
+};
+
+Direction dir[4]{{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+
+int N, M;
+std::vector<std::vector<int>> map;
+std::vector<std::vector<int>> check;
+
+std::queue<struct Direction> que;
+
+void input_map();
+void BFS(int y, int x);
+
+int main() {
+    input_map();
+
+    BFS(0, 0);
+
+    std::cout << check[N - 1][M - 1] << "\n";
+
+    return 0;
+}
+
+void input_map() {
+    std::string str;
+    std::vector<int> input_x;
+    std::vector<int> check_x;
+
+    std::cin >> N >> M;
+    check_x.assign(M, 0);
+    check.assign(N, check_x);
+
+    for (int y = 0; y < N; y++) {
+        std::cin >> str;
+        for (int x = 0; x < M; x++)
+            input_x.push_back(str.at(x) - '0');
+
+        map.push_back(input_x);
+
+        input_x.clear();
+        input_x.shrink_to_fit();
+    }
+}
+
+void BFS(int y, int x) {
+    Direction cur{y, x};
+    que.push(cur);
+    map[y][x] = -1;
+    check[y][x] = 1;
+
+    while (!que.empty()) {
+        cur = que.front();
+        que.pop();
+        Direction next(cur);
+
+        for (int d = 0; d < 4; d++) {
+            next.y = cur.y + dir[d].y;
+            next.x = cur.x + dir[d].x;
+
+            if (0 <= next.y && next.y <= N - 1 && 0 <= next.x &&
+                next.x <= M - 1 && map[next.y][next.x] == 1) {
+                que.push(next);
+                map[next.y][next.x] = -1;
+                check[next.y][next.x] = check[cur.y][cur.x] + 1;
+            }
+        }
+    }
 }
