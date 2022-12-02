@@ -716,77 +716,10 @@ void clear_map() {
 */
 
 /*
-// DFS 시간초과
 // 미로 탐색
 // 2178
 
-#include <algorithm>
-#include <iostream>
-#include <string>
-#include <vector>
-
-struct Direction {
-    int y, x;
-};
-
-Direction dir[4]{{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
-
-int N, M, count = 1, min = 10001;
-std::vector<std::vector<int>> map;
-
-void input_map();
-void DFS(int y, int x);
-
-int main() {
-    input_map();
-
-    DFS(0, 0);
-
-    std::cout << min << "\n";
-
-    return 0;
-}
-
-void input_map() {
-    std::string str;
-    std::vector<int> input_x;
-
-    std::cin >> N >> M;
-
-    for (int y = 0; y < N; y++) {
-        std::cin >> str;
-        for (int x = 0; x < M; x++)
-            input_x.push_back(str.at(x) - '0');
-
-        map.push_back(input_x);
-
-        input_x.clear();
-        input_x.shrink_to_fit();
-    }
-}
-
-void DFS(int y, int x) {
-    if (y == N - 1 && x == M - 1) {
-        min = std::min(min, count);
-        return;
-    }
-
-    for (int d = 0; d < 4; d++) {
-        int next_y = y + dir[d].y;
-        int next_x = x + dir[d].x;
-
-        if (0 <= next_y && next_y <= N - 1 && 0 <= next_x && next_x <= M - 1 &&
-            map[next_y][next_x] == 1) {
-            count++;
-            map[y][x] = -1;
-            DFS(next_y, next_x);
-            map[y][x] = 1;
-            count--;
-        }
-    }
-}
-*/
-
+// BFS
 #include <iostream>
 #include <queue>
 #include <string>
@@ -861,4 +794,157 @@ void BFS(int y, int x) {
             }
         }
     }
+}
+*/
+
+/*
+// DFS 시간초과
+
+#include <algorithm>
+#include <iostream>
+#include <string>
+#include <vector>
+
+struct Direction {
+    int y, x;
+};
+
+Direction dir[4]{{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+
+int N, M, count = 1, min = 10001;
+std::vector<std::vector<int>> map;
+
+void input_map();
+void DFS(int y, int x);
+
+int main() {
+    input_map();
+
+    DFS(0, 0);
+
+    std::cout << min << "\n";
+
+    return 0;
+}
+
+void input_map() {
+    std::string str;
+    std::vector<int> input_x;
+
+    std::cin >> N >> M;
+
+    for (int y = 0; y < N; y++) {
+        std::cin >> str;
+        for (int x = 0; x < M; x++)
+            input_x.push_back(str.at(x) - '0');
+
+        map.push_back(input_x);
+
+        input_x.clear();
+        input_x.shrink_to_fit();
+    }
+}
+
+void DFS(int y, int x) {
+    if (y == N - 1 && x == M - 1) {
+        min = std::min(min, count);
+        return;
+    }
+
+    for (int d = 0; d < 4; d++) {
+        int next_y = y + dir[d].y;
+        int next_x = x + dir[d].x;
+
+        if (0 <= next_y && next_y <= N - 1 && 0 <= next_x && next_x <= M - 1 &&
+            map[next_y][next_x] == 1) {
+            count++;
+            map[y][x] = -1;
+            DFS(next_y, next_x);
+            map[y][x] = 1;
+            count--;
+        }
+    }
+}
+*/
+
+// 나이트의 이동
+// 7562
+
+#include <iostream>
+#include <queue>
+#include <vector>
+#define current 1
+#define visited -1
+#define destination 2
+
+struct Direction {
+    int y, x;
+};
+
+Direction dir[8] = {{-2, 1}, {-1, 2}, {1, 2},   {2, 1},
+                    {2, -1}, {1, -2}, {-1, -2}, {-2, -1}};
+
+int I, from_y, from_x, to_y, to_x, count;
+std::vector<std::vector<int>> map, check;
+
+void input();
+void BFS();
+bool can_move(int y, int x);
+
+int main() {
+    int t;
+
+    std::cin >> t;
+
+    while (t--) {
+        input();
+        BFS();
+        std::cout << check[to_y][to_x] << "\n";
+    }
+    return 0;
+}
+
+void input() {
+    std::vector<int> input_x;
+
+    std::cin >> I;
+
+    input_x.assign(I, 0);
+    map.assign(I, input_x);
+    check.assign(I, input_x);
+
+    std::cin >> from_y >> from_x;
+    std::cin >> to_y >> to_x;
+
+    map[from_y][from_x] = current;
+    map[to_y][to_x] = destination;
+}
+
+void BFS() {
+    Direction cur{from_y, from_x}, next;
+    std::queue<Direction> que;
+    que.push(cur);
+    map[from_y][from_x] = visited;
+
+    while (!que.empty()) {
+        cur.y = que.front().y;
+        cur.x = que.front().x;
+        que.pop();
+
+        for (int d = 0; d < 8; d++) {
+            next.y = cur.y + dir[d].y;
+            next.x = cur.x + dir[d].x;
+            if (can_move(next.y, next.x) && map[next.y][next.x] != visited) {
+                que.push(next);
+                map[next.y][next.x] = visited;
+                check[next.y][next.x] = check[cur.y][cur.x] + 1;
+            }
+        }
+    }
+}
+
+bool can_move(int y, int x) {
+    if (y < 0 || x < 0 || y > I - 1 || x > I - 1)
+        return false;
+    return true;
 }
