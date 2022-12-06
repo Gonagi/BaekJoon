@@ -73,6 +73,7 @@ int main() {
 }
 */
 
+/*
 // 비밀번호 찾기
 // 17219
 
@@ -101,3 +102,33 @@ int main() {
     }
     return 0;
 }
+*/
+
+/*
+// 동전 0
+// 11047
+
+#include <iostream>
+#include <vector>
+int N, K;
+std::vector<int> coin;
+
+int main() {
+    int input, count = 0;
+    std::cin >> N >> K;
+
+    for (int i = 0; i < N; i++) {
+        std::cin >> input;
+        coin.push_back(input);
+    }
+
+    for (int i = N - 1; i >= 0; i--) {
+        count += K / coin[i];
+        K %= coin[i];
+    }
+
+    std::cout << count << "\n";
+
+    return 0;
+}
+*/
