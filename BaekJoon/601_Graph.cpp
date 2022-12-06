@@ -1,3 +1,4 @@
+/*
 // Two Dots
 // 16929
 
@@ -80,35 +81,111 @@ void DFS(int y, int x, int count) {
             count--;
         }
     }
-
-    /*
-        if (count == 0) {
-            start_y = y;
-            start_x = x;
-            start_char = map[start_y][start_x];
-            visited[start_y][start_x] = true;
-        }
-
-        for (int d = 0; d < 4; d++) {
-            int next_y = y + dir[d].y;
-            int next_x = x + dir[d].x;
-
-            if (can_move(next_y, next_x) && next_y == start_y &&
-                next_x == start_x && map[next_y][next_x] == start_char) {
-                std::cout << "Yes\n";
-                exit(0);
-            }
-            if (can_move(next_y, next_x) && !visited[next_y][next_x] &&
-                map[next_y][next_x] == start_char) {
-                visited[next_y][next_x] = true;
-                DFS(next_y, next_x, count + 1);
-            }
-        }
-        */
 }
 
 bool can_move(int y, int x) {
     if (y < 0 || x < 0 || y > N - 1 || x > M - 1)
         return false;
     return true;
+}
+*/
+
+// 서울 지하철 2호선
+// 16947
+
+#include <algorithm>
+#include <iostream>
+#include <queue>
+#include <vector>
+
+int N, first_num, result = 100000000, counts = 0;
+bool is_exist = false, c = false;
+std::vector<int> linked[3001];
+std::vector<bool> visited(3001, false), check(3001, false);
+
+void input();
+void DFS(int num, int count);
+void print(int num);
+void distance(int num);
+
+int main() {
+    input();
+    for (int num = 1; num <= N; num++) {
+        first_num = num;
+        DFS(num, 0);
+        if (is_exist) {
+            check[num] = true;
+            break;
+        }
+        visited.assign(N + 1, false);
+    }
+
+    for (int num = 1; num <= N; num++) {
+        print(num);
+    }
+
+    return 0;
+}
+
+void input() {
+    int dot1, dot2;
+    std::cin >> N;
+
+    for (int i = 0; i < N; i++) {
+        std::cin >> dot1 >> dot2;
+        linked[dot1].push_back(dot2);
+        linked[dot2].push_back(dot1);
+    }
+}
+
+void DFS(int num, int count) {
+    for (int next_index = 0; next_index < linked[num].size(); next_index++) {
+        int next_num = linked[num][next_index];
+
+        if (next_num == first_num && count > 1 && !check[next_num]) {
+            check[num] = true;
+            is_exist = true;
+            return;
+        }
+
+        if (!visited[next_num]) {
+            visited[num] = true;
+            DFS(next_num, count + 1);
+            if (is_exist) {
+                check[next_num] = true;
+                return;
+            }
+        }
+    }
+}
+
+void print(int num) {
+    if (check[num])
+        std::cout << 0 << " ";
+    else {
+        visited.assign(N + 1, false);
+        result = 10000000;
+        counts = 0;
+        distance(num);
+    }
+}
+
+void distance(int num) {
+    visited[num] = true;
+
+    if (check[num]) {
+        result = std::min(result, counts);
+        std::cout << result << " ";
+        return;
+    }
+
+    for (int next_index = 0; next_index < linked[num].size(); next_index++) {
+        int next_num = linked[num][next_index];
+
+        if (!visited[next_num]) {
+            counts++;
+            distance(next_num);
+            counts--;
+        }
+    }
 }
