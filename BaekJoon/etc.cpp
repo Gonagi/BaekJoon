@@ -72,3 +72,32 @@ int main() {
     return 0;
 }
 */
+
+// 비밀번호 찾기
+// 17219
+
+#include <iostream>
+#include <map>
+#include <string>
+
+int N, M;
+std::map<std::string, std::string> memo;
+
+int main() {
+    std::cin.tie(NULL);
+    std::ios::sync_with_stdio(false);
+
+    std::string site, ID;
+    std::cin >> N >> M;
+
+    for (int i = 0; i < N; i++) {
+        std::cin >> site >> ID;
+        memo.insert({site, ID});
+    }
+
+    for (int i = 0; i < M; i++) {
+        std::cin >> site;
+        std::cout << memo[site] << "\n";
+    }
+    return 0;
+}
