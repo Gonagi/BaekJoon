@@ -73,7 +73,7 @@ int main() {
 }
 */
 
-/*
+/*1
 // 비밀번호 찾기
 // 17219
 
@@ -132,3 +132,38 @@ int main() {
     return 0;
 }
 */
+
+// 계단 오르기
+// 2579
+
+#include <algorithm>
+#include <iostream>
+#include <vector>
+
+std::vector<int> stairs, dp;
+
+int main() {
+    int top, input;
+
+    std::cin >> top;
+
+    for (int i = 0; i < top; i++) {
+        std::cin >> input;
+        stairs.push_back(input);
+    }
+
+    dp.push_back(stairs[0]);
+    if (2 <= top)
+        dp.push_back(stairs[0] + stairs[1]);
+    if (3 <= top)
+        dp.push_back(std::max(stairs[0], stairs[1]) + stairs[2]);
+
+    for (int cur = 3; cur < top; cur++) {
+        dp.push_back(std::max(dp[cur - 2] + stairs[cur],
+                              dp[cur - 3] + stairs[cur - 1] + stairs[cur]));
+    }
+
+    std::cout << dp[top - 1] << "\n";
+
+    return 0;
+}
