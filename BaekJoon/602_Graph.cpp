@@ -246,6 +246,7 @@ void BFS() {
 }
 */
 
+/*
 // DFS 스페셜 저지
 // 16964
 
@@ -310,4 +311,107 @@ void DFS(int cur_num) {
             }
             DFS(next_num);
         }
+}
+*/
+
+// 다리 만들기
+// 2146
+
+#include <algorithm>
+#include <cstdlib>
+#include <iostream>
+#include <queue>
+#include <vector>
+
+struct Direction {
+    int y, x;
+};
+
+Direction Dir[4] = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+int N, result = 10001, check = 2;
+std::vector<std::vector<int>> map;
+std::vector<Direction> vec;
+
+void input();
+void label_land(int y, int x, int label);
+void cal_distance();
+void check_island(int y, int x);
+int check_min(int y, int x);
+bool movable(int y, int x);
+
+int main() {
+    input();
+    cal_distance();
+    std::cout << result << "\n";
+
+    return 0;
+}
+
+void input() {
+    int num, label = 1;
+    std::vector<int> map_x;
+    std::cin >> N;
+
+    for (int y = 0; y < N; y++) {
+        for (int x = 0; x < N; x++) {
+            std::cin >> num;
+            if (num > 0)
+                map_x.push_back(-1);
+            else
+                map_x.push_back(0);
+        }
+        map.push_back(map_x);
+
+        map_x.clear();
+        map_x.shrink_to_fit();
+    }
+
+    for (int y = 0; y < N; y++)
+        for (int x = 0; x < N; x++)
+            if (map[y][x] < 0)
+                label_land(y, x, label++);
+}
+
+void label_land(int y, int x, int label) {
+    std::queue<Direction> que;
+    Direction cur{y, x};
+    que.push(cur);
+
+    while (!que.empty()) {
+        bool edge = false;
+        cur = que.front();
+        map[y][x] = label;
+        que.pop();
+
+        for (int d = 0; d < 4; d++) {
+            Direction next{cur.y + Dir[d].y, cur.x + Dir[d].x};
+            if (movable(next.y, next.x) && map[next.y][next.x] < 0) {
+                que.push(next);
+                map[next.y][next.x] = label;
+            } else if (movable(next.y, next.x) && map[next.y][next.x] == 0)
+                edge = true;
+        }
+        if (edge)
+            vec.push_back(cur);
+    }
+}
+
+void cal_distance() {
+    int count = 0;
+    for (int i = 0; i < vec.size() - 1; i++) {
+        Direction dir1{vec.at(i)};
+        for (int j = i + 1; j < vec.size(); j++) {
+            Direction dir2{vec.at(j)};
+            if (map[dir1.y][dir1.x] != map[dir2.y][dir2.x]) {
+                count = std::abs(dir1.y - dir2.y) + std::abs(dir1.x - dir2.x) - 1;
+                result = std::min(result, count);
+            }
+        }
+    }
+}
+
+bool movable(int y, int x) {
+    if (0 <= y && 0 <= x && y <= N - 1 && x <= N - 1)
+        return true;
+    return false;
 }
