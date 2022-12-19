@@ -54,6 +54,7 @@ void BFS() {
 }
 */
 
+/*
 // 숨바꼭질 4
 // 13913
 
@@ -62,15 +63,14 @@ void BFS() {
 #include <utility>
 #include <vector>
 
-int N, K, num[100001];
-std::vector<bool> visited;
+int N, K, arr[100001];
+std::vector<bool> visited(100001, false);
 std::vector<int> result;
 
 void BFS();
 
 int main() {
     std::cin >> N >> K;
-    visited.assign(100001, false);
 
     BFS();
 
@@ -80,7 +80,7 @@ int main() {
 void BFS() {
     std::queue<std::pair<int, int>> que;
     que.push(std::make_pair(N, 0));
-    visited.at(N) = true;
+    visited[N] = true;
 
     while (!que.empty()) {
         int cur = que.front().first;
@@ -88,34 +88,93 @@ void BFS() {
         que.pop();
 
         if (cur == K) {
-            int index = cur;
-            while (index != N) {
-                result.push_back(num[index]);
-                index = num[index];
+            while (cur != N) {
+                result.push_back(cur);
+                cur = arr[cur];
             }
+            result.push_back(cur);
 
             std::cout << count << "\n";
 
-            for (int i = count - 1; i >= 0; i--)
+            for (int i = count; i >= 0; i--)
                 std::cout << result.at(i) << " ";
-            std::cout << K << "\n";
+
             return;
         }
 
         if (0 < cur && !visited[cur - 1]) {
             que.push(std::make_pair(cur - 1, count + 1));
             visited[cur - 1] = true;
-            num[cur - 1] = cur;
+            arr[cur - 1] = cur;
         }
+
         if (cur < 100000 && !visited[cur + 1]) {
             que.push(std::make_pair(cur + 1, count + 1));
             visited[cur + 1] = true;
-            num[cur + 1] = cur;
+            arr[cur + 1] = cur;
         }
+
         if (cur <= 50000 && !visited[2 * cur]) {
             que.push(std::make_pair(2 * cur, count + 1));
             visited[2 * cur] = true;
-            num[2 * cur] = cur;
+            arr[2 * cur] = cur;
+        }
+    }
+}
+*/
+
+// 이모티콘
+// 14226
+
+#include <iostream>
+#include <queue>
+
+struct element {
+    int num, clipboard, count;
+};
+
+int S;
+bool visited[1001][1001];
+void BFS();
+
+int main() {
+    std::cin >> S;
+
+    BFS();
+
+    return 0;
+}
+
+void BFS() {
+    element cur{1, 0, 0};
+    std::queue<element> que;
+    que.push(cur);
+
+    while (!que.empty()) {
+        int cur_num = que.front().num;
+        int cur_clipboard = que.front().clipboard;
+        int cur_count = que.front().count;
+        que.pop();
+
+        if (cur_num == S) {
+            std::cout << cur_count << "\n";
+            break;
+        }
+        if (0 < cur_num && cur_num < 1001) {
+            if (!visited[cur_num][cur_num]) {
+                que.push(element{cur_num, cur_num, cur_count + 1});
+                visited[cur_num][cur_num] = true;
+            }
+
+            if (0 < cur_clipboard && cur_num + cur_clipboard < 1001 && !visited[cur_num + cur_clipboard][cur_clipboard]) {
+                que.push(element{cur_num + cur_clipboard, cur_clipboard, cur_count + 1});
+                visited[cur_num + cur_clipboard][cur_clipboard] = true;
+            }
+
+            if (2 <= cur_num && !visited[cur_num - 1][cur_clipboard]) {
+                que.push(element{cur_num - 1, cur_clipboard, cur_count + 1});
+                visited[cur_num - 1][cur_clipboard] = true;
+            }
         }
     }
 }
