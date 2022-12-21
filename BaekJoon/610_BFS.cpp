@@ -123,6 +123,7 @@ void BFS() {
 }
 */
 
+/*
 // 이모티콘
 // 14226
 
@@ -160,6 +161,7 @@ void BFS() {
             std::cout << cur_count << "\n";
             break;
         }
+
         if (0 < cur_num && cur_num < 1001) {
             if (!visited[cur_num][cur_num]) {
                 que.push(element{cur_num, cur_num, cur_count + 1});
@@ -175,6 +177,121 @@ void BFS() {
                 que.push(element{cur_num - 1, cur_clipboard, cur_count + 1});
                 visited[cur_num - 1][cur_clipboard] = true;
             }
+        }
+    }
+}
+*/
+
+/*
+// 숨바꼭질 3
+// 13549
+
+#include <cstdlib>
+#include <iostream>
+#include <queue>
+#include <vector>
+
+int N, K;
+std::vector<bool> visited(100001, false);
+
+void BFS();
+
+int main() {
+    std::cin >> N >> K;
+
+    BFS();
+
+    return 0;
+}
+
+void BFS() {
+    std::queue<std::pair<int, int>> que;
+    que.push(std::make_pair(N, 0));
+    visited[N] = true;
+
+    while (!que.empty()) {
+        int cur = que.front().first;
+        int cal = cur;
+        int count = que.front().second;
+        que.pop();
+
+        if (cur == K) {
+            std::cout << count << "\n";
+            return;
+        }
+
+        if (0 <= cur && cur <= 100000) {
+            while (cal <= 50000 && std::abs(K - cal) > std::abs(K - 2 * cal)) {
+                cal *= 2;
+
+                if (cal == K) {
+                    std::cout << count << "\n";
+                    return;
+                }
+                visited[cal] = true;
+                que.push(std::make_pair(cal, count));
+            }
+
+            if (cur < 100000 && !visited[cur + 1]) {
+                que.push(std::make_pair(cur + 1, count + 1));
+                visited[cur + 1] = true;
+            }
+
+            if (0 < cur && !visited[cur - 1]) {
+                que.push(std::make_pair(cur - 1, count + 1));
+                visited[cur - 1] = true;
+            }
+        }
+    }
+}
+*/
+
+#include <iostream>
+#include <queue>
+#include <vector>
+
+int N, K;
+bool visited[100001];
+
+void min_second();
+
+int main() {
+    std::cin >> N >> K;
+
+    min_second();
+
+    return 0;
+}
+
+void min_second() {
+    std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, std::greater<std::pair<int, int>>> que;
+
+    que.push(std::make_pair(0, N));
+    visited[N] = true;
+
+    while (!que.empty()) {
+        int cur_sec = que.top().first;
+        int cur = que.top().second;
+        que.pop();
+
+        if (cur == K) {
+            std::cout << cur_sec << "\n";
+            return;
+        }
+
+        if (2 * cur <= 100000 && !visited[2 * cur]) {
+            que.push(std::make_pair(cur_sec, 2 * cur));
+            visited[2 * cur] = true;
+        }
+
+        if (cur < 100000 && !visited[cur + 1]) {
+            que.push(std::make_pair(cur_sec + 1, cur + 1));
+            visited[cur + 1] = true;
+        }
+
+        if (0 < cur && !visited[cur - 1]) {
+            que.push(std::make_pair(cur_sec + 1, cur - 1));
+            visited[cur - 1] = true;
         }
     }
 }
