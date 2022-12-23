@@ -303,6 +303,82 @@ void min_second() {
 // 알고스팟
 // 1261
 
+/*
+#include <iostream>
+#include <queue>
+#include <string>
+
+#define Max 100 + 1
+struct Direction {
+    int y, x;
+};
+
+Direction dir[4]{{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+int N, M, map[Max][Max], count[Max][Max];
+
+void input();
+void BFS();
+bool movable(int y, int x);
+
+int main() {
+    input();
+    BFS();
+    std::cout << count[N - 1][M - 1] << "\n";
+    return 0;
+}
+
+void input() {
+    std::string str;
+    std::cin >> M >> N;
+
+    for (int y = 0; y < N; y++) {
+        std::cin >> str;
+        for (int x = 0; x < M; x++) {
+            map[y][x] = str[x] - '0';
+            count[y][x] = Max * Max + 1;
+        }
+    }
+}
+
+void BFS() {
+    std::queue<Direction> que;
+    que.push({0, 0});
+    count[0][0] = 0;
+
+    while (!que.empty()) {
+        int cur_y = que.front().y;
+        int cur_x = que.front().x;
+        que.pop();
+
+        for (int d = 0; d < 4; d++) {
+            int next_y = cur_y + dir[d].y;
+            int next_x = cur_x + dir[d].x;
+
+            if (movable(next_y, next_x)) {
+                if (map[next_y][next_x] == 1) {
+                    if (count[next_y][next_x] > count[cur_y][cur_x] + 1) {
+                        count[next_y][next_x] = count[cur_y][cur_x] + 1;
+                        que.push({next_y, next_x});
+                    }
+                } else if (map[next_y][next_x] == 0) {
+                    if (count[next_y][next_x] > count[cur_y][cur_x]) {
+                        count[next_y][next_x] = count[cur_y][cur_x];
+                        que.push({next_y, next_x});
+                    }
+                }
+            }
+        }
+    }
+}
+
+bool movable(int y, int x) {
+    if (0 <= y && y <= N - 1 && 0 <= x && x <= M - 1)
+        return true;
+    return false;
+}
+*/
+
+/*
 #include <iostream>
 #include <queue>
 #include <string>
@@ -392,8 +468,10 @@ bool is_movable(int y, int x) {
         return true;
     return false;
 }
+*/
 
 /*
+// 메모리 초과
 #include <iostream>
 #include <queue>
 #include <string>
