@@ -54,6 +54,7 @@ void postorder(char ch) {
 }
 */
 
+/*
 // 트리의 높이와 너비
 // 2250
 
@@ -93,6 +94,7 @@ int main() {
 
     inorder(root);
     find_min();
+
     return 0;
 }
 
@@ -118,4 +120,133 @@ void find_min() {
 
     std::cout << max_level << " " << max << "\n";
     return;
+}
+*/
+
+/*
+// 11725
+// 트리의 부모 찾기
+
+#include <iostream>
+#include <queue>
+#include <vector>
+
+#define Max 100000 + 1
+
+int N, level[Max];
+bool visited[Max];
+std::vector<int> vec[Max];
+
+void input();
+void level_BFS();
+void print();
+
+int main() {
+    input();
+    level_BFS();
+    print();
+    return 0;
+}
+
+void input() {
+    int dot1, dot2;
+
+    std::cin >> N;
+
+    for (int i = 1; i < N; i++) {
+        std::cin >> dot1 >> dot2;
+        vec[dot1].push_back(dot2);
+        vec[dot2].push_back(dot1);
+    }
+}
+
+void level_BFS() {
+    std::queue<std::pair<int, int>> que;
+    que.push({1, 1});
+    level[1] = 1;
+    visited[1] = true;
+
+    while (!que.empty()) {
+        int cur_node = que.front().first;
+        int cur_level = que.front().second;
+        level[cur_node] = cur_level;
+        visited[cur_node] = true;
+        que.pop();
+
+        for (int idx = 0; idx < vec[cur_node].size(); idx++) {
+            int next_node = vec[cur_node][idx];
+            if (!visited[next_node])
+                que.push({next_node, cur_level + 1});
+        }
+    }
+}
+
+void print() {
+    for (int num = 2; num <= N; num++) {
+        for (int idx = 0; idx < vec[num].size(); idx++) {
+            if (level[vec[num][idx]] == level[num] - 1) {
+                std::cout << vec[num][idx] << "\n";
+                break;
+            }
+        }
+    }
+}
+*/
+
+#include <iostream>
+#include <queue>
+#include <vector>
+
+#define Max 100000 + 1
+
+int N, level[Max];
+bool visited[Max];
+std::vector<int> vec[Max];
+
+void input();
+void level_BFS();
+void print();
+
+int main() {
+    input();
+    level_BFS();
+    print();
+    return 0;
+}
+
+void input() {
+    int dot1, dot2;
+
+    std::cin >> N;
+
+    for (int i = 1; i < N; i++) {
+        std::cin >> dot1 >> dot2;
+        vec[dot1].push_back(dot2);
+        vec[dot2].push_back(dot1);
+    }
+}
+
+void level_BFS() {
+    std::queue<int> que;
+    que.push(1);
+    visited[1] = true;
+
+    while (!que.empty()) {
+        int cur_node = que.front();
+        visited[cur_node] = true;
+        que.pop();
+
+        for (int idx = 0; idx < vec[cur_node].size(); idx++) {
+            int next_node = vec[cur_node][idx];
+            if (!visited[next_node]) {
+                que.push(next_node);
+                level[next_node] = cur_node;
+            }
+        }
+    }
+}
+
+void print() {
+    for (int num = 2; num <= N; num++)
+        std::cout << level[num] << "\n";
 }
