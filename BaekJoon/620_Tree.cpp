@@ -186,9 +186,11 @@ void print() {
 }
 */
 
+/*
 // 트리의 지름
 // 1167
 
+#include <cstring>
 #include <iostream>
 #include <vector>
 
@@ -242,5 +244,58 @@ void DFS(int node, int length) {
         int next_node = vec[node][idx].first;
         int next_length = length + vec[node][idx].second;
         DFS(next_node, next_length);
+    }
+}
+*/
+
+// 트리의 지름
+// 1967
+
+#include <cstring>
+#include <iostream>
+#include <vector>
+
+#define Max 100000 + 1
+
+int n, max_node, max_length;
+bool visited[Max];
+std::vector<std::pair<int, int>> vec[Max];
+
+void input();
+void DFS(int node, int length);
+
+int main() {
+    input();
+    DFS(1, 0);
+    std::memset(visited, false, Max);
+    DFS(max_node, 0);
+    std::cout << max_length << "\n";
+    return 0;
+}
+
+void input() {
+    int node1, node2, distance;
+    std::cin >> n;
+    for (int i = 1; i < n; i++) {
+        std::cin >> node1 >> node2 >> distance;
+        vec[node1].push_back({node2, distance});
+        vec[node2].push_back({node1, distance});
+    }
+}
+
+void DFS(int node, int length) {
+    if (visited[node])
+        return;
+    if (max_length < length) {
+        max_length = length;
+        max_node = node;
+    }
+
+    visited[node] = true;
+
+    for (int idx = 0; idx < vec[node].size(); idx++) {
+        int next_node = vec[node][idx].first;
+        int next_distance = vec[node][idx].second;
+        DFS(next_node, length + next_distance);
     }
 }
