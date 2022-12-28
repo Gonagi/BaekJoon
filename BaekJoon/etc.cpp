@@ -170,45 +170,128 @@ int main() {
 }
 */
 
+/*
 // 별찍기 -11
 // 2448
 
-#include <iostream>
 #include <cstring>
+#include <iostream>
 using namespace std;
 
 char star[3072][6144];//세로 N, 가로 2N-1
 
 void print(int x, int y, int n) {
-	if (n == 3) {
-		star[x][y] = '*';
-		star[x + 1][y - 1] = '*';
-		star[x + 2][y - 2] = '*';
-		star[x + 2][y - 1] = '*';
-		star[x + 2][y] = '*';
-		star[x + 2][y + 1] = '*';
-		star[x + 2][y + 2] = '*';
-		star[x + 1][y + 1] = '*';
-	}
-	else {
-		print(x, y, n / 2);
-		print(x + n / 2, y - n / 2, n / 2);
-		print(x + n / 2, y + n / 2, n / 2);
-	}
+        if (n == 3) {
+                star[x][y] = '*';
+                star[x + 1][y - 1] = '*';
+                star[x + 2][y - 2] = '*';
+                star[x + 2][y - 1] = '*';
+                star[x + 2][y] = '*';
+                star[x + 2][y + 1] = '*';
+                star[x + 2][y + 2] = '*';
+                star[x + 1][y + 1] = '*';
+        }
+        else {
+                print(x, y, n / 2);
+                print(x + n / 2, y - n / 2, n / 2);
+                print(x + n / 2, y + n / 2, n / 2);
+        }
 }
 
 int main() {
-	int N;
-	cin >> N;
-	memset(star, ' ', sizeof(star));
+        int N;
+        cin >> N;
+        memset(star, ' ', sizeof(star));
 
-	print(0, N - 1, N);
-	
-	for (int i = 0; i < N; i++) {
-		for (int j = 0; j < 2 * N - 1; j++) {
-			cout << star[i][j];
-		}
-		cout << '\n';
-	}
-	return 0;
+        print(0, N - 1, N);
+
+        for (int i = 0; i < N; i++) {
+                for (int j = 0; j < 2 * N - 1; j++) {
+                        cout << star[i][j];
+                }
+                cout << '\n';
+        }
+        return 0;
 }
+*/
+
+// N-Queen
+// 9663
+
+#include <iostream>
+#define Max 15
+
+int N, count, arr[Max];
+
+void N_Queen(int row);
+bool check(int col);
+
+int main() {
+    std::cin >> N;
+    N_Queen(0);
+    std::cout << count << "\n";
+    return 0;
+}
+
+void N_Queen(int row) {
+    if (row == N) {
+        count++;
+        return;
+    }
+
+    for (int queen = 0; queen < N; queen++) {
+        arr[row] = queen;
+        if (check(row))
+            N_Queen(row + 1);
+    }
+}
+
+bool check(int row) {
+    for (int col = 0; col < row; col++) {
+        if (arr[row] == arr[col] || row - col == std::abs(arr[col] - arr[row]))
+            return false;
+    }
+    return true;
+}
+
+/*
+#include <algorithm>
+#include <iostream>
+
+int arr[16];
+
+int N, count;
+
+void N_Queen(int level);
+bool check(int level);
+
+int main() {
+    std::cin >> N;
+
+    N_Queen(0);
+
+    std::cout << count << "\n";
+    return 0;
+}
+
+void N_Queen(int level) {
+    if (level == N) {
+        count++;
+        return;
+    }
+
+    for (int index = 0; index < N; index++) {
+        arr[level] = index;
+        if (check(level))
+            N_Queen(level + 1);
+    }
+}
+
+bool check(int level) {
+    for (int index = 0; index < level; index++)
+        if (arr[level] == arr[index] || level - index == std::abs(arr[level] - arr[index]))
+            return false;
+
+    return true;
+}
+*/
