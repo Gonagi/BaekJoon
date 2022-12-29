@@ -215,6 +215,7 @@ int main() {
 }
 */
 
+/*
 // N-Queen
 // 9663
 
@@ -248,50 +249,57 @@ void N_Queen(int row) {
 
 bool check(int row) {
     for (int col = 0; col < row; col++) {
-        if (arr[row] == arr[col] || row - col == std::abs(arr[col] - arr[row]))
+        if (arr[row] == arr[col] || std::abs(row - col) == std::abs(arr[col] - arr[row]))
             return false;
     }
-    return true;
-}
-
-/*
-#include <algorithm>
-#include <iostream>
-
-int arr[16];
-
-int N, count;
-
-void N_Queen(int level);
-bool check(int level);
-
-int main() {
-    std::cin >> N;
-
-    N_Queen(0);
-
-    std::cout << count << "\n";
-    return 0;
-}
-
-void N_Queen(int level) {
-    if (level == N) {
-        count++;
-        return;
-    }
-
-    for (int index = 0; index < N; index++) {
-        arr[level] = index;
-        if (check(level))
-            N_Queen(level + 1);
-    }
-}
-
-bool check(int level) {
-    for (int index = 0; index < level; index++)
-        if (arr[level] == arr[index] || level - index == std::abs(arr[level] - arr[index]))
-            return false;
-
     return true;
 }
 */
+
+// 트리의 순회
+// 2263
+
+#include <algorithm>
+#include <iostream>
+#include <vector>
+
+#define Max 100000 + 1
+void preorder(int in_first, int in_f_last, int post_first, int post_last); // 전위 3
+// void inorder();   // 중위 1
+// void postorder();  // 후위 3
+
+int n, in[Max], post[Max], arr[Max];
+
+int main() {
+    std::cin >> n;
+
+    for (int i = 1; i <= n; i++) {
+        std::cin >> in[i];
+    }
+
+    for (int i = 1; i <= n; i++) {
+        std::cin >> post[i];
+    }
+
+    for (int i = 1; i <= n; i++) {
+        arr[in[i]] = i;
+    }
+
+    preorder(1, n, 1, n);
+
+    return 0;
+}
+
+void preorder(int in_first, int in_last, int post_first, int post_last) {
+    if (in_first > in_last || post_first > post_last)
+        return;
+
+    int root = post[post_last];
+    int root_index = arr[root];
+    int left_count = root_index - in_first;
+
+    std::cout << root << " ";
+
+    preorder(in_first, root_index - 1, post_first, post_first + left_count - 1);
+    preorder(root_index + 1, in_last, post_first + left_count, post_last - 1);
+}
