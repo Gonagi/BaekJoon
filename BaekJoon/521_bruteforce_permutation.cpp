@@ -61,6 +61,7 @@ bool check(const std::vector<int> &vec) {
 }
 */
 
+/*
 // 백트래킹
 
 #include <algorithm>
@@ -120,4 +121,119 @@ void check(std::string str) {
     }
 
     ans.push_back(str);
+}
+*/
+
+// 단어 수학
+// 1339
+
+/*
+#include <algorithm>
+#include <iostream>
+#include <string>
+#include <vector>
+
+int N, alphabet[26], count, max;
+bool visited[26];
+std::vector<std::string> vec;
+std::vector<int> num_vec;
+
+void input();
+void solve();
+
+int main() {
+    input();
+    solve();
+    std::cout << max << "\n";
+    return 0;
+}
+
+void input() {
+    std::string str;
+    std::cin >> N;
+
+    for (int i = 0; i < N; i++) {
+        std::cin >> str;
+        for (int idx = 0; idx < str.size(); idx++) {
+            if (!visited[str.at(idx) - 'A']) {
+                visited[str.at(idx) - 'A'] = true;
+                count++;
+            }
+        }
+        vec.push_back(str);
+    }
+
+    for (int num = 9; num >= 10 - count; num--)
+        num_vec.push_back(num);
+}
+
+void solve() {
+    do {
+        int sum = 0, index = 0;
+        for (int idx = 0; idx < 26; idx++) {
+            if (visited[idx]) {
+                alphabet[idx] = num_vec[index];
+                index++;
+                if(index == count)
+                    break;
+            }
+        }
+
+        for (int i = 0; i < vec.size(); i++) {
+            int cur_num = 0, digit = 1;
+            for (int idx = vec[i].size() - 1; idx >= 0; idx--) {
+                cur_num += (digit * alphabet[vec[i][idx] - 'A']);
+                digit *= 10;
+            }
+            sum += cur_num;
+        }
+        max = std::max(max, sum);
+
+    } while (std::prev_permutation(num_vec.begin(), num_vec.end()));
+}
+*/
+
+#include <algorithm>
+#include <iostream>
+#include <string>
+
+bool comp(int a, int b) {
+    return a > b;
+}
+void input();
+void solve();
+
+int N, alphabet[26], sum;
+
+int main() {
+    input();
+    solve();
+    std::cout << sum << "\n";
+    return 0;
+}
+
+void input() {
+    std::string str;
+    std::cin >> N;
+
+    for (int i = 0; i < N; i++) {
+        int digit = 1;
+        std::cin >> str;
+        for (int idx = str.size() - 1; idx >= 0; idx--) {
+            alphabet[str[idx] - 'A'] += digit;
+            digit *= 10;
+        }
+    }
+    std::sort(alphabet, alphabet + 26, comp);
+}
+
+void solve() {
+    int num = 9;
+
+    for (int idx = 0; idx < 26; idx++) {
+        if (alphabet[idx] == 0)
+            break;
+        sum += (num * alphabet[idx]);
+        num--;
+    }
 }
