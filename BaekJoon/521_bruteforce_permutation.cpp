@@ -124,10 +124,11 @@ void check(std::string str) {
 }
 */
 
+/*
 // 단어 수학
 // 1339
 
-/*
+// 시간 456ms
 #include <algorithm>
 #include <iostream>
 #include <string>
@@ -193,6 +194,8 @@ void solve() {
 }
 */
 
+// 시간 0ms
+/*
 #include <algorithm>
 #include <iostream>
 #include <string>
@@ -236,4 +239,83 @@ void solve() {
         sum += (num * alphabet[idx]);
         num--;
     }
+}
+*/
+
+// 연산자 끼워넣기
+// 14888
+
+#include <algorithm>
+#include <iostream>
+#include <vector>
+#define Max 1000000000
+#define Min -1000000000
+
+char Ch[4] = {'+', '-', '*', '/'};
+int N, oper[4];
+long max = Min, min = Max;
+std::vector<long> A;
+std::vector<char> oper_vec;
+
+void input();
+void solve();
+long cal();
+
+int main() {
+    input();
+    solve();
+    std::cout << max << "\n";
+    std::cout << min << "\n";
+    return 0;
+}
+
+void input() {
+    long num;
+
+    std::cin >> N;
+    for (int i = 0; i < N; i++) {
+        std::cin >> num;
+        A.push_back(num);
+    }
+
+    for (int i = 0; i < 4; i++) {
+        char ch = Ch[i];
+        std::cin >> oper[i];
+        for (int idx = 0; idx < oper[i]; idx++)
+            oper_vec.push_back(ch);
+    }
+    std::sort(oper_vec.begin(), oper_vec.end());
+}
+
+void solve() {
+    do {
+        max = std::max(max, cal());
+        min = std::min(min, cal());
+    } while (std::next_permutation(oper_vec.begin(), oper_vec.end()));
+}
+
+long cal() {
+    long sum = A[0];
+
+    for (int idx = 0; idx < N; idx++) {
+        switch (oper_vec[idx]) {
+        case '+':
+            sum += A[idx + 1];
+            break;
+        case '-':
+            sum -= A[idx + 1];
+            break;
+        case '*':
+            sum *= A[idx + 1];
+            break;
+        case '/':
+            if (sum > 0) {
+                sum /= A[idx + 1];
+            } else {
+                sum = -1 * ((-1 * sum) / A[idx + 1]);
+            }
+            break;
+        }
+    }
+    return sum;
 }
