@@ -242,6 +242,7 @@ void solve() {
 }
 */
 
+/*
 // 연산자 끼워넣기
 // 14888
 
@@ -318,4 +319,111 @@ long cal() {
         }
     }
     return sum;
+}
+*/
+
+/*
+// 스타트와 링크
+// 14889
+
+// DFS
+#include <algorithm>
+#include <iostream>
+#include <vector>
+#define Max 21
+
+int N, S[Max][Max], min = 10001;
+bool visited[Max];
+
+void DFS(int count, int cur);
+void cal();
+
+int main() {
+    std::cin >> N;
+
+    for (int y = 1; y <= N; y++)
+        for (int x = 1; x <= N; x++)
+            std::cin >> S[y][x];
+
+    DFS(0, 1);
+    std::cout << min << "\n";
+    return 0;
+}
+
+void DFS(int count, int cur) {
+    if (count == N / 2) {
+        cal();
+        return;
+    }
+
+    for (int idx = cur; idx <= N; idx++) {
+        visited[idx] = true;
+        DFS(count + 1, idx + 1);
+        visited[idx] = false;
+    }
+}
+
+void cal() {
+    int start = 0, link = 0;
+    for (int y = 1; y <= N; y++) {
+        for (int x = y; x <= N; x++) {
+            if (!visited[y] && !visited[x] && S[y][x] != 0)
+                start += (S[y][x] + S[x][y]);
+            if(visited[y] && visited[x] && S[y][x] != 0)
+                link += (S[y][x] + S[x][y]);
+        }
+    }
+
+    min = std::min(min, std::abs(start - link));
+}
+*/
+
+// 순열
+
+#include <algorithm>
+#include <iostream>
+#include <vector>
+#define Max 21
+
+int N, S[Max][Max], min = 100000;
+std::vector<int> vec;
+
+void input();
+void solve();
+
+int main() {
+    input();
+    solve();
+    std::cout << min << "\n";
+    return 0;
+}
+
+void input() {
+    std::cin >> N;
+
+    for (int y = 1; y <= N; y++)
+        for (int x = 1; x <= N; x++)
+            std::cin >> S[y][x];
+
+    for (int i = 1; i <= N; i++) {
+        if (i <= N / 2)
+            vec.push_back(0);
+        else
+            vec.push_back(1);
+    }
+}
+
+void solve() {
+    do {
+        int start = 0, link = 0;
+        for (int y = 1; y <= N; y++) {
+            for (int x = y; x <= N; x++) {
+                if (vec[y-1] == 1 && vec[x-1] == 1)
+                    start += (S[y][x] + S[x][y]);
+                if (vec[y-1] == 0 && vec[x-1] == 0)
+                    link += (S[y][x] + S[x][y]);
+            }
+        }
+        min = std::min(min, std::abs(start - link));
+    } while (std::next_permutation(vec.begin(), vec.end()));
 }
