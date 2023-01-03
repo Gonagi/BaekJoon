@@ -94,10 +94,10 @@ void DFS(int sum, int cur) {
 }
 */
 
+/*
 // 부분수열의 합
 // 14225
 
-#include <algorithm>
 #include <iostream>
 #include <vector>
 #define Max 2000000
@@ -136,4 +136,70 @@ void DFS(int sum, int cur) {
 
     DFS(sum, cur + 1);
     DFS(sum + S[cur], cur + 1);
+}
+*/
+
+// 연산자 끼워넣기
+// 14888
+
+#include <algorithm>
+#include <iostream>
+#include <vector>
+#define Max 1000000000
+
+int N, max = -Max, min = Max, oper[4];
+std::vector<int> A;
+
+void input();
+void DFS(int count, int cal);
+
+int main() {
+    input();
+    DFS(0, A[0]);
+    std::cout << max << "\n";
+    std::cout << min << "\n";
+    return 0;
+}
+
+void input() {
+    int num;
+
+    std::cin >> N;
+
+    for (int idx = 0; idx < N; idx++) {
+        std::cin >> num;
+        A.push_back(num);
+    }
+
+    for (int idx = 0; idx < 4; idx++) {
+        std::cin >> num;
+        oper[idx] = num;
+    }
+}
+
+void DFS(int count, int cal) {
+    if (count == N - 1) {
+        min = std::min(min, cal);
+        max = std::max(max, cal);
+        return;
+    }
+
+    for (int idx = 0; idx < 4; idx++) {
+        if (oper[idx] != 0) {
+            oper[idx]--;
+            if (idx == 0)
+                DFS(count + 1, cal + A[count + 1]);
+            if (idx == 1)
+                DFS(count + 1, cal - A[count + 1]);
+            if (idx == 2)
+                DFS(count + 1, cal * A[count + 1]);
+            if (idx == 3) {
+                if (cal > 0)
+                    DFS(count + 1, cal / A[count + 1]);
+                else
+                    DFS(count + 1, -1 * ((-1 * cal) / A[count + 1]));
+            }
+            oper[idx]++;
+        }
+    }
 }
