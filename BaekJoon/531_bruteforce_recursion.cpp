@@ -1,3 +1,6 @@
+/*
+// 로또
+// 6603
 #include <iostream>
 #include <vector>
 
@@ -40,11 +43,51 @@ void DFS(int cur, int count) {
     }
 
     for (int idx = cur; idx < k; idx++) {
-        // if (!visited[idx]) {
-        //     visited[idx] = true;
+        if (!visited[idx]) {
+            visited[idx] = true;
             arr[count] = S[idx];
             DFS(idx, count + 1);
-            // visited[idx] = false;
-        // }
+            visited[idx] = false;
+        }
     }
+}
+*/
+
+// 부분수열의 합
+// 1182
+
+#include <iostream>
+#include <vector>
+
+int N, S, count;
+bool visited[20];
+std::vector<int> vec;
+
+void DFS(int sum, int cur);
+
+int main() {
+    int num;
+    std::cin >> N >> S;
+
+    for (int idx = 0; idx < N; idx++) {
+        std::cin >> num;
+        vec.push_back(num);
+    }
+
+    DFS(0, 0);
+    if (S == 0)
+        count--;
+    std::cout << count << "\n";
+    return 0;
+}
+
+void DFS(int sum, int cur) {
+    if (cur == N) {
+        if (sum == S)
+            count++;
+        return;
+    }
+
+    DFS(sum, cur + 1);
+    DFS(sum + vec[cur], cur + 1);
 }
