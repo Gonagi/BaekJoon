@@ -53,6 +53,7 @@ void DFS(int cur, int count) {
 }
 */
 
+/*
 // 부분수열의 합
 // 1182
 
@@ -90,4 +91,49 @@ void DFS(int sum, int cur) {
 
     DFS(sum, cur + 1);
     DFS(sum + vec[cur], cur + 1);
+}
+*/
+
+// 부분수열의 합
+// 14225
+
+#include <algorithm>
+#include <iostream>
+#include <vector>
+#define Max 2000000
+
+int N;
+bool visited[Max];
+std::vector<int> S;
+
+void DFS(int sum, int cur);
+
+int main() {
+    int num;
+
+    std::cin >> N;
+    for (int idx = 0; idx < N; idx++) {
+        std::cin >> num;
+        S.push_back(num);
+    }
+
+    DFS(0, 0);
+
+    for (int num = 1; num <= Max; num++) {
+        if (!visited[num]) {
+            std::cout << num << "\n";
+            break;
+        }
+    }
+    return 0;
+}
+
+void DFS(int sum, int cur) {
+    if (cur == N) {
+        visited[sum] = true;
+        return;
+    }
+
+    DFS(sum, cur + 1);
+    DFS(sum + S[cur], cur + 1);
 }
