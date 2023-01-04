@@ -206,6 +206,7 @@ void DFS(int count, int cal) {
 }
 */
 
+/*
 // 연산자 끼워넣기 (2)
 // 15658
 
@@ -269,4 +270,82 @@ void DFS(int count, int cal) {
             oper[idx]++;
         }
     }
+}
+*/
+
+// 테트로미노
+// 14500
+
+#include <algorithm>
+#include <iostream>
+#define Max 500
+
+void input();
+void DFS(int count, int sum, int y, int x);
+void H_shape(int y, int x);
+bool can_move(int y, int x);
+
+struct Direction {
+    int y, x;
+};
+Direction dir[4] = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+int N, M, arr[Max][Max], max;
+bool visited[Max][Max];
+
+int main() {
+    input();
+    for (int y = 0; y < N; y++) {
+        for (int x = 0; x < M; x++) {
+            DFS(0, 0, y, x);
+            H_shape(y, x);
+        }
+    }
+
+    std::cout << max << "\n";
+    return 0;
+}
+
+void input() {
+    std::cin >> N >> M;
+
+    for (int y = 0; y < N; y++) {
+        for (int x = 0; x < M; x++) {
+            std::cin >> arr[y][x];
+        }
+    }
+}
+
+void DFS(int count, int sum, int y, int x) {
+    if (count == 4) {
+        max = std::max(max, sum);
+        return;
+    }
+
+    for (int d = 0; d < 4; d++) {
+        int next_y = y + dir[d].y;
+        int next_x = x + dir[d].x;
+
+        if (can_move(next_y, next_x) && !visited[next_y][next_x]) {
+            visited[next_y][next_x] = true;
+            DFS(count + 1, sum + arr[next_y][next_x], next_y, next_x);
+            visited[next_y][next_x] = false;
+        }
+    }
+}
+
+void H_shape(int y, int x) {
+    if (0 <= y && y <= N - 2 && 0 <= x && x <= M - 3) {
+        max = std::max(max, arr[y][x] + arr[y][x + 1] + arr[y][x + 2] + arr[y + 1][x + 1]);
+        max = std::max(max, arr[y][x + 1] + arr[y + 1][x] + arr[y + 1][x + 1] + arr[y + 1][x + 2]);
+    }
+    if (0 <= y && y <= N - 3 && 0 <= x && x <= M - 2) {
+        max = std::max(max, arr[y][x + 1] + arr[y + 1][x] + arr[y + 1][x + 1] + arr[y + 2][x + 1]);
+        max = std::max(max, arr[y][x] + arr[y + 1][x] + arr[y + 1][x + 1] + arr[y + 2][x]);
+    }
+}
+
+bool can_move(int y, int x) {
+    if (y < 0 || N - 1 < y || x < 0 || M - 1 < x)
+        return false;
+    return true;
 }
