@@ -352,20 +352,20 @@ bool can_move(int y, int x) {
 }
 */
 
+/*
 // 두 동전
 // 16197
-
 #include <algorithm>
 #include <iostream>
 #include <string>
 #include <vector>
-#define Max 20
 
 struct Direction {
     int y, x;
 };
-Direction coin[2], dir[4] = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
-int N, M, min = 100;
+Direction dir[4] = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+Direction coin[2];
+int N, M, result = 10000;
 std::vector<std::vector<char>> board;
 
 void input();
@@ -375,15 +375,17 @@ bool out(Direction coin);
 int main() {
     input();
     DFS(coin[0], coin[1], 0);
-    if (min > 10)
-        min = -1;
-    std::cout << min << "\n";
+
+    if (result > 10)
+        result = -1;
+
+    std::cout << result << "\n";
     return 0;
 }
 
 void input() {
-    std::string str;
     int i = 0;
+    std::string str;
     std::vector<char> board_x;
 
     std::cin >> N >> M;
@@ -391,11 +393,11 @@ void input() {
     for (int y = 0; y < N; y++) {
         std::cin >> str;
         for (int x = 0; x < M; x++) {
-            board_x.push_back(str[x]);
             if (str[x] == 'o') {
                 coin[i] = {y, x};
                 i++;
             }
+            board_x.push_back(str[x]);
         }
         board.push_back(board_x);
         board_x.clear();
@@ -404,17 +406,20 @@ void input() {
 }
 
 void DFS(Direction coin1, Direction coin2, int count) {
-    if (min < count)
+    if (result < count)
         return;
-    if (count > 10)
+
+    if (count > 10) {
+        result = std::min(result, count);
         return;
-        
+    }
+
     for (int d = 0; d < 4; d++) {
         Direction next_coin1{coin1.y + dir[d].y, coin1.x + dir[d].x};
         Direction next_coin2{coin2.y + dir[d].y, coin2.x + dir[d].x};
 
         if ((out(next_coin1) && !out(next_coin2)) || (!out(next_coin1) && out(next_coin2))) {
-            min = std::min(min, count + 1);
+            result = std::min(result, count + 1);
             return;
         }
 
@@ -425,13 +430,58 @@ void DFS(Direction coin1, Direction coin2, int count) {
                 next_coin1 = coin1;
             if (board[next_coin2.y][next_coin2.x] == '#')
                 next_coin2 = coin2;
+
             DFS(next_coin1, next_coin2, count + 1);
         }
     }
 }
 
 bool out(Direction coin) {
-    if (coin.y < 0 || N - 1 < coin.y || coin.x < 0 || M - 1 < coin.x)
+    if (coin.y < 0 || coin.y > N - 1 || coin.x < 0 || coin.x > M - 1)
         return true;
     return false;
+}
+*/
+
+// 에너지 모으기
+// 16198
+
+#include <algorithm>
+#include <iostream>
+#include <vector>
+
+int N, max;
+std::vector<int> vec;
+
+void DFS(int sum);
+
+int main() {
+    int num;
+    std::cin >> N;
+
+    for (int idx = 0; idx < N; idx++) {
+        std::cin >> num;
+        vec.push_back(num);
+    }
+
+    DFS(0);
+
+    std::cout << max << "\n";
+    return 0;
+}
+
+void DFS(int sum) {
+    int start = 1;
+    int end = vec.size() - 2;
+
+    if (start > end)
+        return;
+
+    for (int idx = start; idx <= end; idx++) {
+        int num = vec[idx];
+        vec.erase(vec.begin() + idx);
+        max = std::max(max, sum + vec[idx - 1] * vec[idx]);
+        DFS(sum + vec[idx - 1] * vec[idx]);
+        vec.insert(vec.begin() + idx, num);
+    }
 }
