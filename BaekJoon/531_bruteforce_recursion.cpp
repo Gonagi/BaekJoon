@@ -273,6 +273,7 @@ void DFS(int count, int cal) {
 }
 */
 
+/*
 // 테트로미노
 // 14500
 
@@ -348,4 +349,89 @@ bool can_move(int y, int x) {
     if (y < 0 || N - 1 < y || x < 0 || M - 1 < x)
         return false;
     return true;
+}
+*/
+
+// 두 동전
+// 16197
+
+#include <algorithm>
+#include <iostream>
+#include <string>
+#include <vector>
+#define Max 20
+
+struct Direction {
+    int y, x;
+};
+Direction coin[2], dir[4] = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+int N, M, min = 100;
+std::vector<std::vector<char>> board;
+
+void input();
+void DFS(Direction coin1, Direction coin2, int count);
+bool out(Direction coin);
+
+int main() {
+    input();
+    DFS(coin[0], coin[1], 0);
+    if (min > 10)
+        min = -1;
+    std::cout << min << "\n";
+    return 0;
+}
+
+void input() {
+    std::string str;
+    int i = 0;
+    std::vector<char> board_x;
+
+    std::cin >> N >> M;
+
+    for (int y = 0; y < N; y++) {
+        std::cin >> str;
+        for (int x = 0; x < M; x++) {
+            board_x.push_back(str[x]);
+            if (str[x] == 'o') {
+                coin[i] = {y, x};
+                i++;
+            }
+        }
+        board.push_back(board_x);
+        board_x.clear();
+        board_x.shrink_to_fit();
+    }
+}
+
+void DFS(Direction coin1, Direction coin2, int count) {
+    if (min < count)
+        return;
+    if (count > 10)
+        return;
+        
+    for (int d = 0; d < 4; d++) {
+        Direction next_coin1{coin1.y + dir[d].y, coin1.x + dir[d].x};
+        Direction next_coin2{coin2.y + dir[d].y, coin2.x + dir[d].x};
+
+        if ((out(next_coin1) && !out(next_coin2)) || (!out(next_coin1) && out(next_coin2))) {
+            min = std::min(min, count + 1);
+            return;
+        }
+
+        if (!out(next_coin1) && !out(next_coin2)) {
+            if (board[next_coin1.y][next_coin1.x] == '#' && board[next_coin2.y][next_coin2.x] == '#')
+                continue;
+            if (board[next_coin1.y][next_coin1.x] == '#')
+                next_coin1 = coin1;
+            if (board[next_coin2.y][next_coin2.x] == '#')
+                next_coin2 = coin2;
+            DFS(next_coin1, next_coin2, count + 1);
+        }
+    }
+}
+
+bool out(Direction coin) {
+    if (coin.y < 0 || N - 1 < coin.y || coin.x < 0 || M - 1 < coin.x)
+        return true;
+    return false;
 }
