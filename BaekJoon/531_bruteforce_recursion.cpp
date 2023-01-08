@@ -443,6 +443,7 @@ bool out(Direction coin) {
 }
 */
 
+/*
 // 에너지 모으기
 // 16198
 
@@ -484,4 +485,133 @@ void DFS(int sum) {
         DFS(sum + vec[idx - 1] * vec[idx]);
         vec.insert(vec.begin() + idx, num);
     }
+}
+*/
+
+// N-Queen
+// 9663
+
+/*
+#include <iostream>
+#define Max 16
+
+int N, count, arr[Max];
+
+void N_Queen(int row);
+bool check(int row);
+
+int main() {
+    std::cin >> N;
+    N_Queen(0);
+    std::cout << count << "\n";
+    return 0;
+}
+
+void N_Queen(int row) {
+    if (row == N) {
+        count++;
+        return;
+    }
+
+    for (int queen = 0; queen < N; queen++) {
+        arr[row] = queen;
+        if (check(row))
+            N_Queen(row + 1);
+    }
+}
+
+bool check(int row) {
+    for (int col = 0; col < row; col++) {
+        if (arr[col] == arr[row] || (std::abs(arr[col] - arr[row]) == std::abs(col - row)))
+            return false;
+    }
+    return true;
+}
+*/
+
+// 스도쿠
+// 2580
+
+#include <iostream>
+#include <vector>
+
+struct location {
+    int y, x;
+};
+std::vector<location> vec;
+std::vector<std::vector<int>> board;
+bool visited[10];
+
+void input();
+void DFS(int count);
+void print();
+bool check(int y, int x, int num);
+
+int main() {
+    input();
+    DFS(0);
+    print();
+    return 0;
+}
+
+void input() {
+    int num;
+    std::vector<int> board_x;
+
+    for (int y = 0; y < 9; y++) {
+        for (int x = 0; x < 9; x++) {
+            std::cin >> num;
+            if (num == 0)
+                vec.push_back({y, x});
+            board_x.push_back(num);
+        }
+        board.push_back(board_x);
+
+        board_x.clear();
+        board_x.shrink_to_fit();
+    }
+}
+
+void print() {
+    for (int y = 0; y < 9; y++) {
+        for (int x = 0; x < 9; x++) {
+            std::cout << board[y][x] << " ";
+        }
+        std::cout << "\n";
+    }
+}
+
+void DFS(int count) {
+    if (count == vec.size()) {
+        print();
+        exit(0);
+    }
+
+    int cur_y = vec[count].y;
+    int cur_x = vec[count].x;
+    for (int num = 1; num <= 9; num++) {
+        if (check(cur_y, cur_x, num)) {
+            board[cur_y][cur_x] = num;
+            DFS(count + 1);
+        }
+    }
+    board[cur_y][cur_x] = 0;
+}
+
+bool check(int y, int x, int num) {
+    for (int idx = 0; idx < 9; idx++) {
+        if (board[y][idx] == num && idx != x)
+            return false;
+        if (board[idx][x] == num && idx != y)
+            return false;
+    }
+
+    for (int cur_y = (y / 3) * 3; cur_y < (y / 3 + 1) * 3; cur_y++) {
+        for (int cur_x = (x / 3) * 3; cur_x < (x / 3 + 1) * 3; cur_x++) {
+            if (board[cur_y][cur_x] == num && cur_y != y && cur_x != x)
+                return false;
+        }
+    }
+
+    return true;
 }
