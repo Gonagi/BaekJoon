@@ -529,6 +529,7 @@ bool check(int row) {
 }
 */
 
+/*
 // 스도쿠
 // 2580
 
@@ -540,7 +541,6 @@ struct location {
 };
 std::vector<location> vec;
 std::vector<std::vector<int>> board;
-bool visited[10];
 
 void input();
 void DFS(int count);
@@ -600,18 +600,160 @@ void DFS(int count) {
 
 bool check(int y, int x, int num) {
     for (int idx = 0; idx < 9; idx++) {
-        if (board[y][idx] == num && idx != x)
+        if (board[y][idx] == num )
             return false;
-        if (board[idx][x] == num && idx != y)
+        if (board[idx][x] == num )
             return false;
     }
 
     for (int cur_y = (y / 3) * 3; cur_y < (y / 3 + 1) * 3; cur_y++) {
         for (int cur_x = (x / 3) * 3; cur_x < (x / 3 + 1) * 3; cur_x++) {
-            if (board[cur_y][cur_x] == num && cur_y != y && cur_x != x)
+            if (board[cur_y][cur_x] == num )
                 return false;
         }
     }
 
     return true;
+}
+*/
+
+// 스도미노쿠
+// 4574
+
+#include <iostream>
+#include <string>
+#include <vector>
+
+int N, count = 1, board[9][9];
+bool done = false, visited[10][10];
+
+void input();
+void DFS(int check);
+void print();
+bool out(int y, int x);
+bool check_all(int y, int x, int num);
+
+int main() {
+    while (1) {
+        input();
+        DFS(0);
+        done = false;
+        for (int y = 1; y < 10; y++) {
+            for (int x = 1; x < 10; x++) {
+                visited[y][x] = false;
+                board[y - 1][x - 1] = 0;
+            }
+        }
+    }
+    return 0;
+}
+
+void input() {
+    int U, V;
+    std::string LU, LV;
+
+    std::cin >> N;
+
+    if (N == 0)
+        exit(0);
+
+    for (int idx = 0; idx < N; idx++) {
+        std::cin >> U >> LU >> V >> LV;
+        board[LU[0] - 'A'][LU[1] - '1'] = U;
+        board[LV[0] - 'A'][LV[1] - '1'] = V;
+
+        visited[U][V] = true;
+        visited[V][U] = true;
+    }
+    std::string num;
+    for (int i = 1; i <= 9; i++) {
+        std::cin >> num;
+        board[num[0] - 'A'][num[1] - '1'] = i;
+    }
+}
+
+void DFS(int check) {
+    if (check == 81) {
+        print();
+        done = true;
+        return;
+    }
+
+    int y = check / 9;
+    int x = check % 9;
+
+    if (board[y][x] != 0)
+        DFS(check + 1);
+    else {
+        for (int num1 = 1; num1 <= 9; num1++) {
+            for (int num2 = 1; num2 <= 9; num2++) {
+                if (!out(y + 1, x)) {
+                    if (num1 != num2 && !visited[num1][num2] &&
+                        check_all(y, x, num1) && check_all(y + 1, x, num2)) {
+                        board[y][x] = num1;
+                        board[y + 1][x] = num2;
+                        visited[num1][num2] = true;
+                        visited[num2][num1] = true;
+                        DFS(check + 1);
+                        if (done)
+                            return;
+                        board[y][x] = 0;
+                        board[y + 1][x] = 0;
+                        visited[num1][num2] = false;
+                        visited[num2][num1] = false;
+                    }
+                }
+
+                if (!out(y, x + 1)) {
+                    if (num1 != num2 && !visited[num1][num2] &&
+                        check_all(y, x, num1) && check_all(y, x + 1, num2)) {
+                        board[y][x] = num1;
+                        board[y][x + 1] = num2;
+                        visited[num1][num2] = true;
+                        visited[num2][num1] = true;
+                        DFS(check + 1);
+                        if (done)
+                            return;
+                        board[y][x] = 0;
+                        board[y][x + 1] = 0;
+                        visited[num1][num2] = false;
+                        visited[num2][num1] = false;
+                    }
+                }
+            }
+        }
+    }
+}
+
+bool out(int y, int x) {
+    if (y < 0 || x < 0 || y > 8 || x > 8)
+        return true;
+    if (board[y][x] != 0)
+        return true;
+    return false;
+}
+
+bool check_all(int y, int x, int num) {
+    for (int idx = 0; idx < 9; idx++) {
+        if (board[y][idx] == num)
+            return false;
+        if (board[idx][x] == num)
+            return false;
+    }
+
+    for (int cur_y = (y / 3) * 3; cur_y < (y / 3 + 1) * 3; cur_y++)
+        for (int cur_x = (x / 3) * 3; cur_x < (x / 3 + 1) * 3; cur_x++)
+            if (board[cur_y][cur_x] == num)
+                return false;
+    return true;
+}
+
+void print() {
+    std::cout << "Puzzle " << count++ << "\n";
+
+    for (int y = 0; y < 9; y++) {
+        for (int x = 0; x < 9; x++)
+            std::cout << board[y][x];
+        std::cout << "\n";
+    }
 }
