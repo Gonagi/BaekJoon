@@ -617,6 +617,7 @@ bool check(int y, int x, int num) {
 }
 */
 
+/*
 // 스도미노쿠
 // 4574
 
@@ -756,4 +757,62 @@ void print() {
             std::cout << board[y][x];
         std::cout << "\n";
     }
+}
+*/
+
+// 알파벳
+// 1987
+
+#include <iostream>
+#define Max 21
+
+struct Direction {
+    int y, x;
+};
+Direction dir[4] = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+int R, C, max = 1;
+char map[Max][Max];
+bool visited[26];
+
+void input();
+void DFS(int y, int x, int count);
+bool movable(int y, int x);
+
+int main() {
+    input();
+    DFS(0, 0, 1);
+    std::cout << max << "\n";
+    return 0;
+}
+
+void input() {
+    std::cin >> R >> C;
+
+    for (int y = 0; y < R; y++) {
+        for (int x = 0; x < C; x++) {
+            std::cin >> map[y][x];
+        }
+    }
+}
+
+void DFS(int y, int x, int count) {
+    if (max < count)
+        max = count;
+
+    visited[map[y][x] - 'A'] = true;
+    for (int d = 0; d < 4; d++) {
+        int next_y = y + dir[d].y;
+        int next_x = x + dir[d].x;
+        if (movable(next_y, next_x) && !visited[map[next_y][next_x] - 'A']) {
+             visited[map[next_y][next_x] - 'A'] = true;
+            DFS(next_y, next_x, count + 1);
+            visited[map[next_y][next_x] - 'A'] = false;
+        }
+    }
+}
+
+bool movable(int y, int x) {
+    if (y < 0 || y >= R || x < 0 || x >= C)
+        return false;
+    return true;
 }
