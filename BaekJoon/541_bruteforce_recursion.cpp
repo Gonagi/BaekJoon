@@ -113,105 +113,9 @@ void DFS(int count, int cur, int check) {
 }
 */
 
+/*
 // 구슬 탈출 2
 // 13460
-
-/*
-#include <algorithm>
-#include <iostream>
-#include <vector>
-
-struct Direction {
-    int y, x;
-};
-Direction dir[4]{{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
-Direction r, b;
-unsigned int leftright = (1 << 0) | (1 << 2);
-unsigned int updown = (1 << 1) | (1 << 3);
-int N, M;
-std::vector<std::vector<char>> board;
-
-void input();
-int DFS(Direction cur_r, Direction cur_b, int count, unsigned int cur_dir);
-Direction move(Direction marble1, Direction marbel2, int d);
-
-int main() {
-    input();
-    int min = DFS(r, b, 0, 0);
-    if (min > 10)
-        min = -1;
-    std::cout << min << "\n";
-    return 0;
-}
-
-void input() {
-    std::cin >> N >> M;
-
-    for (int y = 0; y < N; y++) {
-        std::string str;
-        std::vector<char> board_x;
-
-        std::cin >> str;
-        for (int x = 0; x < M; x++) {
-            board_x.push_back(str[x]);
-            if (str[x] == 'R') {
-                r.y = y;
-                r.x = x;
-            }
-            if (str[x] == 'B') {
-                b.y = y;
-                b.x = x;
-            }
-        }
-        board.push_back(board_x);
-        board_x.clear();
-        board_x.shrink_to_fit();
-    }
-    board[r.y][r.x] = '.';
-    board[b.y][b.x] = '.';
-}
-
-int DFS(Direction cur_r, Direction cur_b, int count, unsigned int cur_dir) {
-    if (count > 10)
-        return count;
-
-    int min_count = 11;
-
-    for (int d = 0; d < 4; d++) {
-        if (count != 0 && (cur_dir & (1 << d)) == 0)
-            continue;
-
-        Direction next_r = move(cur_r, cur_b, d);
-        Direction next_b = move(cur_b, cur_r, d);
-
-        if (next_r.y > 0 && next_b.y > 0) {
-            int next_dir = ((1 << d) & leftright) ? updown : leftright;
-            min_count = std::min(min_count, DFS(next_r, next_b, count + 1, next_dir));
-        } else if (next_r.y < 0 && next_b.y > 0) {
-            return count + 1;
-        }
-    }
-    return min_count;
-}
-
-Direction move(Direction marble1, Direction marbel2, int d) {
-    int back = 1;
-    int next_y = marble1.y;
-    int next_x = marble1.x;
-
-    while (board[next_y][next_x] == '.') {
-        next_y += dir[d].y;
-        next_x += dir[d].x;
-
-        if (next_y == marbel2.y && next_x == marbel2.x)
-            back = 2;
-    }
-
-    if (board[next_y][next_x] == 'O')
-        return {-1, -1};
-    return {next_y - dir[d].y * back, next_x - dir[d].x * back};
-}
-*/
 
 #include <iostream>
 #include <string>
@@ -276,7 +180,7 @@ void DFS(Direction cur_R, Direction cur_B, int count, int dir) {
 
         Direction next_R = move(cur_R, cur_B, d);
         Direction next_B = move(cur_B, cur_R, d);
-        
+
         if (next_R.y > 0 && next_B.y > 0) {
             int next_dir = ((1 << d) & left_right) ? up_down : left_right;
             DFS(next_R, next_B, count + 1, next_dir);
@@ -302,4 +206,214 @@ Direction move(Direction marble1, Direction marble2, int d) {
     if (board[next_marble.y][next_marble.x] == 'O')
         return {-1, -1};
     return {next_marble.y - (dir[d].y * check), next_marble.x - (dir[d].x * check)};
+}
+*/
+
+// 2048(Easy)
+// 12100
+
+#include <iostream>
+#include <vector>
+
+int N, max = 0;
+std::vector<std::vector<int>> board;
+
+void input();
+void DFS(std::vector<std::vector<int>> old_board, int count);
+std::vector<std::vector<int>> move(std::vector<std::vector<int>> old_board, int dir);
+void find(std::vector<std::vector<int>> old_board);
+
+int main() {
+    input();
+    DFS(board, 0);
+    std::cout << max << "\n";
+    return 0;
+}
+
+void input() {
+    int num;
+    std::vector<int> board_x;
+
+    std::cin >> N;
+
+    for (int y = 0; y < N; y++) {
+        for (int x = 0; x < N; x++) {
+            std::cin >> num;
+            board_x.push_back(num);
+        }
+        board.push_back(board_x);
+        board_x.clear();
+        board_x.shrink_to_fit();
+    }
+}
+
+void DFS(std::vector<std::vector<int>> old_board, int count) {
+    if (count == 5) {
+        find(old_board);
+        return;
+    }
+
+    for (int dir = 0; dir < 4; dir++) {
+        std::vector<std::vector<int>> new_board = move(old_board, dir);
+        DFS(new_board, count + 1);
+    }
+}
+
+std::vector<std::vector<int>> move(std::vector<std::vector<int>> old_board, int dir) {
+    if (dir == 0) { // 상
+        for (int x = 0; x < N; x++) {
+            int check = -1;
+            for (int y = 0; y < N - 1; y++) {
+                if (old_board[y][x] == 0) {
+                    for (int y2 = y + 1; y2 <= N - 1; y2++) {
+                        if (old_board[y2][x] != 0) {
+                            old_board[y][x] = old_board[y2][x];
+                            old_board[y2][x] = 0;
+                            y--;
+                            break;
+                        }
+                    }
+                }
+
+                else {
+                    for (int y2 = y + 1; y2 <= N - 1; y2++) {
+                        if (old_board[y + 1][x] != 0 && old_board[y][x] != old_board[y + 1][x])
+                            break;
+
+                        if (old_board[y2][x] != 0 && old_board[y][x] != old_board[y2][x]) {
+                            old_board[y + 1][x] = old_board[y2][x];
+                            old_board[y2][x] = 0;
+                            break;
+                        }
+
+                        if (check != y && old_board[y][x] == old_board[y2][x]) {
+                            old_board[y][x] *= 2;
+                            old_board[y2][x] = 0;
+                            check = y;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    } else if (dir == 1) { // 우
+        for (int y = 0; y < N; y++) {
+            int check = -1;
+            for (int x = N - 1; x >= 1; x--) {
+                if (old_board[y][x] == 0) {
+                    for (int x2 = x - 1; x2 >= 0; x2--) {
+                        if (old_board[y][x2] != 0) {
+                            old_board[y][x] = old_board[y][x2];
+                            old_board[y][x2] = 0;
+                            x++;
+                            break;
+                        }
+                    }
+                }
+
+                else {
+                    for (int x2 = x - 1; x2 >= 0; x2--) {
+                        if (old_board[y][x - 1] != 0 && old_board[y][x] != old_board[y][x - 1])
+                            break;
+
+                        if (old_board[y][x2] != 0 && old_board[y][x] != old_board[y][x2]) {
+                            old_board[y][x - 1] = old_board[y][x2];
+                            old_board[y][x2] = 0;
+                            break;
+                        }
+
+                        if (check != x && old_board[y][x] == old_board[y][x2]) {
+                            old_board[y][x] *= 2;
+                            old_board[y][x2] = 0;
+                            check = x;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    } else if (dir == 2) { // 하
+        for (int x = 0; x < N; x++) {
+            int check = -1;
+            for (int y = N - 1; y >= 1; y--) {
+
+                if (old_board[y][x] == 0) {
+                    for (int y2 = y - 1; y2 >= 0; y2--) {
+                        if (old_board[y2][x] != 0) {
+                            old_board[y][x] = old_board[y2][x];
+                            old_board[y2][x] = 0;
+                            y++;
+                            break;
+                        }
+                    }
+                }
+
+                else {
+                    for (int y2 = y - 1; y2 >= 0; y2--) {
+                        if (old_board[y - 1][x] != 0 && old_board[y][x] != old_board[y - 1][x])
+                            break;
+
+                        if (old_board[y2][x] != 0 && old_board[y][x] != old_board[y2][x]) {
+                            old_board[y - 1][x] = old_board[y2][x];
+                            old_board[y2][x] = 0;
+                            break;
+                        }
+
+                        if (check != y && old_board[y][x] == old_board[y2][x]) {
+                            old_board[y][x] *= 2;
+                            old_board[y2][x] = 0;
+                            check = y;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    } else if (dir == 3) { // 좌
+        for (int y = 0; y < N; y++) {
+            int check = -1;
+            for (int x = 0; x < N - 1; x++) {
+                if (old_board[y][x] == 0) {
+                    for (int x2 = x + 1; x2 <= N - 1; x2++) {
+                        if (old_board[y][x2] != 0) {
+                            old_board[y][x] = old_board[y][x2];
+                            old_board[y][x2] = 0;
+                            x--;
+                            break;
+                        }
+                    }
+                }
+
+                else {
+                    for (int x2 = x + 1; x2 <= N - 1; x2++) {
+                        if (old_board[y][x + 1] != 0 && old_board[y][x] != old_board[y][x + 1])
+                            break;
+
+                        if (old_board[y][x2] != 0 && old_board[y][x] != old_board[y][x2]) {
+                            old_board[y][x + 1] = old_board[y][x2];
+                            old_board[y][x2] = 0;
+                            break;
+                        }
+
+                        if (check != x && old_board[y][x] == old_board[y][x2]) {
+                            old_board[y][x] *= 2;
+                            old_board[y][x2] = 0;
+                            check = x;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return old_board;
+}
+
+void find(std::vector<std::vector<int>> old_board) {
+    for (int y = 0; y < N; y++) {
+        for (int x = 0; x < N; x++) {
+            if (max < old_board[y][x])
+                max = old_board[y][x];
+        }
+    }
 }
