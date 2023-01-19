@@ -1,3 +1,7 @@
+/*
+// 뱀과 사다리 게임
+// 16928
+
 #include <iostream>
 #include <queue>
 #include <utility>
@@ -61,4 +65,60 @@ void BFS() {
             }
         }
     }
+}
+*/
+
+// 데스 나이트
+// 16948
+
+#include <iostream>
+#include <queue>
+#include <utility>
+
+struct Direction {
+    int y, x;
+};
+Direction dir[6]{{-2, -1}, {-2, 1}, {0, -2}, {0, 2}, {2, -1}, {2, 1}};
+int N, r1, c1, r2, c2;
+bool visited[200][200];
+
+void BFS();
+bool movable(int y, int x);
+
+int main() {
+    std::cin >> N;
+    std::cin >> r1 >> c1 >> r2 >> c2;
+    BFS();
+    return 0;
+}
+
+void BFS() {
+    std::queue<std::pair<Direction, int>> que;
+    que.push({{r1, c1}, 0});
+
+    while (!que.empty()) {
+        Direction cur{que.front().first};
+        int count = que.front().second;
+        visited[cur.y][cur.x] = true;
+        que.pop();
+
+        if (cur.y == r2 && cur.x == c2) {
+            std::cout << count << "\n";
+            exit(0);
+        }
+        for (int idx = 0; idx < 6; idx++) {
+            Direction next{cur.y + dir[idx].y, cur.x + dir[idx].x};
+            if (movable(next.y, next.x) && !visited[next.y][next.x]) {
+                que.push({next, count + 1});
+                visited[next.y][next.x] = true;
+            }
+        }
+    }
+    std::cout << -1 << "\n";
+}
+
+bool movable(int y, int x) {
+    if (y < 0 || y >= N || x < 0 || x >= N)
+        return false;
+    return true;
 }
