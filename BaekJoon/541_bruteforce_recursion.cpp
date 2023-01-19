@@ -209,6 +209,7 @@ Direction move(Direction marble1, Direction marble2, int d) {
 }
 */
 
+/*
 // 2048(Easy)
 // 12100
 
@@ -219,9 +220,9 @@ int N, max = 0;
 std::vector<std::vector<int>> board;
 
 void input();
-void DFS(std::vector<std::vector<int>> old_board, int count);
+void DFS(const std::vector<std::vector<int>> &old_board, int count);
 std::vector<std::vector<int>> move(std::vector<std::vector<int>> old_board, int dir);
-void find(std::vector<std::vector<int>> old_board);
+void find(const std::vector<std::vector<int>>& old_board);
 
 int main() {
     input();
@@ -247,7 +248,7 @@ void input() {
     }
 }
 
-void DFS(std::vector<std::vector<int>> old_board, int count) {
+void DFS(const std::vector<std::vector<int>> &old_board, int count) {
     if (count == 5) {
         find(old_board);
         return;
@@ -280,13 +281,13 @@ std::vector<std::vector<int>> move(std::vector<std::vector<int>> old_board, int 
                         if (old_board[y + 1][x] != 0 && old_board[y][x] != old_board[y + 1][x])
                             break;
 
-                        if (old_board[y2][x] != 0 && old_board[y][x] != old_board[y2][x]) {
+                        else if (old_board[y2][x] != 0 && old_board[y][x] != old_board[y2][x]) {
                             old_board[y + 1][x] = old_board[y2][x];
                             old_board[y2][x] = 0;
                             break;
                         }
 
-                        if (check != y && old_board[y][x] == old_board[y2][x]) {
+                        else if (check != y && old_board[y][x] == old_board[y2][x]) {
                             old_board[y][x] *= 2;
                             old_board[y2][x] = 0;
                             check = y;
@@ -316,13 +317,13 @@ std::vector<std::vector<int>> move(std::vector<std::vector<int>> old_board, int 
                         if (old_board[y][x - 1] != 0 && old_board[y][x] != old_board[y][x - 1])
                             break;
 
-                        if (old_board[y][x2] != 0 && old_board[y][x] != old_board[y][x2]) {
+                        else if (old_board[y][x2] != 0 && old_board[y][x] != old_board[y][x2]) {
                             old_board[y][x - 1] = old_board[y][x2];
                             old_board[y][x2] = 0;
                             break;
                         }
 
-                        if (check != x && old_board[y][x] == old_board[y][x2]) {
+                        else if (check != x && old_board[y][x] == old_board[y][x2]) {
                             old_board[y][x] *= 2;
                             old_board[y][x2] = 0;
                             check = x;
@@ -353,13 +354,13 @@ std::vector<std::vector<int>> move(std::vector<std::vector<int>> old_board, int 
                         if (old_board[y - 1][x] != 0 && old_board[y][x] != old_board[y - 1][x])
                             break;
 
-                        if (old_board[y2][x] != 0 && old_board[y][x] != old_board[y2][x]) {
+                        else if (old_board[y2][x] != 0 && old_board[y][x] != old_board[y2][x]) {
                             old_board[y - 1][x] = old_board[y2][x];
                             old_board[y2][x] = 0;
                             break;
                         }
 
-                        if (check != y && old_board[y][x] == old_board[y2][x]) {
+                        else if (check != y && old_board[y][x] == old_board[y2][x]) {
                             old_board[y][x] *= 2;
                             old_board[y2][x] = 0;
                             check = y;
@@ -389,13 +390,13 @@ std::vector<std::vector<int>> move(std::vector<std::vector<int>> old_board, int 
                         if (old_board[y][x + 1] != 0 && old_board[y][x] != old_board[y][x + 1])
                             break;
 
-                        if (old_board[y][x2] != 0 && old_board[y][x] != old_board[y][x2]) {
+                        else if (old_board[y][x2] != 0 && old_board[y][x] != old_board[y][x2]) {
                             old_board[y][x + 1] = old_board[y][x2];
                             old_board[y][x2] = 0;
                             break;
                         }
 
-                        if (check != x && old_board[y][x] == old_board[y][x2]) {
+                        else if (check != x && old_board[y][x] == old_board[y][x2]) {
                             old_board[y][x] *= 2;
                             old_board[y][x2] = 0;
                             check = x;
@@ -409,7 +410,7 @@ std::vector<std::vector<int>> move(std::vector<std::vector<int>> old_board, int 
     return old_board;
 }
 
-void find(std::vector<std::vector<int>> old_board) {
+void find(const std::vector<std::vector<int>>& old_board) {
     for (int y = 0; y < N; y++) {
         for (int x = 0; x < N; x++) {
             if (max < old_board[y][x])
@@ -417,3 +418,4 @@ void find(std::vector<std::vector<int>> old_board) {
         }
     }
 }
+*/
