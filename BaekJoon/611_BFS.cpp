@@ -68,6 +68,7 @@ void BFS() {
 }
 */
 
+/*
 // 데스 나이트
 // 16948
 
@@ -121,4 +122,88 @@ bool movable(int y, int x) {
     if (y < 0 || y >= N || x < 0 || x >= N)
         return false;
     return true;
+}
+*/
+
+// DSLR
+// 9019
+
+#include <iostream>
+#include <queue>
+#include <string>
+#include <utility>
+
+int T, A, B;
+char DSLR[4] = {'D', 'S', 'L', 'R'};
+
+void BFS();
+int cal(int num, char ch);
+
+int main() {
+
+    std::cin >> T;
+
+    for (int i = 0; i < T; i++) {
+        std::cin >> A >> B;
+        BFS();
+    }
+
+    return 0;
+}
+
+void BFS() {
+    std::queue<std::pair<int, std::string>> que;
+    que.push({A, ""});
+    bool visited[10001]{false};
+
+    while (!que.empty()) {
+        int cur_num = que.front().first;
+        std::string cur_str = que.front().second;
+        visited[cur_num] = true;
+        que.pop();
+
+        if (cur_num == B) {
+            std::cout << cur_str << "\n";
+            break;
+        }
+
+        for (int idx = 0; idx < 4; idx++) {
+            int next_num = cal(cur_num, DSLR[idx]);
+
+            if (!visited[next_num]) {
+                que.push({next_num, cur_str + DSLR[idx]});
+                visited[next_num] = true;
+            }
+        }
+    }
+}
+
+int cal(int num, char ch) {
+    int d1 = num / 1000;
+    int d2 = (num / 100) % 10;
+    int d3 = (num / 10) % 10;
+    int d4 = num % 10;
+
+    switch (ch) {
+    case 'D':
+        num *= 2;
+        if (num > 9999)
+            num %= 10000;
+        break;
+
+    case 'S':
+        num -= 1;
+        if (num < 0)
+            num = 9999;
+        break;
+
+    case 'L':
+        num = ((d2 * 10 + d3) * 10 + d4) * 10 + d1;
+        break;
+
+    case 'R':
+        num = ((d4 * 10 + d1) * 10 + d2) * 10 + d3;
+        break;
+    }
+    return num;
 }
