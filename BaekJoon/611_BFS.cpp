@@ -125,6 +125,7 @@ bool movable(int y, int x) {
 }
 */
 
+/*
 // DSLR
 // 9019
 
@@ -206,4 +207,118 @@ int cal(int num, char ch) {
         break;
     }
     return num;
+}
+*/
+
+// 연구소
+// 14502
+
+#include <algorithm>
+#include <iostream>
+#include <queue>
+#include <utility>
+#include <vector>
+
+struct Direction {
+    int y, x;
+};
+Direction dir[4] = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+int N, M, max;
+std::vector<Direction> vec;
+std::vector<std::vector<int>> map;
+
+void input();
+void DFS(int count);
+void BFS();
+bool movable(int y, int x);
+void cal(const std::vector<std::vector<int>> &map_2);
+
+int main() {
+    input();
+    DFS(0);
+
+    std::cout << max << "\n";
+    return 0;
+}
+
+void input() {
+    int num;
+    std::vector<int> map_x;
+
+    std::cin >> N >> M;
+
+    for (int y = 0; y < N; y++) {
+        for (int x = 0; x < M; x++) {
+            std::cin >> num;
+            if (num == 2)
+                vec.push_back({y, x});
+            map_x.push_back(num);
+        }
+        map.push_back(map_x);
+        map_x.clear();
+        map_x.shrink_to_fit();
+    }
+}
+
+void DFS(int count) {
+    if (count == 3) {
+        BFS();
+        return;
+    }
+
+    for (int y = 0; y < N; y++) {
+        for (int x = 0; x < M; x++) {
+            if (map[y][x] == 0) {
+                map[y][x] = 1;
+                DFS(count + 1);
+                map[y][x] = 0;
+            }
+        }
+    }
+}
+
+void BFS() {
+    std::queue<Direction> que;
+    std::vector<std::vector<int>> map_2;
+    map_2.assign(map.size(), std::vector<int>(map.size()));
+    std::copy(map.begin(), map.end(), map_2.begin());
+
+    for (int idx = 0; idx < vec.size(); idx++)
+        que.push(vec[idx]);
+
+    while (!que.empty()) {
+        Direction cur{que.front()};
+        que.pop();
+
+        for (int d = 0; d < 4; d++) {
+            Direction next{cur};
+            next.y += dir[d].y;
+            next.x += dir[d].x;
+            if (movable(next.y, next.x) && map_2[next.y][next.x] == 0) {
+                map_2[next.y][next.x] = -1;
+                que.push({next});
+            }
+        }
+    }
+
+    cal(map_2);
+}
+
+bool movable(int y, int x) {
+    if (y < 0 || y >= N || x < 0 || x >= M)
+        return false;
+    return true;
+}
+
+void cal(const std::vector<std::vector<int>> &map_2) {
+    int count = 0;
+    for (int y = 0; y < N; y++) {
+        for (int x = 0; x < M; x++) {
+            if (map_2[y][x] == 0)
+                count++;
+        }
+    }
+
+    if (max < count)
+        max = count;
 }
