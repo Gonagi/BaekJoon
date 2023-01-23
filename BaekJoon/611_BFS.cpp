@@ -210,6 +210,7 @@ int cal(int num, char ch) {
 }
 */
 
+/*
 // 연구소
 // 14502
 
@@ -321,4 +322,84 @@ void cal(const std::vector<std::vector<int>> &map_2) {
 
     if (max < count)
         max = count;
+}
+*/
+
+// 돌 그룹
+// 12886
+
+#include <iostream>
+#include <queue>
+#include <utility>
+
+int A, B, C, sum;
+bool visited[1501][1501];
+
+void BFS();
+
+int main() {
+    std::cin >> A >> B >> C;
+    sum = A + B + C;
+    if ((sum) % 3 != 0)
+        std::cout << 0 << '\n';
+    else {
+        BFS();
+        std::cout << 0 << '\n';
+    }
+    return 0;
+}
+
+void BFS() {
+    std::queue<std::pair<int, int>> que;
+    que.push({A, B});
+    visited[A][B] = true;
+
+    while (!que.empty()) {
+        int num1 = que.front().first;
+        int num2 = que.front().second;
+        int num3 = sum - num1 - num2;
+        que.pop();
+
+        if (num1 == num2 && num1 == num3) {
+            std::cout << 1 << '\n';
+            exit(0);
+        }
+
+        if (num1 > num2) {
+            if (!visited[num2 + num2][num1 - num2]) {
+                visited[num2 + num2][num1 - num2] = true;
+                que.push({num2 + num2, num1 - num2});
+            }
+        }
+        if (num1 < num2) {
+            if (!visited[num1 + num1][num2 - num1]) {
+                visited[num1 + num1][num2 - num1] = true;
+                que.push({num1 + num1, num2 - num1});
+            }
+        }
+        if (num1 < num3) {
+            if (!visited[num1 + num1][num3 - num1]) {
+                visited[num1 + num1][num3 - num1] = true;
+                que.push({num1 + num1, num3 - num1});
+            }
+        }
+        if (num1 > num3) {
+            if (!visited[num3 + num3][num1 - num3]) {
+                visited[num3 + num3][num1 - num3] = true;
+                que.push({num3 + num3, num1 - num3});
+            }
+        }
+        if (num2 < num3) {
+            if (!visited[num2 + num2][num3 - num2]) {
+                visited[num2 + num2][num3 - num2] = true;
+                que.push({num2 + num2, num3 - num2});
+            }
+        }
+        if (num2 > num3) {
+            if (!visited[num3 + num3][num2 - num3]) {
+                visited[num3 + num3][num2 - num3] = true;
+                que.push({num3 + num3, num2 - num3});
+            }
+        }
+    }
 }
