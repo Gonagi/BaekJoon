@@ -325,6 +325,7 @@ void cal(const std::vector<std::vector<int>> &map_2) {
 }
 */
 
+/*
 // 돌 그룹
 // 12886
 
@@ -402,4 +403,94 @@ void BFS() {
             }
         }
     }
+}
+*/
+
+// 벽 부수고 이동하기
+// 2206
+
+#include <iostream>
+#include <queue>
+#include <string>
+#include <utility>
+#include <vector>
+
+struct Direction {
+    int y, x;
+};
+Direction dir[4] = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+int N, M;
+int visited[1000][1000][2];
+std::vector<std::vector<int>> map;
+
+void input();
+void BFS();
+bool movable(int y, int x);
+
+int main() {
+    input();
+    BFS();
+    std::cout << -1 << "\n";
+    return 0;
+}
+
+void input() {
+    std::string str;
+    std::vector<int> map_x;
+
+    std::cin >> N >> M;
+
+    for (int y = 0; y < N; y++) {
+        std::cin >> str;
+        for (int x = 0; x < M; x++)
+            map_x.push_back(str[x] - '0');
+        map.push_back(map_x);
+
+        map_x.clear();
+        map_x.shrink_to_fit();
+    }
+}
+
+void BFS() {
+    std::queue<std::pair<Direction, int>> que;
+    que.push({{0, 0}, 0});
+    visited[0][0][0] = 0;
+
+    while (!que.empty()) {
+        Direction cur{que.front().first};
+        int is_break = que.front().second;
+        int count = visited[cur.y][cur.x][is_break];
+        que.pop();
+
+        if (cur.y == N - 1 && cur.x == M - 1) {
+            std::cout << count + 1 << "\n";
+            exit(0);
+        }
+
+        for (int d = 0; d < 4; d++) {
+            Direction next{cur.y + dir[d].y, cur.x + dir[d].x};
+            if (movable(next.y, next.x) && visited[next.y][next.x][is_break] == 0) {
+                if (is_break == 1) { // 벽 부순적 있음
+                    if (map[next.y][next.x] == 0) {
+                        que.push({{next.y, next.x}, 1});
+                        visited[next.y][next.x][1] = count + 1;
+                    }
+                } else { // 벽 부순적 없음
+                    if (map[next.y][next.x] == 0) {
+                        que.push({{next.y, next.x}, 0});
+                        visited[next.y][next.x][0] = count + 1;
+                    } else {
+                        que.push({{next.y, next.x}, 1});
+                        visited[next.y][next.x][1] = count + 1;
+                    }
+                }
+            }
+        }
+    }
+}
+
+bool movable(int y, int x) {
+    if (y < 0 || y >= N || x < 0 || x >= M)
+        return false;
+    return true;
 }
