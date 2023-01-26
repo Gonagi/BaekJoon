@@ -406,6 +406,7 @@ void BFS() {
 }
 */
 
+/*
 // 벽 부수고 이동하기
 // 2206
 
@@ -486,6 +487,144 @@ void BFS() {
                 }
             }
         }
+    }
+}
+
+bool movable(int y, int x) {
+    if (y < 0 || y >= N || x < 0 || x >= M)
+        return false;
+    return true;
+}
+*/
+
+// 벽 부수고 이동하기 4
+// 16946
+
+#include <iostream>
+#include <queue>
+#include <string>
+#include <vector>
+
+struct Direction {
+    int y, x;
+};
+Direction dir[4] = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+int N, M;
+std::vector<std::vector<int>> map, result;
+std::vector<Direction> vec;
+
+void input();
+void BFS();
+void cal(const std::vector<std::vector<int>> &copy_map, const std::vector<std::vector<int>> &check);
+bool movable(int y, int x);
+
+int main() {
+    input();
+    BFS();
+
+    for (int y = 0; y < N; y++) {
+        for (int x = 0; x < M; x++) {
+            std::cout << result[y][x];
+        }
+        std::cout << "\n";
+    }
+    return 0;
+}
+
+void input() {
+    std::vector<int> map_x;
+    std::string str;
+
+    std::cin >> N >> M;
+
+    for (int y = 0; y < N; y++) {
+        std::cin >> str;
+        for (int x = 0; x < M; x++) {
+            map_x.push_back(str[x] - '0');
+            if (str[x] == '1')
+                vec.push_back({y, x});
+        }
+        map.push_back(map_x);
+
+        map_x.clear();
+        map_x.shrink_to_fit();
+    }
+
+    result = map;
+}
+
+void BFS() {
+    auto copy_map(map), check(map);
+    bool visited[1000][1000] = {false};
+    int ch = 2;
+
+    for (int y = 0; y < N; y++) {
+        for (int x = 0; x < M; x++) {
+            if (copy_map[y][x] == 0) {
+                std::queue<Direction> que, store;
+                int count = 0;
+                que.push({y, x});
+                store.push({y, x});
+
+                while (!que.empty()) {
+                    Direction cur = que.front();
+                    visited[cur.y][cur.x] = true;
+
+                    count++;
+                    que.pop();
+
+                    for (int d = 0; d < 4; d++) {
+                        Direction next{cur.y + dir[d].y, cur.x + dir[d].x};
+                        if (movable(next.y, next.x) && !visited[next.y][next.x] && copy_map[next.y][next.x] == 0) {
+                            visited[next.y][next.x] = true;
+                            que.push(next);
+                            store.push(next);
+                        }
+                    }
+                }
+
+                while (!store.empty()) {
+                    copy_map[store.front().y][store.front().x] = count;
+                    check[store.front().y][store.front().x] = ch;
+                    store.pop();
+                }
+                ch++;
+            }
+        }
+    }
+
+    for (int idx = 0; idx < vec.size(); idx++)
+        copy_map[vec[idx].y][vec[idx].x] = 0;
+
+    cal(copy_map, check);
+}
+
+void cal(const std::vector<std::vector<int>> &copy_map, const std::vector<std::vector<int>> &check) {
+    for (int idx = 0; idx < vec.size(); idx++) {
+        Direction cur(vec[idx]);
+        std::vector<int> checking;
+        int count = 1;
+        bool b = false;
+
+        for (int d = 0; d < 4; d++) {
+            Direction next({cur.y + dir[d].y, cur.x + dir[d].x});
+            if (movable(next.y, next.x) && copy_map[next.y][next.x] != 0) {
+                for (int i = 0; i < checking.size(); i++) {
+                    if (checking[i] == check[next.y][next.x]) {
+                        b = true;
+                        break;
+                    }
+                }
+                if (!b) {
+                    checking.push_back(check[next.y][next.x]);
+                    count += copy_map[next.y][next.x];
+                }
+                b = false;
+            }
+        }
+        result[cur.y][cur.x] = count % 10;
+        checking.clear();
+        checking.shrink_to_fit();
     }
 }
 
