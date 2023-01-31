@@ -497,6 +497,7 @@ bool movable(int y, int x) {
 }
 */
 
+/*
 // 벽 부수고 이동하기 4
 // 16946
 
@@ -604,27 +605,110 @@ void cal(const std::vector<std::vector<int>> &copy_map, const std::vector<std::v
         Direction cur(vec[idx]);
         std::vector<int> checking;
         int count = 1;
-        bool b = false;
 
         for (int d = 0; d < 4; d++) {
+            bool visited = false;
             Direction next({cur.y + dir[d].y, cur.x + dir[d].x});
             if (movable(next.y, next.x) && copy_map[next.y][next.x] != 0) {
                 for (int i = 0; i < checking.size(); i++) {
                     if (checking[i] == check[next.y][next.x]) {
-                        b = true;
+                        visited = true;
                         break;
                     }
                 }
-                if (!b) {
+                if (!visited) {
                     checking.push_back(check[next.y][next.x]);
                     count += copy_map[next.y][next.x];
                 }
-                b = false;
             }
         }
         result[cur.y][cur.x] = count % 10;
         checking.clear();
         checking.shrink_to_fit();
+    }
+}
+
+bool movable(int y, int x) {
+    if (y < 0 || y >= N || x < 0 || x >= M)
+        return false;
+    return true;
+}
+*/
+
+// 벽 부수고 이동하기 2
+// 14442
+
+#include <iostream>
+#include <queue>
+#include <string>
+#include <vector>
+
+struct Direction {
+    int y, x;
+    int count = 1;
+    int wall = 0;
+};
+Direction dir[4] = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+std::vector<std::vector<int>> map;
+int N, M, K;
+int visited[1001][1001][11];
+
+void input();
+void BFS();
+bool movable(int y, int x);
+
+int main() {
+    input();
+    BFS();
+    std::cout << -1 << "\n";
+    return 0;
+}
+
+void input() {
+    std::vector<int> map_x;
+    std::string str;
+
+    std::cin >> N >> M >> K;
+
+    for (int y = 0; y < N; y++) {
+        std::cin >> str;
+        for (int x = 0; x < M; x++) {
+            map_x.push_back(str[x] - '0');
+        }
+        map.push_back(map_x);
+
+        map_x.clear();
+        map_x.shrink_to_fit();
+    }
+}
+
+void BFS() {
+    std::queue<Direction> que;
+    que.push({0, 0, 0, 0});
+    visited[0][0][0] = 1;
+
+    while (!que.empty()) {
+        Direction cur = que.front();
+        que.pop();
+
+        if (cur.y == N - 1 && cur.x == M - 1) {
+            std::cout << cur.count << "\n";
+            exit(0);
+        }
+
+        for (int d = 0; d < 4; d++) {
+            Direction next{cur.y + dir[d].y, cur.x + dir[d].x};
+            if (movable(next.y, next.x) && visited[next.y][next.x][cur.wall] == 0) {
+                if (map[next.y][next.x] == 0 && visited[next.y][next.x][cur.wall] == 0) {
+                    visited[next.y][next.x][cur.wall] = 1;
+                    que.push({next.y, next.x, cur.count + 1, cur.wall});
+                }
+                if (map[next.y][next.x] == 1 && cur.wall < K && visited[next.y][next.x][cur.wall + 1] == 0) {
+                    visited[next.y][next.x][cur.wall + 1] = 1;
+                    que.push({next.y, next.x, cur.count + 1, cur.wall + 1});
+                }
+            }
+        }
     }
 }
 
