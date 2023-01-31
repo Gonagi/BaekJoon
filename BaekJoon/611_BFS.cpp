@@ -635,6 +635,7 @@ bool movable(int y, int x) {
 }
 */
 
+/*
 // 벽 부수고 이동하기 2
 // 14442
 
@@ -692,7 +693,7 @@ void BFS() {
         que.pop();
 
         if (cur.y == N - 1 && cur.x == M - 1) {
-            std::cout << cur.count << "\n";
+            std::cout << cur.count+1 << "\n";
             exit(0);
         }
 
@@ -714,6 +715,93 @@ void BFS() {
 
 bool movable(int y, int x) {
     if (y < 0 || y >= N || x < 0 || x >= M)
+        return false;
+    return true;
+}
+*/
+
+// 벽 부수고 이동하기 3
+// 16933
+
+#include <iostream>
+#include <queue>
+#include <string>
+#include <vector>
+
+struct Direction {
+    int y, x;
+    int count = 1;
+    int wall = 0;
+    bool is_night = false;
+};
+Direction dir[4] = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+std::vector<std::vector<int>> map;
+int N, M, K;
+bool visited[1001][1001][11];
+
+void input();
+void BFS();
+bool movable(int y, int x);
+
+int main() {
+    input();
+    BFS();
+    std::cout << -1 << "\n";
+    return 0;
+}
+
+void input() {
+    std::vector<int> map_x;
+    std::string str;
+
+    std::cin >> N >> M >> K;
+
+    for (int y = 0; y < N; y++) {
+        std::cin >> str;
+        for (int x = 0; x < M; x++) {
+            map_x.push_back(str[x] - '0');
+        }
+        map.push_back(map_x);
+
+        map_x.clear();
+        map_x.shrink_to_fit();
+    }
+}
+
+void BFS() {
+    std::queue<Direction> que;
+    que.push({0, 0, 1, 0, false});
+
+    while (!que.empty()) {
+        Direction cur = que.front();
+        que.pop();
+
+        if (cur.y == N - 1 && cur.x == M - 1) {
+            std::cout << cur.count << "\n";
+            exit(0);
+        }
+
+        for (int d = 0; d < 4; d++) {
+            Direction next{cur.y + dir[d].y, cur.x + dir[d].x};
+            if (movable(next.y, next.x)) {
+                if (map[next.y][next.x] == 0 && visited[next.y][next.x][cur.wall] == 0) {
+                    visited[next.y][next.x][cur.wall] = 1;
+                    que.push({next.y, next.x, cur.count + 1, cur.wall, !cur.is_night});
+                } else if (map[next.y][next.x] == 1 && visited[next.y][next.x][cur.wall + 1] == 0 && cur.wall < K) {
+                    if (!cur.is_night) { // 낮
+                        visited[next.y][next.x][cur.wall + 1] = 1;
+                        que.push({next.y, next.x, cur.count + 1, cur.wall + 1, !cur.is_night});
+                    } else { // 밤
+                        que.push({cur.y, cur.x, cur.count + 1, cur.wall, !cur.is_night});
+                    }
+                }
+            }
+        }
+    }
+}
+
+bool movable(int y, int x) {
+    if (y < 0 || x < 0 || y >= N || x >= M)
         return false;
     return true;
 }
