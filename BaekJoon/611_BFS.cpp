@@ -720,6 +720,7 @@ bool movable(int y, int x) {
 }
 */
 
+/*
 // 벽 부수고 이동하기 3
 // 16933
 
@@ -802,6 +803,86 @@ void BFS() {
 
 bool movable(int y, int x) {
     if (y < 0 || x < 0 || y >= N || x >= M)
+        return false;
+    return true;
+}
+*/
+
+// 움직이는 미로 탈출
+// 16954
+
+#include <iostream>
+#include <queue>
+#include <string>
+#include <vector>
+
+struct Direcion {
+    int y, x;
+    int count = 1;
+};
+Direcion dir[9] = {{-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 0}, {0, 1}, {1, -1}, {1, 0}, {1, 1}};
+std::vector<std::vector<char>> map;
+int visited[8][8][9];
+
+void input();
+void BFS();
+bool movable(int y, int x);
+
+int main() {
+    input();
+    BFS();
+    std::cout << 0 << '\n';
+    return 0;
+}
+
+void input() {
+    std::vector<char> map_x;
+    std::string str;
+
+    for (int y = 0; y < 8; y++) {
+        std::cin >> str;
+        for (int x = 0; x < 8; x++) {
+            map_x.push_back(str[x]);
+        }
+        map.push_back(map_x);
+
+        map_x.clear();
+        map_x.shrink_to_fit();
+    }
+}
+
+void BFS() {
+    std::queue<Direcion> que;
+    que.push({7, 0});
+    visited[7][0][0] = 1;
+
+    while (!que.empty()) {
+        Direcion cur = que.front();
+        que.pop();
+
+        if (cur.y == 0 || cur.count > 8) {
+            std::cout << 1 << "\n";
+            exit(0);
+        }
+
+        for (int d = 0; d < 6; d++) {
+            Direcion next{cur.y + dir[d].y, cur.x + dir[d].x};
+            if (movable(next.y, next.x)) {
+                if (next.y - cur.count + 1 >= 0 && map[next.y - cur.count + 1][next.x] == '#')
+                    continue;
+                if (next.y - cur.count >= 0 && map[next.y - cur.count][next.x] == '#')
+                    continue;
+                if (visited[next.y][next.x][cur.count + 1] == 0) {
+                    visited[next.y][next.x][cur.count + 1] = 1;
+                    que.push({next.y, next.x, cur.count + 1});
+                }
+            }
+        }
+    }
+}
+
+bool movable(int y, int x) {
+    if (y < 0 || x < 0 || y >= 8 || x >= 8)
         return false;
     return true;
 }
