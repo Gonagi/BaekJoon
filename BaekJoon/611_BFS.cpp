@@ -808,6 +808,7 @@ bool movable(int y, int x) {
 }
 */
 
+/*
 // 움직이는 미로 탈출
 // 16954
 
@@ -865,7 +866,7 @@ void BFS() {
             exit(0);
         }
 
-        for (int d = 0; d < 6; d++) {
+        for (int d = 0; d < 9; d++) {
             Direcion next{cur.y + dir[d].y, cur.x + dir[d].x};
             if (movable(next.y, next.x)) {
                 if (next.y - cur.count + 1 >= 0 && map[next.y - cur.count + 1][next.x] == '#')
@@ -883,6 +884,128 @@ void BFS() {
 
 bool movable(int y, int x) {
     if (y < 0 || x < 0 || y >= 8 || x >= 8)
+        return false;
+    return true;
+}
+*/
+
+// 탈출
+// 3055
+
+#include <iostream>
+#include <queue>
+#include <string>
+#include <utility>
+#include <vector>
+
+struct Direction {
+    int y, x;
+};
+Direction dir[4] = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+Direction S, D;
+std::vector<std::vector<char>> map;
+std::queue<Direction> W_que;
+int R, C;
+bool visited[50][50], water_visited[50][50];
+
+void input();
+void BFS();
+void water_move();
+bool movable(int y, int x);
+
+int main() {
+    input();
+    BFS();
+    std::cout << "KAKTUS" << '\n';
+    return 0;
+}
+
+void input() {
+    std::vector<char> map_x;
+    std::string str;
+
+    std::cin >> R >> C;
+
+    for (int y = 0; y < R; y++) {
+        std::cin >> str;
+        for (int x = 0; x < C; x++) {
+            if (str[x] == 'S') {
+                S.y = y;
+                S.x = x;
+            } else if (str[x] == 'D') {
+                D.y = y;
+                D.x = x;
+            } else if (str[x] == '*')
+                W_que.push({y, x});
+            map_x.push_back(str[x]);
+        }
+        map.push_back(map_x);
+
+        map_x.clear();
+        map_x.shrink_to_fit();
+    }
+}
+
+void BFS() {
+    std::queue<std::pair<Direction, int>> S_que;
+    S_que.push({S, 0});
+    visited[S.y][S.x] = 1;
+
+    while (!S_que.empty()) {
+        water_move();
+        int S_count = S_que.size();
+
+        for (int idx = 0; idx < S_count; idx++) {
+            Direction cur = S_que.front().first;
+            int cur_time = S_que.front().second;
+            S_que.pop();
+
+            if (cur.y == D.y && cur.x == D.x) {
+                std::cout << cur_time << '\n';
+                exit(0);
+            }
+            for (int d = 0; d < 4; d++) {
+                Direction next{cur.y + dir[d].y, cur.x + dir[d].x};
+
+                if (!movable(next.y, next.x))
+                    continue;
+                if (visited[next.y][next.x])
+                    continue;
+                if (map[next.y][next.x] == 'X' || map[next.y][next.x] == '*')
+                    continue;
+                visited[next.y][next.x] = true;
+                S_que.push({next, cur_time + 1});
+            }
+        }
+    }
+}
+
+void water_move() {
+    int water_count = W_que.size();
+
+    for (int idx = 0; idx < water_count; idx++) {
+        Direction cur = W_que.front();
+        water_visited[cur.y][cur.x] = true;
+        W_que.pop();
+
+        for (int d = 0; d < 4; d++) {
+            Direction next{cur.y + dir[d].y, cur.x + dir[d].x};
+
+            if (!movable(next.y, next.x))
+                continue;
+            if (water_visited[next.y][next.x])
+                continue;
+            if (map[next.y][next.x] == 'D' || map[next.y][next.x] == 'X' || map[next.y][next.x] == '*' || map[next.y][next.x] == 'S')
+                continue;
+            W_que.push(next);
+            map[next.y][next.x] = '*';
+            water_visited[next.y][next.x] = true;
+        }
+    }
+}
+
+bool movable(int y, int x) {
+    if (y < 0 || x < 0 || y >= R || x >= C)
         return false;
     return true;
 }
