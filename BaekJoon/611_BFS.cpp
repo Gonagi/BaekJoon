@@ -889,6 +889,7 @@ bool movable(int y, int x) {
 }
 */
 
+/*
 // 탈출
 // 3055
 
@@ -1006,6 +1007,243 @@ void water_move() {
 
 bool movable(int y, int x) {
     if (y < 0 || x < 0 || y >= R || x >= C)
+        return false;
+    return true;
+}
+*/
+
+// 아기 상어
+// 16236
+
+/*
+#include <algorithm>
+#include <iostream>
+#include <queue>
+#include <vector>
+
+struct Direction {
+    int y, x;
+};
+Direction dir[4] = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+Direction shark;
+int N, map[21][21], check[21][21];
+int min_distance = 401, min_y = 21, min_x = 21;
+int eat_count, shark_size = 2;
+int result;
+
+void input();
+void BFS(int y, int x);
+bool movable(int y, int x);
+
+int main() {
+    input();
+    while (1) {
+        BFS(shark.y, shark.x);
+
+        if (min_y != 21 && min_x != 21) {
+            result += check[min_y][min_x];
+            eat_count++;
+
+            if (eat_count == shark_size) {
+                shark_size++;
+                eat_count = 0;
+            }
+
+            map[min_y][min_x] = 0;
+            shark.y = min_y;
+            shark.x = min_x;
+        }
+
+        else
+            break;
+    }
+
+    std::cout << result << "\n";
+
+    return 0;
+}
+
+void input() {
+    std::cin >> N;
+
+    for (int y = 0; y < N; y++) {
+        for (int x = 0; x < N; x++) {
+            std::cin >> map[y][x];
+            if (map[y][x] == 9) {
+                shark.y = y;
+                shark.x = x;
+                map[y][x] = 0;
+            }
+        }
+    }
+}
+
+void BFS(int y, int x) {
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            check[i][j] = -1;
+        }
+    }
+
+    std::queue<Direction> que;
+    min_distance = 401;
+    min_y = 21;
+    min_x = 21;
+    check[y][x] = 0;
+    que.push({y, x});
+
+    while (!que.empty()) {
+        Direction cur = que.front();
+        que.pop();
+
+        for (int d = 0; d < 4; d++) {
+            Direction next{cur.y + dir[d].y, cur.x + dir[d].x};
+
+            if (!movable(next.y, next.x))
+                continue;
+            if (check[next.y][next.x] != -1 || map[next.y][next.x] > shark_size)
+                continue;
+
+            check[next.y][next.x] = check[cur.y][cur.x] + 1;
+
+            if (map[next.y][next.x] != 0 && map[next.y][next.x] < shark_size) {
+                if (min_distance > check[next.y][next.x]) {
+                    min_y = next.y;
+                    min_x = next.x;
+                    min_distance = check[next.y][next.x];
+                }
+
+                else if (min_distance == check[next.y][next.x]) {
+                    if (min_y == next.y) {
+                        if (min_x > next.x) {
+                            min_x = next.x;
+                            min_y = next.y;
+                        }
+                    } else if (min_y > next.y) {
+                        min_x = next.x;
+                        min_y = next.y;
+                    }
+                }
+            }
+
+            que.push({next.y, next.x});
+        }
+    }
+}
+
+bool movable(int y, int x) {
+    if (y < 0 || y >= N || x < 0 || x >= N)
+        return false;
+    return true;
+}
+*/
+
+#include <algorithm>
+#include <iostream>
+#include <queue>
+#include <vector>
+
+struct Direction {
+    int y, x;
+    int count;
+};
+
+Direction dir[4] = {{-1, 0}, {0, 1}, {0, -1}, {1, 0}};
+Direction shark;
+std::vector<Direction> vec;
+int N, fish_size = 2, eat;
+int map[21][21];
+int visited[21][21];
+
+void input();
+bool comp(const Direction &a, const Direction &b);
+bool BFS(int y, int x);
+bool movable(int y, int x);
+
+int main() {
+    input();
+    while (BFS(shark.y, shark.x))
+        ;
+    std::cout << shark.count << '\n';
+    return 0;
+}
+
+void input() {
+    std::cin >> N;
+
+    for (int y = 0; y < N; y++) {
+        for (int x = 0; x < N; x++) {
+            std::cin >> map[y][x];
+            if (map[y][x] == 9) {
+                shark.y = y;
+                shark.x = x;
+                map[y][x] = 0;
+            }
+        }
+    }
+}
+
+bool comp(const Direction &a, const Direction &b) {
+    if (a.count == b.count) {
+        if (a.y== b.y)
+            return a.x < b.x;
+        return a.y < b.y;
+    }
+    return a.count < b.count;
+}
+
+bool BFS(int y, int x) {
+    vec.clear();
+
+    for (int y = 0; y < N; y++)
+        for (int x = 0; x < N; x++)
+            visited[y][x] = -1;
+
+    std::queue<Direction> que;
+    visited[y][x] = 0;
+    que.push({y, x});
+
+    while (!que.empty()) {
+        Direction cur = que.front();
+        que.pop();
+
+        for (int d = 0; d < 4; d++) {
+            Direction next{cur.y + dir[d].y, cur.x + dir[d].x};
+            if (!movable(next.y, next.x))
+                continue;
+            if (visited[next.y][next.x] > -1 || map[next.y][next.x] > fish_size)
+                continue;
+            if (map[next.y][next.x] > 0 && map[next.y][next.x] < fish_size) {
+                Direction edible{next.y, next.x, visited[cur.y][cur.x] + 1};
+                vec.push_back(edible);
+            }
+
+            que.push(next);
+            visited[next.y][next.x] = visited[cur.y][cur.x] + 1;
+        }
+    }
+
+    if (!vec.empty()) {
+        std::sort(vec.begin(), vec.end(), comp);
+        auto Now = vec[0];
+
+        shark.y = Now.y;
+        shark.x = Now.x;
+        shark.count += Now.count;
+
+        map[shark.y][shark.x] = 0;
+        eat++;
+        if (eat == fish_size) {
+            eat = 0;
+            fish_size++;
+        }
+        return true;
+    }
+    return false;
+}
+
+bool movable(int y, int x) {
+    if (y < 0 || x < 0 || y >= N || x >= N)
         return false;
     return true;
 }
