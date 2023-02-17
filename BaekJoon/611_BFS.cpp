@@ -1138,6 +1138,7 @@ bool movable(int y, int x) {
 }
 */
 
+/*
 #include <algorithm>
 #include <iostream>
 #include <queue>
@@ -1244,6 +1245,97 @@ bool BFS(int y, int x) {
 
 bool movable(int y, int x) {
     if (y < 0 || x < 0 || y >= N || x >= N)
+        return false;
+    return true;
+}
+*/
+
+// 레이저 통신
+// 6087
+
+#include <algorithm>
+#include <iostream>
+#include <queue>
+#include <string>
+#include <vector>
+
+struct Direction {
+    int y, x;
+    int mirror = 0;
+    int D = -1;
+};
+
+int W, H, result = 987654321;
+std::vector<std::vector<char>> map;
+std::vector<Direction> C;
+Direction dir[4] = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+
+void input();
+void BFS();
+bool movable(int y, int x);
+
+int main() {
+    input();
+    BFS();
+    std::cout << result << "\n";
+    return 0;
+}
+
+void input() {
+    std::string str;
+    std::vector<char> map_x;
+
+    std::cin >> W >> H;
+
+    for (int y = 0; y < H; y++) {
+        std::cin >> str;
+        for (int x = 0; x < W; x++) {
+            if (str[x] == 'C') {
+                str[x] = '.';
+                C.push_back({y, x});
+            }
+            map_x.push_back(str[x]);
+        }
+        map.push_back(map_x);
+        map_x.clear();
+        map_x.shrink_to_fit();
+    }
+}
+
+void BFS() {
+    std::queue<Direction> que;
+    std::vector<std::vector<int>> visited(H, std::vector<int>(W, 0));
+    que.push(C[0]);
+
+    visited[C[0].y][C[0].x] = 987654321;
+
+    while (!que.empty()) {
+        Direction cur = que.front();
+        que.pop();
+
+        for (int d = 0; d < 4; d++) {
+            Direction next{cur.y + dir[d].y, cur.x + dir[d].x};
+            if (!movable(next.y, next.x) || map[next.y][next.x] == '*')
+                continue;
+
+            if (cur.D != d) {
+                if (visited[next.y][next.x] == 0 || visited[next.y][next.x] >= cur.mirror + 1) {
+                    visited[next.y][next.x] = cur.mirror + 1;
+                    que.push({next.y, next.x, cur.mirror + 1, d});
+                }
+            } else {
+                if (visited[next.y][next.x] == 0 || visited[next.y][next.x] > cur.mirror) {
+                    visited[next.y][next.x] = cur.mirror;
+                    que.push({next.y, next.x, cur.mirror, d});
+                }
+            }
+        }
+    }
+    result = visited[C[1].y][C[1].x] - 1;
+}
+
+bool movable(int y, int x) {
+    if (y < 0 || y >= H || x < 0 || x >= W)
         return false;
     return true;
 }
