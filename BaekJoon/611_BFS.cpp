@@ -1250,6 +1250,7 @@ bool movable(int y, int x) {
 }
 */
 
+/*
 // 레이저 통신
 // 6087
 
@@ -1338,4 +1339,105 @@ bool movable(int y, int x) {
     if (y < 0 || y >= H || x < 0 || x >= W)
         return false;
     return true;
+}
+*/
+
+// 소수 경로
+// 1963
+
+#include <cstring>
+#include <iostream>
+#include <queue>
+#include <utility>
+
+int A, B;
+bool prime[10000];
+bool visited[10000];
+
+void BFS();
+void check(std::queue<std::pair<int, int>> &que, int num);
+void is_prime();
+
+int main() {
+    int T;
+    is_prime();
+    std::cin >> T;
+
+    for (int idx = 0; idx < T; idx++)
+        BFS();
+
+    return 0;
+}
+
+void BFS() {
+    std::cin >> A >> B;
+    std::memset(visited, false, 10000);
+    std::queue<std::pair<int, int>> que;
+    visited[A] = true;
+    que.push({A, 0});
+
+    while (!que.empty()) {
+        int cur = que.front().first;
+        int count = que.front().second;
+
+        if (cur == B) {
+            std::cout << count << '\n';
+            return;
+        }
+        check(que, cur);
+    }
+    std::cout << "Impossible" << '\n';
+}
+
+void check(std::queue<std::pair<int, int>> &que, int num) {
+    int cur_num = que.front().first;
+    int cur_count = que.front().second;
+
+    for (int n = 1; n <= 9; n++) {
+        num = n * 1000 + (num % 1000);
+        if (!visited[num] && prime[num]) {
+            que.push({num, cur_count + 1});
+            visited[num] = true;
+        }
+    }
+
+    num = cur_num;
+    for (int n = 0; n <= 9; n++) {
+        num = (num / 1000) * 1000 + (n * 100) + num % 100;
+        if (!visited[num] && prime[num]) {
+            que.push({num, cur_count + 1});
+            visited[num] = true;
+        }
+    }
+
+    num = cur_num;
+    for (int n = 0; n <= 9; n++) {
+        num = (num / 100) * 100 + (n * 10) + num % 10;
+        if (!visited[num] && prime[num]) {
+            que.push({num, cur_count + 1});
+            visited[num] = true;
+        }
+    }
+
+    num = cur_num;
+    for (int n = 0; n <= 9; n++) {
+        num = (num / 10) * 10 + n;
+        if (!visited[num] && prime[num]) {
+            que.push({num, cur_count + 1});
+            visited[num] = true;
+        }
+    }
+    que.pop();
+}
+
+void is_prime() {
+    std::memset(prime, true, 10000);
+
+    for (int num = 1000; num < 10000; num++) {
+        for (int check = 2; check * check <= num; check++)
+            if (num % check == 0) {
+                prime[num] = false;
+                break;
+            }
+    }
 }
