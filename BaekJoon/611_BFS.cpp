@@ -1342,6 +1342,7 @@ bool movable(int y, int x) {
 }
 */
 
+/*
 // 소수 경로
 // 1963
 
@@ -1440,4 +1441,135 @@ void is_prime() {
                 break;
             }
     }
+}
+*/
+
+// 적록색약
+
+#include <cstring>
+#include <iostream>
+#include <queue>
+#include <string>
+#include <vector>
+
+struct Direction {
+    int y, x;
+};
+Direction dir[4] = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+std::vector<std::vector<char>> map;
+int N, count;
+bool visited[101][101];
+
+void input();
+void BFS(int y, int x);
+void BFS2(int y, int x);
+bool movable(int y, int x);
+
+int main() {
+    input();
+    for (int y = 0; y < N; y++) {
+        for (int x = 0; x < N; x++) {
+            if (!visited[y][x]) {
+                BFS(y, x);
+                count++;
+            }
+        }
+    }
+
+    std::cout << count << ' ';
+    std::memset(visited, false, 10201);
+    count = 0;
+
+    for (int y = 0; y < N; y++) {
+        for (int x = 0; x < N; x++) {
+            if (!visited[y][x]) {
+                BFS2(y, x);
+                count++;
+            }
+        }
+    }
+
+    std::cout << count << '\n';
+    return 0;
+}
+
+void input() {
+    std::string str;
+    std::vector<char> map_x;
+
+    std::cin >> N;
+
+    for (int y = 0; y < N; y++) {
+        std::cin >> str;
+        for (int x = 0; x < N; x++) {
+            map_x.push_back(str[x]);
+        }
+
+        map.push_back(map_x);
+        map_x.clear();
+        map_x.shrink_to_fit();
+    }
+}
+
+void BFS(int y, int x) {
+    std::queue<Direction> que;
+    que.push({y, x});
+    visited[y][x] = true;
+    char cur_char = map[y][x];
+
+    while (!que.empty()) {
+        Direction cur = que.front();
+        visited[cur.y][cur.x] = true;
+        que.pop();
+
+        for (int d = 0; d < 4; d++) {
+            Direction next{cur.y + dir[d].y, cur.x + dir[d].x};
+            if (!movable(next.y, next.x))
+                continue;
+            if (visited[next.y][next.x])
+                continue;
+            if (cur_char != map[next.y][next.x])
+                continue;
+            que.push(next);
+            visited[next.y][next.x] = true;
+        }
+    }
+}
+
+void BFS2(int y, int x) {
+    std::queue<Direction> que;
+    que.push({y, x});
+    visited[y][x] = true;
+    char cur_char = map[y][x];
+
+    while (!que.empty()) {
+        Direction cur = que.front();
+        visited[cur.y][cur.x] = true;
+        que.pop();
+
+        for (int d = 0; d < 4; d++) {
+            Direction next{cur.y + dir[d].y, cur.x + dir[d].x};
+            if (!movable(next.y, next.x))
+                continue;
+            if (visited[next.y][next.x])
+                continue;
+
+            if ((cur_char == 'R' || cur_char == 'G') && (map[next.y][next.x] == 'R' || map[next.y][next.x] == 'G')) {
+                que.push(next);
+                visited[next.y][next.x] = true;
+                continue;
+            }
+
+            if (cur_char != map[next.y][next.x])
+                continue;
+            que.push(next);
+            visited[next.y][next.x] = true;
+        }
+    }
+}
+
+bool movable(int y, int x) {
+    if (y < 0 || x < 0 || y >= N || x >= N)
+        return false;
+    return true;
 }
