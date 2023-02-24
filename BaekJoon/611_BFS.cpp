@@ -1444,6 +1444,7 @@ void is_prime() {
 }
 */
 
+/*
 // 적록색약
 
 #include <cstring>
@@ -1572,4 +1573,61 @@ bool movable(int y, int x) {
     if (y < 0 || x < 0 || y >= N || x >= N)
         return false;
     return true;
+}
+*/
+
+// 4연산
+// 14395
+
+#include <iostream>
+#include <queue>
+#include <string>
+#include <utility>
+
+long long s, t;
+
+void BFS();
+
+int main() {
+    std::cin >> s >> t;
+    if (s == t)
+        std::cout << 0 << '\n';
+    else
+        BFS();
+
+    return 0;
+}
+
+void BFS() {
+    std::queue<std::pair<long long, std::string>> que;
+    que.push({s, ""});
+    bool sub = false, div = false;
+    while (!que.empty()) {
+        long long cur = que.front().first;
+        std::string str = que.front().second;
+        que.pop();
+
+        if (cur == t) {
+            std::cout << str << '\n';
+            exit(0);
+        }
+
+        if (1 < cur * cur && cur * cur <= t)
+            que.push({cur * cur, str + '*'});
+
+        if (0 < cur + cur && cur + cur <= t)
+            que.push({cur + cur, str + '+'});
+
+        if (!sub) {
+            que.push({0, str + '-'});
+            sub = true;
+        }
+
+        if (cur != 0 && !div) {
+            que.push({1, str + '/'});
+            div = true;
+        }
+    }
+
+    std::cout << -1 << '\n';
 }
