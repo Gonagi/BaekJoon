@@ -37,6 +37,7 @@ int main() {
 }
 */
 
+/*
 // 회의실 배정
 // 1931
 
@@ -81,4 +82,78 @@ bool comp(const std::pair<int, int> &a, const std::pair<int, int> &b) {
     if (a.second == b.second)
         return a.first < b.first;
     return a.second < b.second;
+}
+*/
+
+// 행렬
+// 1080
+
+#include <iostream>
+#include <string>
+#include <vector>
+
+int N, M;
+std::vector<std::vector<int>> board1, board2;
+
+void input();
+int solve();
+void change(int y, int x);
+
+int main() {
+    input();
+    std::cout << solve() << '\n';
+
+    return 0;
+}
+
+void input() {
+    std::string str;
+    std::cin >> N >> M;
+
+    board1.assign(N, std::vector<int>(M));
+    board2.assign(N, std::vector<int>(M));
+
+    for (int y = 0; y < N; y++) {
+        std::cin >> str;
+        for (int x = 0; x < M; x++) {
+            board1[y][x] = str[x] - '0';
+        }
+    }
+
+    for (int y = 0; y < N; y++) {
+        std::cin >> str;
+        for (int x = 0; x < M; x++) {
+            board2[y][x] = str[x] - '0';
+        }
+    }
+}
+
+int solve() {
+    int count = 0;
+    for (int y = 0; y < N - 2; y++) {
+        for (int x = 0; x < M - 2; x++) {
+            if (board1[y][x] != board2[y][x]) {
+                change(y, x);
+                count++;
+            }
+        }
+    }
+
+    for (int y = 0; y < N; y++)
+        for (int x = 0; x < M; x++)
+            if (board1[y][x] != board2[y][x])
+                return -1;
+
+    return count;
+}
+
+void change(int y, int x) {
+    for (int cur_y = y; cur_y < y + 3; cur_y++) {
+        for (int cur_x = x; cur_x < x + 3; cur_x++) {
+            if (board1[cur_y][cur_x] == 0)
+                board1[cur_y][cur_x] = 1;
+            else
+                board1[cur_y][cur_x] = 0;
+        }
+    }
 }
