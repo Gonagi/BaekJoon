@@ -85,6 +85,7 @@ bool comp(const std::pair<int, int> &a, const std::pair<int, int> &b) {
 }
 */
 
+/*
 // 행렬
 // 1080
 
@@ -154,6 +155,89 @@ void change(int y, int x) {
                 board1[cur_y][cur_x] = 1;
             else
                 board1[cur_y][cur_x] = 0;
+        }
+    }
+}
+*/
+
+// 전구와 스위치
+// 2138
+
+#include <iostream>
+#include <string>
+
+int N, count1, count2;
+std::string start1, start2, end;
+
+void change(std::string &str, int cur);
+
+int main() {
+
+    std::cin >> N;
+    std::cin >> start1 >> end;
+
+    start2 = start1;
+
+    for (int cur = 0; cur < start1.size() - 1; cur++) {
+        if (start1[cur] != end[cur]) {
+            change(start1, cur + 1);
+            count1++;
+        }
+    }
+
+    if (start1 != end) {
+        change(start2, 0);
+        count2++;
+
+        for (int cur = 0; cur < start1.size() - 1; cur++) {
+            if (start2[cur] != end[cur]) {
+                change(start2, cur + 1);
+                count2++;
+            }
+        }
+
+        if (start2 != end)
+            std::cout << -1 << '\n';
+        else
+            std::cout << count2 << '\n';
+    }
+    else 
+        std::cout << count1 << '\n';
+
+    return 0;
+}
+
+void change(std::string &str, int cur) {
+    if (cur == 0) {
+        if (str[0] == '0')
+            str[0] = '1';
+        else
+            str[0] = '0';
+
+        if (str[1] == '0')
+            str[1] = '1';
+        else
+            str[1] = '0';
+    }
+
+    else if (cur == str.size() - 1) {
+        if (str[cur - 1] == '0')
+            str[cur - 1] = '1';
+        else
+            str[cur - 1] = '0';
+
+        if (str[cur] == '0')
+            str[cur] = '1';
+        else
+            str[cur] = '0';
+    }
+
+    else {
+        for (int index = cur - 1; index <= cur + 1; index++) {
+            if (str[index] == '0')
+                str[index] = '1';
+            else
+                str[index] = '0';
         }
     }
 }
