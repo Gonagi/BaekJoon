@@ -160,6 +160,7 @@ void change(int y, int x) {
 }
 */
 
+/*
 // 전구와 스위치
 // 2138
 
@@ -201,7 +202,7 @@ int main() {
         else
             std::cout << count2 << '\n';
     }
-    else 
+    else
         std::cout << count1 << '\n';
 
     return 0;
@@ -240,4 +241,75 @@ void change(std::string &str, int cur) {
                 str[index] = '0';
         }
     }
+}
+*/
+
+// 동전 뒤집기
+// 1258
+
+#include <algorithm>
+#include <iostream>
+#include <string>
+#include <vector>
+
+int N, min = 987654321;
+std::vector<std::vector<char>> board;
+
+void input();
+int reverse(int count);
+
+int main() {
+    input();
+
+    for (int count = 0; count < (1 << N); count++)
+        min = std::min(min, reverse(count));
+
+    std::cout << min << '\n';
+
+    return 0;
+}
+
+void input() {
+    std::string str;
+    std::vector<char> board_x;
+
+    std::cin >> N;
+
+    for (int y = 0; y < N; y++) {
+        std::cin >> str;
+        for (int x = 0; x < N; x++) {
+            board_x.push_back(str[x]);
+        }
+
+        board.push_back(board_x);
+        board_x.clear();
+        board_x.shrink_to_fit();
+    }
+}
+
+int reverse(int count) {
+    int ret = 0;
+
+    for (int y = 0; y < N; y++) {
+        int H_count = 0;
+        int T_count = 0;
+
+        for (int x = 0; x < N; x++) {
+            if (((count >> x) & 1) == 1) {
+                if (board[y][x] == 'H')
+                    T_count++;
+                else
+                    H_count++;
+            } else {
+                if (board[y][x] == 'H')
+                    H_count++;
+                else
+                    T_count++;
+            }
+        }
+
+        ret += std::min(H_count, T_count);
+    }
+
+    return ret;
 }
