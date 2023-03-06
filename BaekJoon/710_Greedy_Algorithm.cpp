@@ -244,6 +244,7 @@ void change(std::string &str, int cur) {
 }
 */
 
+/*
 // 동전 뒤집기
 // 1258
 
@@ -312,4 +313,60 @@ int reverse(int count) {
     }
 
     return ret;
+}
+*/
+
+// 보석 도둑
+// 1202
+
+#include <algorithm>
+#include <iostream>
+#include <queue>
+#include <utility>
+#include <vector>
+
+int N, K;
+std::vector<std::pair<int, int>> jewel;
+std::vector<int> bag;
+
+void input();
+
+int main() {
+    input();
+
+    int j = 0;
+    long long sum = 0;
+    std::priority_queue<int> que;
+
+    for (int b = 0; b < K; b++) {
+        while (j < N && bag[b] >= jewel[j].first) {
+            que.push(jewel[j].second);
+            j++;
+        }
+        if (!que.empty()) {
+            sum += que.top();
+            que.pop();
+        }
+    }
+
+    std::cout << sum << '\n';
+    return 0;
+}
+
+void input() {
+    int M, V, C;
+    std::cin >> N >> K;
+
+    for (int idx = 0; idx < N; idx++) {
+        std::cin >> M >> V;
+        jewel.push_back({M, V});
+    }
+
+    for (int idx = 0; idx < K; idx++) {
+        std::cin >> C;
+        bag.push_back(C);
+    }
+
+    std::sort(jewel.begin(), jewel.end());
+    std::sort(bag.begin(), bag.end());
 }
