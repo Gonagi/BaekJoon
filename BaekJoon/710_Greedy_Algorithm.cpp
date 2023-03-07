@@ -316,6 +316,7 @@ int reverse(int count) {
 }
 */
 
+/*
 // 보석 도둑
 // 1202
 
@@ -369,4 +370,63 @@ void input() {
 
     std::sort(jewel.begin(), jewel.end());
     std::sort(bag.begin(), bag.end());
+}
+*/
+
+// 순회강연
+// 2109
+
+#include <algorithm>
+#include <functional>
+#include <iostream>
+#include <queue>
+#include <utility>
+#include <vector>
+
+int n, d, p, sum;
+int visited[10001];
+std::vector<std::pair<int, int>> vec;
+
+void input();
+void solve();
+bool comp(std::pair<int, int> a, std::pair<int, int> b) {
+    if (a.second == b.second)
+        return a.first > b.first;
+    return a.second < b.second;
+}
+
+int main() {
+
+    input();
+    solve();
+    std::cout << sum << '\n';
+
+    return 0;
+}
+
+void input() {
+    std::cin >> n;
+
+    for (int idx = 0; idx < n; idx++) {
+        std::cin >> p >> d;
+        vec.push_back({p, d});
+        visited[d]++;
+    }
+
+    std::sort(vec.begin(), vec.end(), comp);
+}
+
+void solve() {
+    std::priority_queue<int, std::vector<int>, std::greater<int>()> p_que;
+
+    for (int idx = 0; idx < n; idx++) {
+        p_que.push(vec[idx].first);
+        if (p_que.size() > vec[idx].second)
+            p_que.pop();
+    }
+
+    while (!p_que.empty()) {
+        sum += p_que.top();
+        p_que.pop();
+    }
 }
