@@ -373,6 +373,7 @@ void input() {
 }
 */
 
+/*
 // 순회강연
 // 2109
 
@@ -417,7 +418,7 @@ void input() {
 }
 
 void solve() {
-    std::priority_queue<int, std::vector<int>, std::greater<int>()> p_que;
+    std::priority_queue<int, std::vector<int>, std::greater<int>> p_que;
 
     for (int idx = 0; idx < n; idx++) {
         p_que.push(vec[idx].first);
@@ -429,4 +430,74 @@ void solve() {
         sum += p_que.top();
         p_que.pop();
     }
+}
+*/
+
+// 가장 긴 증가하는 부분 수열 2
+// 12015
+
+/* 시간초과
+#include <iostream>
+#include <vector>
+
+int N;
+std::vector<int> vec;
+
+int main() {
+    int num, max = 0;
+
+    std::cin >> N;
+
+    for (int idx = 0; idx < N; idx++) {
+        std::cin >> num;
+        vec.push_back(num);
+    }
+
+    std::vector<int> count(N, 1);
+
+    for (int idx = vec.size() - 2; idx >= 0; idx--) {
+        for (int check = idx + 1; check < vec.size(); check++) {
+            if (vec[idx] <= vec[check]) {
+                count[idx] = count[check] + 1;
+                if (max < count[idx])
+                    max = count[idx];
+            }
+        }
+    }
+
+    std::cout
+        << max << '\n';
+
+    return 0;
+}
+*/
+
+#include <algorithm>
+#include <iostream>
+#include <vector>
+
+int N;
+std::vector<int> vec;
+
+int main() {
+    int num;
+
+    std::cin >> N;
+
+    for (int idx = 0; idx < N; idx++) {
+        std::cin >> num;
+        if (vec.empty())
+            vec.push_back(num);
+        else {
+            if (vec.back() < num)
+                vec.push_back(num);
+            else {
+                auto change_idx = std::lower_bound(vec.begin(), vec.end(), num);
+                *change_idx = num;
+            }
+        }
+    }
+
+    std::cout << vec.size() << '\n';
+    return 0;
 }
