@@ -256,50 +256,85 @@ bool check(int row) {
 }
 */
 
+/*
 // 트리의 순회
 // 2263
 
-#include <algorithm>
 #include <iostream>
-#include <vector>
-
 #define Max 100000 + 1
-void preorder(int in_first, int in_f_last, int post_first, int post_last); // 전위 3
-// void inorder();   // 중위 1
-// void postorder();  // 후위 3
 
-int n, in[Max], post[Max], arr[Max];
+int n, inorder[Max], postorder[Max], preorder[Max], arr[Max];
+
+void pre(int in_b, int in_e, int post_b, int post_e);
 
 int main() {
     std::cin >> n;
 
-    for (int i = 1; i <= n; i++) {
-        std::cin >> in[i];
-    }
+    for (int idx = 0; idx < n; idx++)
+        std::cin >> inorder[idx];
 
-    for (int i = 1; i <= n; i++) {
-        std::cin >> post[i];
-    }
+    for (int idx = 0; idx < n; idx++)
+        std::cin >> postorder[idx];
 
-    for (int i = 1; i <= n; i++) {
-        arr[in[i]] = i;
-    }
+    for (int idx = 0; idx < n; idx++)
+        arr[inorder[idx]] = idx;
 
-    preorder(1, n, 1, n);
-
+    pre(0, n - 1, 0, n - 1);
     return 0;
 }
 
-void preorder(int in_first, int in_last, int post_first, int post_last) {
-    if (in_first > in_last || post_first > post_last)
+void pre(int in_b, int in_e, int post_b, int post_e) {
+    if (in_b > in_e || post_b > post_e)
         return;
 
-    int root = post[post_last];
+    int root = postorder[post_e];
     int root_index = arr[root];
-    int left_count = root_index - in_first;
+    int left_count = root_index - in_b;
 
-    std::cout << root << " ";
+    std::cout << root << ' ';
 
-    preorder(in_first, root_index - 1, post_first, post_first + left_count - 1);
-    preorder(root_index + 1, in_last, post_first + left_count, post_last - 1);
+    pre(in_b, root_index - 1, post_b, post_b + left_count - 1);
+    pre(root_index + 1, in_e, post_b + left_count, post_e - 1);
+}
+*/
+
+// 가운데를 말해요
+// 1655
+
+#include <functional>
+#include <iostream>
+#include <queue>
+
+int N, num;
+std::priority_queue<int, std::vector<int>, std::greater<int>> right_que;
+std::priority_queue<int> left_que;
+
+int main() {
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(NULL);
+    std::cout.tie(NULL);
+
+    std::cin >> N;
+
+    for (int idx = 0; idx < N; idx++) {
+        std::cin >> num;
+
+        if (left_que.size() == right_que.size())
+            left_que.push(num);
+        else
+            right_que.push(num);
+
+        if (!left_que.empty() && !right_que.empty()) {
+            if (left_que.top() > right_que.top()) {
+                int tmp1 = left_que.top();
+                int tmp2 = right_que.top();
+                left_que.pop();
+                right_que.pop();
+                left_que.push(tmp2);
+                right_que.push(tmp1);
+            }
+        }
+        std::cout << left_que.top() << '\n';
+    }
+    return 0;
 }
