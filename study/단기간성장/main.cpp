@@ -143,7 +143,6 @@ int main()
 
 // 3197
 // 백조의 호수
-
 /*
 #include <iostream>
 #include <queue>
@@ -299,7 +298,7 @@ bool check(Direction cur)
 
 // 11401
 // 이항 계수 3
-
+/*
 #include <iostream>
 #define MOD 1000000007
 
@@ -333,5 +332,47 @@ int main()
 
   std::cout << result << '\n';
 
+  return 0;
+}
+*/
+
+#include <cmath>
+#include <iostream>
+#include <vector>
+
+int main()
+{
+  std::vector<double> vec;
+  int C;
+  double N, num;
+  std::cin >> C;
+
+  for (int idx = 0; idx < C; idx++)
+  {
+    int count = 0;
+    double sum = 0, avg = 0;
+    std::cin >> N;
+
+    for (int idx2 = 0; idx2 < N; idx2++)
+    {
+      std::cin >> num;
+      vec.push_back(num);
+      sum += num;
+    }
+    avg = sum / N;
+
+    for (int idx2 = 0; idx2 < N; idx2++)
+    {
+      if (vec[idx2] > avg)
+        count++;
+    }
+
+    std::cout << std::fixed;
+    std::cout.precision(3);
+
+    std::cout << std::round(((count) / N * 100000)) / 1000 << "%\n";
+    vec.clear();
+    vec.shrink_to_fit();
+  }
   return 0;
 }
