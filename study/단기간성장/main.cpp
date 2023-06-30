@@ -336,6 +336,8 @@ int main()
 }
 */
 
+// 4344
+// 평균은 넘겠지
 #include <cmath>
 #include <iostream>
 #include <vector>
@@ -370,7 +372,7 @@ int main()
     std::cout << std::fixed;
     std::cout.precision(3);
 
-    std::cout << std::round(((count) / N * 100000)) / 1000 << "%\n";
+    std::cout << std::round(((count) / N * 1000)) / 10 << "%\n";
     vec.clear();
     vec.shrink_to_fit();
   }
